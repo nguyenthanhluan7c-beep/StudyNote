@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ──────────────────────────────────────
 //  LOGIN
 // ──────────────────────────────────────
-console.log(data);
+
 
 // ──────────────────────────────────────
 //  REGISTER
