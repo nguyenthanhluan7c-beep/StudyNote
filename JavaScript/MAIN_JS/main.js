@@ -72,3 +72,6 @@ document
 $("#loginBtn").click(function(){
     window.location.href = "login.html";
 });
+$("#registerBtn").click(function () {
+  window.location.href = "login.html";
+});

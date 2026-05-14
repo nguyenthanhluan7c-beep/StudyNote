@@ -93,8 +93,50 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ──────────────────────────────────────
 //  LOGIN
 // ──────────────────────────────────────
-
+$("#loginBtn").click(function (){
+    setLoading("loginBtn", "loading");
+    const inputUsername = $("#loginUsername").val();
+    const inputPassword = $("#loginPassword").val();
+    let hasUsename = false;
+    let userId ;
+    if (inputUsername === "") {
+        showAlert("Bạn chưa nhập tên đăng nhập kìa", 'error');
+        resetBtn("loginBtn", "<i class=fas fa-right-to-bracket></i>Đăng nhập");
+        return;
+    }
+    if (inputPassword.length < 6){
+        showAlert("Mật khẩu có vấn đề kìa", "error");
+        resetBtn("loginBtn", "<i class=fas fa-right-to-bracket></i>Đăng nhập");
+        return;
+    }
+    for (let i = 1; i < data.length; i++) {
+      if (inputUsername === data[i].username) {
+        hasUsename = true;
+        userId = i;
+        break;
+      }
+    }
+    if(!hasUsename){
+        showAlert("Tài khoản không tồn tại, xin mời đăng ký!", "error");
+        resetBtn("loginBtn", "<i class=fas fa-right-to-bracket></i>Đăng nhập");
+        return;
+    }
+    if(inputPassword !== data[userId].password){
+        showAlert("Sai mật khẩu mất rồi !!", "error");
+        resetBtn("loginBtn", "<i class=fas fa-right-to-bracket></i>Đăng nhập");
+        return;
+    }
+    if(currentRole !== data[userId].role){
+       showAlert(`Bạn đâu phải ${currentRole} đâu`, "error");
+       resetBtn("loginBtn", "<i class=fas fa-right-to-bracket></i>Đăng nhập");
+       return; 
+    }
+    hideAlert()
+})
 
 // ──────────────────────────────────────
 //  REGISTER
 // ──────────────────────────────────────
+$("#registerBtn").click(async function () {
+    
+})

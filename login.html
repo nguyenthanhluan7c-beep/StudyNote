@@ -42,10 +42,10 @@
             </div>
 
             <div class="form-group">
-                <label>Email</label>
+                <label>UserName</label>
                 <div class="input-wrap">
                     <i class="fas fa-envelope"></i>
-                    <input type="text" id="loginUsername" placeholder="your user name" >
+                    <input type="text" id="loginUsername" placeholder="your user name" required>
                 </div>
             </div>
 
@@ -53,7 +53,7 @@
                 <label>Mật khẩu</label>
                 <div class="input-wrap">
                     <i class="fas fa-lock"></i>
-                    <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+                    <input type="password" id="loginPassword" placeholder="••••••••" required minlength="6">
                     <button class="eye-btn" onclick="togglePwd('loginPassword', this)" tabindex="-1">
                         <i class="fas fa-eye"></i>
                     </button>
@@ -62,7 +62,7 @@
 
             <div class="forgot-link"><a href="#">Quên mật khẩu?</a></div>
 
-            <button class="submit-btn" id="loginBtn" onclick="handleLogin()">
+            <button class="submit-btn" id="loginBtn">
                 <i class="fas fa-right-to-bracket"></i>
                 Đăng nhập
             </button>
@@ -76,8 +76,6 @@
                     <i class="fab fa-facebook" style="color:#1877F2"></i> Facebook
                 </button>
             </div>
-
-            <p class="demo-hint">Demo: Nhập bất kỳ email/password để truy cập</p>
         </div>
 
         <!-- ══ REGISTER FORM ══ -->
@@ -86,7 +84,7 @@
                 <label>Họ và tên</label>
                 <div class="input-wrap">
                     <i class="fas fa-user"></i>
-                    <input type="text" id="regName" placeholder="Nguyễn Văn A" autocomplete="name">
+                    <input type="text" id="regName" placeholder="VD: Nguyễn Văn A" autocomplete="name">
                 </div>
             </div>
 
@@ -94,7 +92,7 @@
                 <label>Email</label>
                 <div class="input-wrap">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" id="regEmail" placeholder="your@email.com" autocomplete="email">
+                    <input type="email" id="regEmail" placeholder="VD: your@email.com" autocomplete="email">
                 </div>
             </div>
 
@@ -120,7 +118,7 @@
                 </div>
             </div>
 
-            <button class="submit-btn" id="registerBtn" onclick="handleRegister()">
+            <button class="submit-btn" id="registerBtn" >
                 <i class="fas fa-user-plus"></i>
                 Tạo tài khoản
             </button>
@@ -128,6 +126,7 @@
             <p class="demo-hint" style="margin-top:14px">Đã có tài khoản? <a href="#" onclick="switchTab('login')" style="color:#5c4de8;font-weight:600;text-decoration:none">Đăng nhập ngay</a></p>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="JavaScript/API_JS/API.js"></script>
     <script src="JavaScript/LOGIN/login.js"></script>
 </body>
