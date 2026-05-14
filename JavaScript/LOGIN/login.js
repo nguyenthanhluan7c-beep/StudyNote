@@ -132,6 +132,8 @@ $("#loginBtn").click(function (){
        return; 
     }
     hideAlert()
+    localStorage.setItem("isLoggedIn", "true")
+    localStorage.setItem("userId", userId)
 })
 
 // ──────────────────────────────────────

@@ -163,17 +163,6 @@ document
       // Apply filter logic here
     });
   });
-
-// ============ AUTH CHECK ============
-function checkAuth() {
-  const loggedInUser = JSON.parse(
-    localStorage.getItem("loggedInUser") || "null",
-  );
-  if (!loggedInUser) {
-    window.location.href = "index.html";
-  }
-}
-
 // ============ VIEW COURSE DETAIL ============
 function viewCourseDetail(id, title, image) {
   const courseData = {
@@ -187,9 +176,15 @@ function viewCourseDetail(id, title, image) {
 
 // ============ LOGOUT ============
 function handleLogout() {
-  localStorage.removeItem("loggedInUser");
-  window.location.href = "index.html";
+  localStorage.removeItem("isLoggedIn");
+  window.location.href = "loggin.html";
 }
-
 // Check auth on page load
-checkAuth();
+document.addEventListener("DOMContentLoaded", () => {
+  const logged = localStorage.getItem("isLoggedIn");
+  if(logged === "false") {
+    window.location.href = "login.html";
+    return;
+  }
+  
+});
