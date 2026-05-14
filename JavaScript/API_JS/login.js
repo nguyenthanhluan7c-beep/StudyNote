@@ -1,3 +1,4 @@
+//API này chỉ đc sử dụng cho phần thông tin đăng nhập
 //Biến ko chạm vào
 //==============================
 let response
