@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chi tiết khóa học - StudyNote</title>
+    <title>Khóa học yêu thích - StudyNote</title>
 
     <!-- Bootstrap 5 CSS -->
     <link
@@ -18,122 +18,164 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/index.css" />
     <style>
-      .course-detail-hero {
+      .favorites-hero {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         padding: 60px 0;
         margin-bottom: 40px;
       }
 
-      .course-detail-image {
-        border-radius: 12px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        max-height: 400px;
-        object-fit: cover;
-      }
-
-      .course-detail-container {
-        background: white;
-        border-radius: 16px;
-        padding: 40px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        margin-bottom: 40px;
-      }
-
-      .detail-section {
-        margin-bottom: 40px;
-        padding-bottom: 40px;
-        border-bottom: 1px solid #e0e0e0;
-      }
-
-      .detail-section:last-child {
-        border-bottom: none;
-      }
-
-      .section-title {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        color: #1a1a1a;
-      }
-
-      .section-content {
-        font-size: 16px;
-        line-height: 1.8;
-        color: #555;
-      }
-
-      .empty-state {
+      .empty-favorites {
         text-align: center;
-        padding: 60px 20px;
+        padding: 80px 20px;
         background: #f8f9fa;
         border-radius: 12px;
-        min-height: 300px;
+        min-height: 500px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
       }
 
-      .empty-state-icon {
-        font-size: 64px;
-        color: #ccc;
+      .empty-icon {
+        font-size: 80px;
+        color: #ddd;
         margin-bottom: 20px;
       }
 
-      .empty-state-text {
-        font-size: 18px;
+      .empty-text {
+        font-size: 20px;
         color: #888;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+        font-weight: 600;
       }
 
-      .btn-back {
+      .empty-subtext {
+        font-size: 16px;
+        color: #999;
+        margin-bottom: 30px;
+      }
+
+      .btn-back-shop {
         background-color: #667eea;
         color: white;
         border: none;
-        padding: 10px 24px;
+        padding: 12px 32px;
         border-radius: 25px;
         font-weight: 600;
         transition: all 0.3s ease;
+        text-decoration: none;
       }
 
-      .btn-back:hover {
+      .btn-back-shop:hover {
         background-color: #764ba2;
         color: white;
       }
 
-      .action-buttons {
-        display: flex;
-        gap: 15px;
-        margin-top: 30px;
+      .favorites-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 40px;
       }
 
-      .btn-enroll {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        padding: 12px 40px;
-        border-radius: 25px;
-        font-weight: 600;
-        font-size: 16px;
-        cursor: pointer;
+      .favorite-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
       }
 
-      .btn-enroll:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      .favorite-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
       }
 
-      .breadcrumb-link {
-        color: #667eea;
-        text-decoration: none;
+      .favorite-card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        position: relative;
+      }
+
+      .favorite-card-body {
+        padding: 20px;
+      }
+
+      .favorite-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #1a1a1a;
+        min-height: 45px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .favorite-card-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 0;
+      }
+
+      .favorite-card-actions button {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
         cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 14px;
       }
 
-      .breadcrumb-link:hover {
-        text-decoration: underline;
+      .btn-view {
+        background-color: #667eea;
+        color: white;
+      }
+
+      .btn-view:hover {
+        background-color: #764ba2;
+      }
+
+      .btn-remove {
+        background-color: #f5f5f5;
+        color: #ff6b6b;
+      }
+
+      .btn-remove:hover {
+        background-color: #ff6b6b;
+        color: white;
+      }
+
+      .favorites-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .favorites-count {
+        font-size: 18px;
+        color: #666;
+      }
+
+      .btn-clear-all {
+        background-color: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .btn-clear-all:hover {
+        background-color: #ff5252;
       }
     </style>
   </head>
@@ -147,7 +189,7 @@
         <!-- Logo -->
         <a class="navbar-brand fw-bold" href="use.html">
           <i class="bi bi-mortarboard-fill me-2"></i>
-          <span class="brand-text">EduHub</span>
+          <span class="brand-text">StudyNote</span>
         </a>
 
         <!-- Toggle Button for Mobile -->
@@ -168,7 +210,10 @@
               <a class="nav-link" href="use.html">Trang chủ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#courses">Khóa học</a>
+              <a class="nav-link active" href="yeuthich.html">Yêu thích</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="lienhe.html">Liên hệ</a>
             </li>
           </ul>
 
@@ -185,10 +230,22 @@
       </div>
     </nav>
 
-    <!-- ============ COURSE DETAIL SECTION ============ -->
-    <div id="courseContainer">
-      <!-- Will be filled by JavaScript -->
-    </div>
+    <!-- ============ FAVORITES HERO ============ -->
+    <section class="favorites-hero">
+      <div class="container">
+        <h1 class="display-4 mb-2 fw-bold">Khóa học yêu thích</h1>
+        <p class="lead mb-0">Những khóa học bạn lưu để học sau</p>
+      </div>
+    </section>
+
+    <!-- ============ FAVORITES CONTENT ============ -->
+    <section class="py-5">
+      <div class="container">
+        <div id="favoritesContainer">
+          <!-- Will be filled by JavaScript -->
+        </div>
+      </div>
+    </section>
 
     <!-- ============ FOOTER ============ -->
     <footer class="footer py-5">
@@ -196,7 +253,7 @@
         <div class="row g-5 mb-5">
           <div class="col-md-3">
             <h5 class="footer-title mb-4">
-              <i class="bi bi-mortarboard-fill me-2"></i> EduHub
+              <i class="bi bi-mortarboard-fill me-2"></i> StudyNote
             </h5>
             <p class="footer-text">
               Nền tảng học tập trực tuyến hàng đầu dành cho sinh viên Việt Nam.
@@ -247,7 +304,7 @@
           <div class="row align-items-center">
             <div class="col-md-6">
               <p class="text-muted mb-0">
-                &copy; 2024 EduHub. Tất cả quyền được bảo lưu.
+                &copy; 2024 StudyNote. Tất cả quyền được bảo lưu.
               </p>
             </div>
             <div class="col-md-6 text-md-end">
@@ -264,6 +321,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom JavaScript -->
-    <script src="JavaScript/USER_JS/chitet.js"></script>
+    <script src="JavaScript/USER_JS/yeuthich.js"></script>
   </body>
 </html>

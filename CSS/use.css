@@ -1060,3 +1060,6 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-dark);
 }
+.hero-section {
+  height: 500px;
+}

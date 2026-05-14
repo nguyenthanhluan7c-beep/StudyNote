@@ -16,7 +16,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
     />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="CSS/index.css" />
+    <link rel="stylesheet" href="./CSS/use.css" />
   </head>
   <body>
     <!-- ============ NAVBAR ============ -->
@@ -28,7 +28,7 @@
         <!-- Logo -->
         <a class="navbar-brand fw-bold" href="#">
           <i class="bi bi-mortarboard-fill me-2"></i>
-          <span class="brand-text">EduHub</span>
+          <span class="brand-text">StudyNote</span>
         </a>
 
         <!-- Toggle Button for Mobile -->
@@ -66,7 +66,7 @@
               <a class="nav-link" href="#">Khóa học</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="yeuthich.html">Yêu thích</a>
+              <a class="nav-link" href="./yeuthich.html">Yêu thích</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="lienhe.html">Liên hệ</a>
@@ -81,8 +81,11 @@
             <a href="#" class="icon-link me-3" title="Thông báo">
               <i class="bi bi-bell"></i>
             </a>
-            <button class="btn btn-primary btn-sm rounded-pill px-3" onclick="handleLogout()">
-              <i class="bi bi-box-arrow-in-right me-1"></i> Đăng xuất 
+            <button
+              class="btn btn-primary btn-sm rounded-pill px-3"
+              onclick="handleLogout()"
+            >
+              <i class="bi bi-box-arrow-in-right me-1"></i> Đăng xuất
             </button>
           </div>
         </div>
@@ -90,11 +93,14 @@
     </nav>
 
     <!-- ============ HERO SECTION ============ -->
-    <section class="hero-section py-5" >
+    <section class="hero-section py-5">
       <div class="container-fluid">
         <div class="row align-items-center">
           <!-- Text Content -->
-          <div class="col-lg-6 mb-5 mb-lg-0 hero-text fade-in" style="padding: 0 40PX;">
+          <div
+            class="col-lg-6 mb-5 mb-lg-0 hero-text fade-in"
+            style="padding-left: 40px; padding-top: 50px"
+          >
             <h1 class="hero-title mb-3">
               Nền tảng đăng ký khóa học dành cho sinh viên
             </h1>
@@ -102,150 +108,21 @@
               Học từ các khóa học chất lượng cao với giảng viên hàng đầu. Phát
               triển kỹ năng và đạt được sự nghiệp mơ ước của bạn.
             </p>
-            <div class="d-flex gap-3" style=" padding-left: 200px;">
-             
+            <div class="d-flex gap-3" style="padding-left: 200px">
               <button class="btn btn-outline-primary btn-lg rounded-pill px-4">
                 <i class="bi bi-arrow-right me-2"></i> Đăng ký ngay
               </button>
             </div>
           </div>
 
-          <!-- Illustration -->
-          <div
-            class="col-lg-6 hero-illustration fade-in"
-            style="animation-delay: 0.2s"
-          >
-            <div class="illustration-box">
-              <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                <!-- Gradient Background -->
-                <defs>
-                  <linearGradient
-                    id="bgGradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
-                  >
-                    <stop
-                      offset="0%"
-                      style="stop-color: #667eea; stop-opacity: 1"
-                    />
-                    <stop
-                      offset="100%"
-                      style="stop-color: #764ba2; stop-opacity: 1"
-                    />
-                  </linearGradient>
-                </defs>
-
-                <!-- Background Circle -->
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="190"
-                  fill="url(#bgGradient)"
-                  opacity="0.1"
-                />
-
-                <!-- Book -->
-                <rect
-                  x="120"
-                  y="140"
-                  width="160"
-                  height="120"
-                  rx="8"
-                  fill="#667eea"
-                />
-                <rect
-                  x="130"
-                  y="150"
-                  width="140"
-                  height="100"
-                  rx="4"
-                  fill="white"
-                />
-                <line
-                  x1="200"
-                  y1="150"
-                  x2="200"
-                  y2="250"
-                  stroke="#667eea"
-                  stroke-width="2"
-                />
-
-                <!-- Lines in book -->
-                <line
-                  x1="140"
-                  y1="170"
-                  x2="190"
-                  y2="170"
-                  stroke="#e0e0e0"
-                  stroke-width="2"
-                />
-                <line
-                  x1="140"
-                  y1="190"
-                  x2="190"
-                  y2="190"
-                  stroke="#e0e0e0"
-                  stroke-width="2"
-                />
-                <line
-                  x1="140"
-                  y1="210"
-                  x2="190"
-                  y2="210"
-                  stroke="#e0e0e0"
-                  stroke-width="2"
-                />
-                <line
-                  x1="140"
-                  y1="230"
-                  x2="190"
-                  y2="230"
-                  stroke="#e0e0e0"
-                  stroke-width="2"
-                />
-
-                <line
-                  x1="210"
-                  y1="170"
-                  x2="260"
-                  y2="170"
-                  stroke="#e0e0e0"
-                  stroke-width="2"
-                />
-                <line
-                  x1="210"
-                  y1="190"
-                  x2="260"
-                  y2="190"
-                  stroke="#e0e0e0"
-                  stroke-width="2"
-                />
-                <line
-                  x1="210"
-                  y1="210"
-                  x2="260"
-                  y2="210"
-                  stroke="#e0e0e0"
-                  stroke-width="2"
-                />
-                <line
-                  x1="210"
-                  y1="230"
-                  x2="260"
-                  y2="230"
-                  stroke="#e0e0e0"
-                  stroke-width="2"
-                />
-
-                <!-- Star icons -->
-                <circle cx="80" cy="100" r="8" fill="#ffd93d" />
-                <circle cx="320" cy="120" r="6" fill="#667eea" />
-                <circle cx="340" cy="280" r="7" fill="#ff6b6b" />
-                <circle cx="60" cy="300" r="5" fill="#51cf66" />
-              </svg>
-            </div>
+          <!-- Image Content -->
+          <div class="col-lg-6 text-center">
+            <img
+              style="height: auto"
+              src="https://thietkewebso.com/upload/blog/2022/09/15/ma-nguon-website-la-gi-20220915103538-200177.png"
+              alt="Hero Image"
+              class="img-fluid hero-image fade-in"
+            />
           </div>
         </div>
       </div>
@@ -426,20 +303,27 @@
                   </div>
                   <div class="card-body">
                     <div class="category-badge"></div>
-                    <h5 class="card-title"> c++ nâng cao
-                    </h5>
+                    <h5 class="card-title">c++ nâng cao</h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
-                        <i class="bi bi-people me-1"></i> 
+                        <i class="bi bi-people me-1"></i>
                       </span>
                       <span>
-                        <i class="bi bi-star-fill text-warning me-1"></i> 
+                        <i class="bi bi-star-fill text-warning me-1"></i>
                       </span>
                     </div>
-                     <a href="./chitiet.html"><button class="btn btn-primary w-100 rounded-pill">
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          1,
+                          'C++ nâng cao',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png',
+                        )
+                      "
+                    >
                       Xem chi tiết
                     </button>
-                    </a>
                   </div>
                 </div>
               </div>
@@ -460,19 +344,27 @@
                   </div>
                   <div class="card-body">
                     <div class="category-badge"></div>
-                    <h5 class="card-title"> Cấu trúc dữ liệu và giải thuật
-                    </h5>
+                    <h5 class="card-title">Cấu trúc dữ liệu và giải thuật</h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
-                        <i class="bi bi-people me-1"></i> 
+                        <i class="bi bi-people me-1"></i>
                       </span>
                       <span>
-                        <i class="bi bi-star-fill text-warning me-1"></i> 
+                        <i class="bi bi-star-fill text-warning me-1"></i>
                       </span>
                     </div>
-                    <a href="./chitiet.html"> <button class="btn btn-primary w-100 rounded-pill">
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          2,
+                          'Cấu trúc dữ liệu và giải thuật',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png',
+                        )
+                      "
+                    >
                       Xem chi tiết
-                    </button></a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -496,15 +388,24 @@
                     <h5 class="card-title">Làm quen với SQL</h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
-                        <i class="bi bi-people me-1"></i> 
+                        <i class="bi bi-people me-1"></i>
                       </span>
                       <span>
-                        <i class="bi bi-star-fill text-warning me-1"></i> 
+                        <i class="bi bi-star-fill text-warning me-1"></i>
                       </span>
                     </div>
-                    <a href="./chitiet.html"><button class="btn btn-primary w-100 rounded-pill">
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          3,
+                          'Làm quen với SQL',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png',
+                        )
+                      "
+                    >
                       Xem chi tiết
-                    </button></a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -526,17 +427,25 @@
                   <div class="card-body">
                     <div class="category-badge"></div>
                     <h5 class="card-title">C# cơ bản</h5>
-                    </h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
-                        <i class="bi bi-people me-1"></i> 
+                        <i class="bi bi-people me-1"></i>
                       </span>
                       <span>
-                        <i class="bi bi-star-fill text-warning me-1"></i> 
+                        <i class="bi bi-star-fill text-warning me-1"></i>
                       </span>
                     </div>
-                        <a href="./chitiet.html"><button class="btn btn-primary w-100 rounded-pill">
-                        Xem chi tiết
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          4,
+                          'C# cơ bản',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png',
+                        )
+                      "
+                    >
+                      Xem chi tiết
                     </button>
                   </div>
                 </div>
@@ -559,18 +468,26 @@
                   <div class="card-body">
                     <div class="category-badge"></div>
                     <h5 class="card-title">JavaScript cơ bản</h5>
-                    </h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
-                        <i class="bi bi-people me-1"></i> 
+                        <i class="bi bi-people me-1"></i>
                       </span>
                       <span>
-                        <i class="bi bi-star-fill text-warning me-1"></i> 
+                        <i class="bi bi-star-fill text-warning me-1"></i>
                       </span>
                     </div>
-                     <a href="./chitiet.html"><button class="btn btn-primary w-100 rounded-pill">
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          5,
+                          'JavaScript cơ bản',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png',
+                        )
+                      "
+                    >
                       Xem chi tiết
-                    </button></a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -591,16 +508,27 @@
                   </div>
                   <div class="card-body">
                     <div class="category-badge"></div>
-                    <h5 class="card-title">Lập trình hướng đối tượng trong C++</h5>
+                    <h5 class="card-title">
+                      Lập trình hướng đối tượng trong C++
+                    </h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
-                        <i class="bi bi-people me-1"></i> 
+                        <i class="bi bi-people me-1"></i>
                       </span>
                       <span>
-                        <i class="bi bi-star-fill text-warning me-1"></i> 
+                        <i class="bi bi-star-fill text-warning me-1"></i>
                       </span>
                     </div>
-                    <a href="./chitiet.html"><button class="btn btn-primary w-100 rounded-pill">
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          6,
+                          'Lập trình hướng đối tượng trong C++',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lap-trinh-huong-doi-tuong-trong-cpp_653cb309970b492ca7f69162384814f8.png',
+                        )
+                      "
+                    >
                       Xem chi tiết
                     </button>
                   </div>
@@ -645,8 +573,7 @@
               />
               <div class="featured-content">
                 <h5 class="featured-title">giải thuật Python</h5>
-                <p class="featured-description">
-                </p>
+                <p class="featured-description"></p>
                 <div class="featured-rating mb-3">
                   <span class="stars">
                     <i class="bi bi-star-fill"></i>
@@ -677,8 +604,7 @@
               />
               <div class="featured-content">
                 <h5 class="featured-title">Python nâng cao</h5>
-                <p class="featured-description">
-                </p>
+                <p class="featured-description"></p>
                 <div class="featured-rating mb-3">
                   <span class="stars">
                     <i class="bi bi-star-fill"></i>
@@ -709,8 +635,7 @@
               />
               <div class="featured-content">
                 <h5 class="featured-title">HTML & CSS cho người mới bắt đầu</h5>
-                <p class="featured-description">
-                </p>
+                <p class="featured-description"></p>
                 <div class="featured-rating mb-3">
                   <span class="stars">
                     <i class="bi bi-star-fill"></i>
@@ -864,20 +789,115 @@
       });
 
       // ============ HEART BUTTON TOGGLE ============
-      document.querySelectorAll(".course-overlay button").forEach((btn) => {
-        btn.addEventListener("click", function (e) {
-          e.preventDefault();
-          this.classList.toggle("liked");
-          const icon = this.querySelector("i");
-          if (this.classList.contains("liked")) {
+      // Course data for favorites
+      const courseData = {
+        1: {
+          id: 1,
+          title: "C++ nâng cao",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png",
+        },
+        2: {
+          id: 2,
+          title: "Cấu trúc dữ liệu và giải thuật",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png",
+        },
+        3: {
+          id: 3,
+          title: "Làm quen với SQL",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png",
+        },
+        4: {
+          id: 4,
+          title: "C# cơ bản",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png",
+        },
+        5: {
+          id: 5,
+          title: "JavaScript cơ bản",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png",
+        },
+        6: {
+          id: 6,
+          title: "Lập trình hướng đối tượng trong C++",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lap-trinh-huong-doi-tuong-trong-cpp_653cb309970b492ca7f69162384814f8.png",
+        },
+      };
+
+      // Initialize favorite buttons
+      function initFavoriteButtons() {
+        document.querySelectorAll(".course-overlay button").forEach((btn) => {
+          const courseCard = btn.closest(".course-card");
+          const courseIndex =
+            Array.from(document.querySelectorAll(".course-card")).indexOf(
+              courseCard,
+            ) + 1;
+
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFavorite(courseIndex, btn);
+          });
+
+          // Check if course is already in favorites
+          if (isCourseInFavorites(courseIndex)) {
+            btn.classList.add("liked");
+            const icon = btn.querySelector("i");
             icon.classList.remove("bi-heart");
             icon.classList.add("bi-heart-fill");
-          } else {
-            icon.classList.add("bi-heart");
-            icon.classList.remove("bi-heart-fill");
           }
         });
-      });
+      }
+
+      // Get favorites from localStorage
+      function getFavorites() {
+        const favorites = localStorage.getItem("favoritesCourses") || "[]";
+        return JSON.parse(favorites);
+      }
+
+      // Save favorites to localStorage
+      function saveFavorites(favorites) {
+        localStorage.setItem("favoritesCourses", JSON.stringify(favorites));
+      }
+
+      // Check if course is in favorites
+      function isCourseInFavorites(courseId) {
+        const favorites = getFavorites();
+        return favorites.some((fav) => fav.id === courseId);
+      }
+
+      // Toggle favorite
+      function toggleFavorite(courseId, btn) {
+        let favorites = getFavorites();
+        const course = courseData[courseId];
+
+        if (isCourseInFavorites(courseId)) {
+          // Remove from favorites
+          favorites = favorites.filter((fav) => fav.id !== courseId);
+          btn.classList.remove("liked");
+          const icon = btn.querySelector("i");
+          icon.classList.add("bi-heart");
+          icon.classList.remove("bi-heart-fill");
+        } else {
+          // Add to favorites
+          favorites.push({
+            id: courseId,
+            title: course.title,
+            image: course.image,
+          });
+          btn.classList.add("liked");
+          const icon = btn.querySelector("i");
+          icon.classList.remove("bi-heart");
+          icon.classList.add("bi-heart-fill");
+        }
+
+        saveFavorites(favorites);
+      }
 
       // ============ COURSE CARD ANIMATION ON SCROLL ============
       const observerOptions = {
@@ -920,6 +940,17 @@
         if (!loggedInUser) {
           window.location.href = "index.html";
         }
+      }
+
+      // ============ VIEW COURSE DETAIL ============
+      function viewCourseDetail(id, title, image) {
+        const courseData = {
+          id: id,
+          title: title,
+          image: image,
+        };
+        localStorage.setItem("selectedCourse", JSON.stringify(courseData));
+        window.location.href = "chitiet.html";
       }
 
       // ============ LOGOUT ============
