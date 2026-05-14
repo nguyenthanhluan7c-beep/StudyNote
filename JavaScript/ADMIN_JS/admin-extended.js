@@ -88,20 +88,15 @@ function initUserManagement() {
   loadUsers();
 }
 
-function loadUsers() {
-  $.ajax({
-    url: api_url.LOGIN_API_URL,
-    type: "GET",
-    dataType: "json",
-    success: function (data) {
-      renderUsersTable(data);
-    },
-    error: function () {
-      $("#usersTableBody").html(
-        '<tr><td colspan="6" class="no-data">Lỗi tải dữ liệu</td></tr>'
-      );
-    },
-  });
+async function loadUsers() {
+  try {
+    const users = await get(api_url.LOGIN_API_URL);
+    renderUsersTable(users);
+  } catch (error) {
+    $("#usersTableBody").html(
+      '<tr><td colspan="6" class="no-data">Lỗi tải dữ liệu</td></tr>'
+    );
+  }
 }
 
 function renderUsersTable(users) {
@@ -160,20 +155,15 @@ function editUser(userId) {
   $("#userDialog").dialog("open");
 }
 
-function deleteUser(userId) {
+async function deleteUser(userId) {
   if (!confirm("Bạn chắc chắn muốn xóa người dùng này?")) return;
-
-  $.ajax({
-    url: api_url.LOGIN_API_URL + "/" + userId,
-    type: "DELETE",
-    success: function () {
-      alert("Xóa người dùng thành công!");
-      loadUsers();
-    },
-    error: function () {
-      alert("Lỗi xóa người dùng");
-    },
-  });
+  try {
+    await remove(api_url.LOGIN_API_URL, userId);
+    alert("Xóa người dùng thành công!");
+    loadUsers();
+  } catch (error) {
+    alert("Lỗi xóa người dùng");
+  }
 }
 
 /* ============================================================
@@ -201,20 +191,15 @@ function initNoteManagement() {
   loadNotes();
 }
 
-function loadNotes() {
-  $.ajax({
-    url: api_url.DOCUMENT_API_URL,
-    type: "GET",
-    dataType: "json",
-    success: function (data) {
-      renderNotesTable(data);
-    },
-    error: function () {
-      $("#notesTableBody").html(
-        '<tr><td colspan="7" class="no-data">Lỗi tải dữ liệu</td></tr>'
-      );
-    },
-  });
+async function loadNotes() {
+  try {
+    const notes = await get(api_url.DOCUMENT_API_URL);
+    renderNotesTable(notes);
+  } catch (error) {
+    $("#notesTableBody").html(
+      '<tr><td colspan="7" class="no-data">Lỗi tải dữ liệu</td></tr>'
+    );
+  }
 }
 
 function renderNotesTable(notes) {
@@ -260,37 +245,32 @@ function renderNotesTable(notes) {
   });
 }
 
-function editNote(noteId) {
-  $.ajax({
-    url: api_url.DOCUMENT_API_URL + "/" + noteId,
-    type: "GET",
-    dataType: "json",
-    success: function (note) {
-      currentEditingNoteId = noteId;
-      $("#noteDialog").dialog("option", "title", "Sửa Ghi chú");
-      $("#noteTitle").val(note.title);
-      $("#noteContent").val(note.content);
-      $("#noteCategory").val(note.category || "");
-      $("#noteAuthor").val(note.author || "");
-      $("#noteDialog").dialog("open");
-    },
-  });
+async function editNote(noteId) {
+  try {
+    const note = await getOneById(api_url.DOCUMENT_API_URL, noteId);
+    if (!note) return;
+    
+    currentEditingNoteId = noteId;
+    $("#noteDialog").dialog("option", "title", "Sửa Ghi chú");
+    $("#noteTitle").val(note.title);
+    $("#noteContent").val(note.content);
+    $("#noteCategory").val(note.category || "");
+    $("#noteAuthor").val(note.author || "");
+    $("#noteDialog").dialog("open");
+  } catch (error) {
+    alert("Lỗi lấy thông tin ghi chú");
+  }
 }
 
-function deleteNote(noteId) {
+async function deleteNote(noteId) {
   if (!confirm("Bạn chắc chắn muốn xóa ghi chú này?")) return;
-
-  $.ajax({
-    url: api_url.DOCUMENT_API_URL + "/" + noteId,
-    type: "DELETE",
-    success: function () {
-      alert("Xóa ghi chú thành công!");
-      loadNotes();
-    },
-    error: function () {
-      alert("Lỗi xóa ghi chú");
-    },
-  });
+  try {
+    await remove(api_url.DOCUMENT_API_URL, noteId);
+    alert("Xóa ghi chú thành công!");
+    loadNotes();
+  } catch (error) {
+    alert("Lỗi xóa ghi chú");
+  }
 }
 
 /* ============================================================
@@ -401,20 +381,15 @@ function initDownloadManagement() {
   loadDownloads();
 }
 
-function loadDownloads() {
-  $.ajax({
-    url: api_url.DOCUMENT_API_URL,
-    type: "GET",
-    dataType: "json",
-    success: function (data) {
-      renderDownloadsTable(data);
-    },
-    error: function () {
-      $("#downloadsTableBody").html(
-        '<tr><td colspan="6" class="no-data">Lỗi tải dữ liệu</td></tr>'
-      );
-    },
-  });
+async function loadDownloads() {
+  try {
+    const notes = await get(api_url.DOCUMENT_API_URL);
+    renderDownloadsTable(notes);
+  } catch (error) {
+    $("#downloadsTableBody").html(
+      '<tr><td colspan="6" class="no-data">Lỗi tải dữ liệu</td></tr>'
+    );
+  }
 }
 
 function renderDownloadsTable(documents) {
@@ -540,7 +515,7 @@ function initDialogs() {
   });
 }
 
-function saveUser() {
+async function saveUser() {
   const email = $("#userEmail").val();
   const name = $("#userName").val();
   const password = $("#userPassword").val();
@@ -553,42 +528,24 @@ function saveUser() {
 
   const userData = { email, name, password, role };
 
-  if (currentEditingUserId) {
-    // Cập nhật
-    $.ajax({
-      url: api_url.LOGIN_API_URL + "/" + currentEditingUserId,
-      type: "PUT",
-      contentType: "application/json",
-      data: JSON.stringify(userData),
-      success: function () {
-        alert("Cập nhật người dùng thành công!");
-        $("#userDialog").dialog("close");
-        loadUsers();
-      },
-      error: function () {
-        alert("Lỗi cập nhật người dùng");
-      },
-    });
-  } else {
-    // Tạo mới
-    $.ajax({
-      url: api_url.LOGIN_API_URL,
-      type: "POST",
-      contentType: "application/json",
-      data: JSON.stringify(userData),
-      success: function () {
-        alert("Thêm người dùng thành công!");
-        $("#userDialog").dialog("close");
-        loadUsers();
-      },
-      error: function () {
-        alert("Lỗi thêm người dùng");
-      },
-    });
+  try {
+    if (currentEditingUserId) {
+      // Cập nhật
+      await put(api_url.LOGIN_API_URL, userData, currentEditingUserId);
+      alert("Cập nhật người dùng thành công!");
+    } else {
+      // Tạo mới
+      await post(api_url.LOGIN_API_URL, userData);
+      alert("Thêm người dùng thành công!");
+    }
+    $("#userDialog").dialog("close");
+    loadUsers();
+  } catch (error) {
+    alert("Lỗi khi lưu người dùng");
   }
 }
 
-function saveNote() {
+async function saveNote() {
   const title = $("#noteTitle").val();
   const content = $("#noteContent").val();
   const category = $("#noteCategory").val();
@@ -601,37 +558,19 @@ function saveNote() {
 
   const noteData = { title, content, category, author };
 
-  if (currentEditingNoteId) {
-    // Cập nhật
-    $.ajax({
-      url: api_url.DOCUMENT_API_URL + "/" + currentEditingNoteId,
-      type: "PUT",
-      contentType: "application/json",
-      data: JSON.stringify(noteData),
-      success: function () {
-        alert("Cập nhật ghi chú thành công!");
-        $("#noteDialog").dialog("close");
-        loadNotes();
-      },
-      error: function () {
-        alert("Lỗi cập nhật ghi chú");
-      },
-    });
-  } else {
-    // Tạo mới
-    $.ajax({
-      url: api_url.DOCUMENT_API_URL,
-      type: "POST",
-      contentType: "application/json",
-      data: JSON.stringify(noteData),
-      success: function () {
-        alert("Thêm ghi chú thành công!");
-        $("#noteDialog").dialog("close");
-        loadNotes();
-      },
-      error: function () {
-        alert("Lỗi thêm ghi chú");
-      },
-    });
+  try {
+    if (currentEditingNoteId) {
+      // Cập nhật
+      await put(api_url.DOCUMENT_API_URL, noteData, currentEditingNoteId);
+      alert("Cập nhật ghi chú thành công!");
+    } else {
+      // Tạo mới
+      await post(api_url.DOCUMENT_API_URL, noteData);
+      alert("Thêm ghi chú thành công!");
+    }
+    $("#noteDialog").dialog("close");
+    loadNotes();
+  } catch (error) {
+    alert("Lỗi khi lưu ghi chú");
   }
 }
