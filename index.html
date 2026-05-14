@@ -10,9 +10,65 @@
 <body>
     <div class="card">
         <!-- Logo -->
-        <div class="logo">
-            <i class="fas fa-book-open logo-icon"></i>
-            <span class="logo-text">Study Note</span>
+        <a class="navbar-brand fw-bold" href="#">
+          <i class="bi bi-mortarboard-fill me-2"></i>
+          <span class="brand-text">EduHub</span>
+        </a>
+
+        <!-- Toggle Button for Mobile -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <!-- Search Bar -->
+          <div class="search-container mx-auto">
+            <div class="input-group">
+              <span class="input-group-text bg-light border-0">
+                <i class="bi bi-search"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control bg-light border-0"
+                placeholder="Tìm kiếm khóa học..."
+              />
+            </div>
+          </div>
+
+          <!-- Menu -->
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Khóa học</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="yeuthich.html">Yêu thích</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="lienhe.html">Liên hệ</a>
+            </li>
+          </ul>
+
+          <!-- User Icon & Login -->
+          <div class="nav-icons ms-3">
+            <a href="#" class="icon-link me-3" title="Yêu thích">
+              <i class="bi bi-heart"></i>
+            </a>
+            <a href="#" class="icon-link me-3" title="Thông báo">
+              <i class="bi bi-bell"></i>
+            </a>
+            <button class="btn btn-primary btn-sm rounded-pill px-3" id="loginBtn">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Đăng Nhập 
+            </button>
+          </div>
         </div>
 
         <!-- Auth Tabs -->
