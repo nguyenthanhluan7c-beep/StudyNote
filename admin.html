@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - StudyNote</title>
+    <link rel="stylesheet" href="CSS/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span class="logo-text">StudyNote</span>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <p class="section-title">QUẢN LÝ ADMIN</p>
+                    <ul class="nav-list">
+                        <li class="nav-item active">
+                            <i class="fas fa-th-large"></i>
+                            <span>Bảng điều khiển</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-users"></i>
+                            <span>Người dùng</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-sticky-note"></i>
+                            <span>Ghi chú</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Tải lên</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-cloud-download-alt"></i>
+                            <span>Tải xuống</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-th-list"></i>
+                            <span>Thẻ học</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Danh mục</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Báo cáo</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Phân tích</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Cài đặt</span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Nhật ký</span>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Upgrade Plan -->
+            <div class="upgrade-section">
+                <h3>Nâng cấp kế hoạch</h3>
+                <p>Mở khóa thêm tính năng và phân tích nâng cao.</p>
+                <button class="upgrade-btn">Nâng cấp ngay →</button>
+            </div>
+
+            <!-- Admin Profile -->
+            <div class="admin-profile">
+                <img src="https://via.placeholder.com/40" alt="Admin">
+                <div class="profile-info">
+                    <p class="profile-name">Admin</p>
+                    <p class="profile-role">Quản trị viên cao cấp</p>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1>Bảng điều khiển</h1>
+                    <p class="subtitle">Chào mừng trở lại! Đây là những gì đang xảy ra với StudyNote.</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Tìm kiếm người dùng, ghi chú, tệp...">
+                    </div>
+                    <div class="date-range">
+                        <i class="fas fa-calendar"></i>
+                        <span>15 - 21 Tháng 5, 2024</span>
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard">
+                <!-- Stats Cards -->
+                <section class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon users-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Tổng người dùng</h3>
+                            <p class="stat-value">24,589</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 12.5% từ tuần trước
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon notes-icon">
+                            <i class="fas fa-sticky-note"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Tổng ghi chú</h3>
+                            <p class="stat-value">89,742</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 8.5% từ tuần trước
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon uploads-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Tải lên</h3>
+                            <p class="stat-value">12,456</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 6.7% từ tuần trước
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon downloads-icon">
+                            <i class="fas fa-cloud-download-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Tải xuống</h3>
+                            <p class="stat-value">45,892</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 5.2% từ tuần trước
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon active-icon">
+                            <i class="fas fa-users-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Hoạt động hôm nay</h3>
+                            <p class="stat-value">6,543</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 3.4% từ tuần trước
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon storage-icon">
+                            <i class="fas fa-hdd"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Bộ nhớ sử dụng</h3>
+                            <p class="stat-value">642 GB</p>
+                            <div class="storage-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 64%"></div>
+                                </div>
+                                <span class="progress-text">64%</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Charts Section -->
+                <div class="charts-row">
+                    <!-- Overview Chart -->
+                    <section class="chart-container overview-chart">
+                        <div class="chart-header">
+                            <h2>Tổng quan</h2>
+                            <div class="chart-filter">
+                                <select>
+                                    <option>Người dùng</option>
+                                    <option>Ghi chú</option>
+                                    <option>Hoạt động</option>
+                                </select>
+                            </div>
+                        </div>
+                        <canvas id="overviewChart"></canvas>
+                    </section>
+
+                    <!-- User Activity & Categories -->
+                    <div class="right-charts">
+                        <section class="chart-container user-activity">
+                            <div class="chart-header">
+                                <h2>Hoạt động người dùng</h2>
+                                <span class="chart-meta">Tuần này</span>
+                            </div>
+                            <div class="user-activity-content">
+                                <canvas id="userActivityChart"></canvas>
+                                <div class="activity-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-dot active-users"></span>
+                                        <span>Người dùng hoạt động: 8,543 (28.5%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot inactive-users"></span>
+                                        <span>Người dùng không hoạt động: 12,498 (50.7%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot new-users"></span>
+                                        <span>Người dùng mới: 3,590 (23.7%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="chart-container top-categories">
+                            <div class="chart-header">
+                                <h2>Danh mục hàng đầu</h2>
+                                <span class="chart-meta">Tuần này</span>
+                            </div>
+                            <div class="categories-list">
+                                <div class="category-item">
+                                    <div class="category-icon physics">
+                                        <i class="fas fa-atom"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Vật lý</p>
+                                        <p class="category-count">12,456 ghi chú</p>
+                                    </div>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-icon chemistry">
+                                        <i class="fas fa-flask"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Hóa học</p>
+                                        <p class="category-count">9,872 ghi chú</p>
+                                    </div>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-icon math">
+                                        <i class="fas fa-square-root-alt"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Toán học</p>
+                                        <p class="category-count">8,765 ghi chú</p>
+                                    </div>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-icon biology">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Sinh học</p>
+                                        <p class="category-count">7,654 ghi chú</p>
+                                    </div>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-icon cs">
+                                        <i class="fas fa-laptop-code"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Khoa học máy tính</p>
+                                        <p class="category-count">6,123 ghi chú</p>
+                                    </div>
+                                </div>
+                                <a href="#" class="view-all">Xem tất cả danh mục →</a>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Tables Section -->
+                <div class="tables-row">
+                    <!-- Recent Notes -->
+                    <section class="table-container recent-notes">
+                        <div class="table-header">
+                            <h2>Ghi chú gần đây</h2>
+                            <a href="#" class="view-all">Xem tất cả ghi chú →</a>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tiêu đề ghi chú</th>
+                                    <th>Danh mục</th>
+                                    <th>Được tải lên bởi</th>
+                                    <th>Tải lên</th>
+                                    <th>Tải xuống</th>
+                                    <th>Tạo lúc</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cơ bản cơ học lượng tử</td>
+                                    <td><span class="badge category-physics">Vật lý</span></td>
+                                    <td>John Doe</td>
+                                    <td>245</td>
+                                    <td>1,234</td>
+                                    <td>21 Tháng 5, 2024</td>
+                                    <td><span class="status published">Đã xuất bản</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Phản ứng hóa học hữu cơ</td>
+                                    <td><span class="badge category-chemistry">Hóa học</span></td>
+                                    <td>Sarah Johnson</td>
+                                    <td>189</td>
+                                    <td>987</td>
+                                    <td>21 Tháng 5, 2024</td>
+                                    <td><span class="status published">Đã xuất bản</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Đạo hàm giải tích</td>
+                                    <td><span class="badge category-math">Toán học</span></td>
+                                    <td>Michael Lee</td>
+                                    <td>156</td>
+                                    <td>876</td>
+                                    <td>20 Tháng 5, 2024</td>
+                                    <td><span class="status published">Đã xuất bản</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Cấu trúc tế bào sinh học</td>
+                                    <td><span class="badge category-biology">Sinh học</span></td>
+                                    <td>Emily Brown</td>
+                                    <td>134</td>
+                                    <td>789</td>
+                                    <td>20 Tháng 5, 2024</td>
+                                    <td><span class="status published">Đã xuất bản</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Ghi chú cấu trúc dữ liệu</td>
+                                    <td><span class="badge category-cs">Khoa học máy tính</span></td>
+                                    <td>David Wilson</td>
+                                    <td>98</td>
+                                    <td>654</td>
+                                    <td>19 Tháng 5, 2024</td>
+                                    <td><span class="status published">Đã xuất bản</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- Recent Activities -->
+                    <section class="activity-container recent-activities">
+                        <div class="activity-header">
+                            <h2>Hoạt động gần đây</h2>
+                            <span class="view-all">Xem tất cả hoạt động →</span>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon new-user">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Người dùng mới đăng ký</p>
+                                    <p class="activity-detail">Alice Johnson đã tham gia StudyNote</p>
+                                </div>
+                                <span class="activity-time">2 phút trước</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon upload">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Ghi chú được tải lên</p>
+                                    <p class="activity-detail">Công thức Vật lý đã được tải lên</p>
+                                </div>
+                                <span class="activity-time">10 phút trước</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon download">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Tệp được tải xuống</p>
+                                    <p class="activity-detail">Công thức Vật lý đã được tải xuống</p>
+                                </div>
+                                <span class="activity-time">28 phút trước</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon deleted">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Người dùng bị cấm</p>
+                                    <p class="activity-detail">Robert Smith đã bị cấm</p>
+                                </div>
+                                <span class="activity-time">1 giờ trước</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon created">
+                                    <i class="fas fa-folder-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Danh mục được tạo</p>
+                                    <p class="activity-detail">Danh mục "Trí tuệ nhân tạo" đã được thêm</p>
+                                </div>
+                                <span class="activity-time">2 giờ trước</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Bottom Charts -->
+                <div class="bottom-charts-row">
+                    <section class="chart-container storage-overview">
+                        <div class="chart-header">
+                            <h2>Tổng quan bộ nhớ</h2>
+                        </div>
+                        <div class="storage-content">
+                            <canvas id="storageChart"></canvas>
+                            <div class="storage-breakdown">
+                                <div class="storage-item">
+                                    <span class="storage-label">Ghi chú</span>
+                                    <span class="storage-value">256 GB</span>
+                                </div>
+                                <div class="storage-item">
+                                    <span class="storage-label">Tải lên</span>
+                                    <span class="storage-value">256 GB</span>
+                                </div>
+                                <div class="storage-item">
+                                    <span class="storage-label">Khác</span>
+                                    <span class="storage-value">130 GB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="chart-container upload-stats">
+                        <div class="chart-header">
+                            <h2>Thống kê tải lên</h2>
+                            <span class="chart-meta">Tuần này</span>
+                        </div>
+                        <canvas id="uploadChart"></canvas>
+                    </section>
+
+                    <section class="chart-container download-stats">
+                        <div class="chart-header">
+                            <h2>Thống kê tải xuống</h2>
+                            <span class="chart-meta">Tuần này</span>
+                        </div>
+                        <canvas id="downloadChart"></canvas>
+                    </section>
+
+                    <section class="chart-container system-status">
+                        <div class="chart-header">
+                            <h2>Trạng thái hệ thống</h2>
+                        </div>
+                        <div class="status-list">
+                            <div class="status-item">
+                                <span class="status-dot online"></span>
+                                <span class="status-label">Trạng thái máy chủ</span>
+                                <span class="status-value">Trực tuyến</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot online"></span>
+                                <span class="status-label">Cơ sở dữ liệu</span>
+                                <span class="status-value">Đã kết nối</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot online"></span>
+                                <span class="status-label">Bộ nhớ</span>
+                                <span class="status-value">Tốt</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot online"></span>
+                                <span class="status-label">Sao lưu</span>
+                                <span class="status-value">Sao lưu lần cuối 2h trước</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="JavaScript/ADMIN_JS/admin.js"></script>
+</body>
+</html>
