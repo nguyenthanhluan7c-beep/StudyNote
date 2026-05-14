@@ -182,9 +182,8 @@ function handleLogout() {
 // Check auth on page load
 document.addEventListener("DOMContentLoaded", () => {
   const logged = localStorage.getItem("isLoggedIn");
-  if(logged === "false") {
+  if(logged !== "true") {
     window.location.href = "login.html";
     return;
   }
-  
 });
