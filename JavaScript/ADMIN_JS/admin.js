@@ -127,7 +127,7 @@ function initProfileMenu() {
 
 function handleLogout() {
   if (confirm("Bạn có chắc muốn đăng xuất không?")) {
-    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("isLoggedIn");
     window.location.href = "index.html";
   }
 }
