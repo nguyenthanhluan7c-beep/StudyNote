@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EduHub - Nền tảng đăng ký khóa học</title>
-    <script defer src="JavaScript/API_JS/API.js"></script>
 
     <!-- Bootstrap 5 CSS -->
     <link
@@ -82,8 +81,8 @@
             <a href="#" class="icon-link me-3" title="Thông báo">
               <i class="bi bi-bell"></i>
             </a>
-            <button class="btn btn-primary btn-sm rounded-pill px-3" id="loginBtn">
-              <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập
+            <button class="btn btn-primary btn-sm rounded-pill px-3" onclick="handleLogout()">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Đăng xuất 
             </button>
           </div>
         </div>
@@ -416,7 +415,7 @@
                 <div class="course-card">
                   <div class="course-image-wrapper">
                     <img
-                      src=""
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png"
                       alt=""
                     />
                     <div class="course-overlay">
@@ -427,7 +426,7 @@
                   </div>
                   <div class="card-body">
                     <div class="category-badge"></div>
-                    <h5 class="card-title">
+                    <h5 class="card-title"> c++ nâng cao
                     </h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
@@ -450,7 +449,7 @@
                 <div class="course-card">
                   <div class="course-image-wrapper">
                     <img
-                      src=""
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png"
                       alt=""
                     />
                     <div class="course-overlay">
@@ -461,7 +460,7 @@
                   </div>
                   <div class="card-body">
                     <div class="category-badge"></div>
-                    <h5 class="card-title">
+                    <h5 class="card-title"> Cấu trúc dữ liệu và giải thuật
                     </h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
@@ -483,7 +482,7 @@
                 <div class="course-card">
                   <div class="course-image-wrapper">
                     <img
-                      src=""
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png"
                       alt=""
                     />
                     <div class="course-overlay">
@@ -494,7 +493,7 @@
                   </div>
                   <div class="card-body">
                     <div class="category-badge"></div>
-                    <h5 class="card-title"></h5>
+                    <h5 class="card-title">Làm quen với SQL</h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
                         <i class="bi bi-people me-1"></i> 
@@ -515,7 +514,7 @@
                 <div class="course-card">
                   <div class="course-image-wrapper">
                     <img
-                      src=""
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png"
                       alt=""
                     />
                     <div class="course-overlay">
@@ -526,7 +525,7 @@
                   </div>
                   <div class="card-body">
                     <div class="category-badge"></div>
-                    <h5 class="card-title">
+                    <h5 class="card-title">C# cơ bản</h5>
                     </h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
@@ -548,7 +547,7 @@
                 <div class="course-card">
                   <div class="course-image-wrapper">
                     <img
-                      src=""
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png"
                       alt=""
                     />
                     <div class="course-overlay">
@@ -559,7 +558,7 @@
                   </div>
                   <div class="card-body">
                     <div class="category-badge"></div>
-                    <h5 class="card-title">
+                    <h5 class="card-title">JavaScript cơ bản</h5>
                     </h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
@@ -581,7 +580,7 @@
                 <div class="course-card">
                   <div class="course-image-wrapper">
                     <img
-                      src=""
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lap-trinh-huong-doi-tuong-trong-cpp_653cb309970b492ca7f69162384814f8.png"
                       alt=""
                     />
                     <div class="course-overlay">
@@ -592,7 +591,7 @@
                   </div>
                   <div class="card-body">
                     <div class="category-badge"></div>
-                    <h5 class="card-title"></h5>
+                    <h5 class="card-title">Lập trình hướng đối tượng trong C++</h5>
                     <div class="course-meta mb-3">
                       <span class="me-3">
                         <i class="bi bi-people me-1"></i> 
@@ -640,12 +639,12 @@
                 <i class="bi bi-star-fill"></i> Nổi bật
               </div>
               <img
-                src=""
+                src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Python_-_Algorithms_6865856c821b4bbe88a9b9e88dba2208.png"
                 alt=""
                 class="featured-image"
               />
               <div class="featured-content">
-                <h5 class="featured-title"></h5>
+                <h5 class="featured-title">giải thuật Python</h5>
                 <p class="featured-description">
                 </p>
                 <div class="featured-rating mb-3">
@@ -672,12 +671,12 @@
                 <i class="bi bi-star-fill"></i> Nổi bật
               </div>
               <img
-                src=""
+                src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Python_-_Ad_3561581c4f074d9694a4704ed184b60e.png"
                 alt=""
                 class="featured-image"
               />
               <div class="featured-content">
-                <h5 class="featured-title"></h5>
+                <h5 class="featured-title">Python nâng cao</h5>
                 <p class="featured-description">
                 </p>
                 <div class="featured-rating mb-3">
@@ -704,12 +703,12 @@
                 <i class="bi bi-star-fill"></i> Nổi bật
               </div>
               <img
-                src=""
+                src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/html-css-cho-nguoi-moi-bat-dau_3867537473444f328a4de0fa0231a6ea.jpg"
                 alt=""
                 class="featured-image"
               />
               <div class="featured-content">
-                <h5 class="featured-title"></h5>
+                <h5 class="featured-title">HTML & CSS cho người mới bắt đầu</h5>
                 <p class="featured-description">
                 </p>
                 <div class="featured-rating mb-3">
@@ -912,7 +911,25 @@
             // Apply filter logic here
           });
         });
+
+      // ============ AUTH CHECK ============
+      function checkAuth() {
+        const loggedInUser = JSON.parse(
+          localStorage.getItem("loggedInUser") || "null",
+        );
+        if (!loggedInUser) {
+          window.location.href = "index.html";
+        }
+      }
+
+      // ============ LOGOUT ============
+      function handleLogout() {
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "index.html";
+      }
+
+      // Check auth on page load
+      checkAuth();
     </script>
-    <script src="JavaScript/MAIN_JS/index.js"></script>
   </body>
 </html>
