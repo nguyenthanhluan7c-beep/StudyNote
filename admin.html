@@ -6,7 +6,169 @@
     <title>Admin Panel - StudyNote</title>
     <link rel="stylesheet" href="CSS/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery UI (optional, for dialogs) -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script defer src="JavaScript/API_JS/API.js"></script>
+    <style>
+        /* Tabs & Sections */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
+        }
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+        .tab-btn.active {
+            color: #7ec041;
+            border-bottom-color: #7ec041;
+        }
+        .content-tab {
+            display: none;
+        }
+        .content-tab.active {
+            display: block;
+        }
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .search-input {
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            width: 300px;
+        }
+        .btn-add {
+            background: #7ec041;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-add:hover {
+            background: #6ba433;
+        }
+        .btn-edit, .btn-delete, .btn-download {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+        .btn-edit {
+            background: #ffc107;
+            color: #000;
+        }
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-download {
+            background: #17a2b8;
+            color: white;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .manage-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            margin-top: 15px;
+        }
+        .manage-table thead {
+            background: #7ec041;
+            color: white;
+        }
+        .manage-table th, .manage-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .manage-table tbody tr:hover {
+            background: var(--bg-hover);
+        }
+        .modal-dialog {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        .modal-dialog .ui-dialog-titlebar {
+            background: #7ec041;
+            color: white;
+            border: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+        .upload-zone {
+            border: 2px dashed #7ec041;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            background: var(--bg-hover);
+        }
+        .upload-zone:hover {
+            background: rgba(126, 192, 65, 0.1);
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--bg-hover);
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+    </style>
 </head>
 <body>
     <!-- Sidebar Overlay (mobile) -->
@@ -23,45 +185,25 @@
                 <div class="nav-section">
                     <p class="section-title">QUẢN LÝ ADMIN</p>
                     <ul class="nav-list">
-                        <li class="nav-item active">
+                        <li class="nav-item active" data-tab="dashboard">
                             <i class="fas fa-th-large"></i>
                             <span>Bảng điều khiển</span>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-tab="users">
                             <i class="fas fa-users"></i>
                             <span>Người dùng</span>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-tab="notes">
                             <i class="fas fa-sticky-note"></i>
                             <span>Ghi chú</span>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-tab="uploads">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <span>Tải lên</span>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" data-tab="downloads">
                             <i class="fas fa-cloud-download-alt"></i>
                             <span>Tải xuống</span>
-                        </li>
-                        <li class="nav-item">
-                            <i class="fas fa-th-list"></i>
-                            <span>Thẻ học</span>
-                        </li>
-                        <li class="nav-item">
-                            <i class="fas fa-bookmark"></i>
-                            <span>Danh mục</span>
-                        </li>
-                        <li class="nav-item">
-                            <i class="fas fa-file-alt"></i>
-                            <span>Báo cáo</span>
-                        </li>
-                        <li class="nav-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>Phân tích</span>
-                        </li>
-                        <li class="nav-item">
-                            <i class="fas fa-cog"></i>
-                            <span>Cài đặt</span>
                         </li>
                         <li class="nav-item" data-action="logout">
                             <i class="fas fa-sign-out-alt"></i>
@@ -520,7 +662,152 @@
                     </section>
                 </div>
             </div>
+
+            <!-- Users Management Tab -->
+            <div id="users-tab" class="content-tab">
+                <div class="action-bar">
+                    <h2>Quản lý Người dùng</h2>
+                    <input type="text" id="userSearch" class="search-input" placeholder="Tìm kiếm email hoặc tên...">
+                    <button class="btn-add" id="addUserBtn"><i class="fas fa-plus"></i> Thêm Người dùng</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="manage-table" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Tên</th>
+                                <th>Role</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr><td colspan="6" class="no-data">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notes Management Tab -->
+            <div id="notes-tab" class="content-tab">
+                <div class="action-bar">
+                    <h2>Quản lý Ghi chú</h2>
+                    <input type="text" id="noteSearch" class="search-input" placeholder="Tìm kiếm tiêu đề...">
+                    <button class="btn-add" id="addNoteBtn"><i class="fas fa-plus"></i> Thêm Ghi chú</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="manage-table" id="notesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tiêu đề</th>
+                                <th>Nội dung</th>
+                                <th>Danh mục</th>
+                                <th>Tác giả</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="notesTableBody">
+                            <tr><td colspan="7" class="no-data">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Uploads Management Tab -->
+            <div id="uploads-tab" class="content-tab">
+                <h2>Quản lý Tải lên</h2>
+                <div class="upload-zone" id="uploadZone">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #7ec041; margin-bottom: 10px; display: block;"></i>
+                    <p><strong>Kéo & thả tệp hoặc nhấp để chọn</strong></p>
+                    <small>Hỗ trợ PDF, Word, Image, Video...</small>
+                    <input type="file" id="fileInput" style="display: none;" multiple>
+                </div>
+                <div id="uploadedFiles" style="margin-top: 30px;">
+                    <h3>Tệp đã tải lên</h3>
+                    <div id="filesList"></div>
+                </div>
+            </div>
+
+            <!-- Downloads Management Tab -->
+            <div id="downloads-tab" class="content-tab">
+                <h2>Quản lý Tải xuống</h2>
+                <div class="table-responsive">
+                    <table class="manage-table" id="downloadsTable">
+                        <thead>
+                            <tr>
+                                <th>Tên tệp</th>
+                                <th>Loại</th>
+                                <th>Kích thước</th>
+                                <th>Lượt tải</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="downloadsTableBody">
+                            <tr><td colspan="6" class="no-data">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </main>
+
+        <!-- User Dialog -->
+        <div id="userDialog" title="Thêm/Sửa Người dùng">
+            <form id="userForm">
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Tên *</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label>Mật khẩu *</label>
+                    <input type="password" id="userPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="userRole">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <!-- Note Dialog -->
+        <div id="noteDialog" title="Thêm/Sửa Ghi chú">
+            <form id="noteForm">
+                <div class="form-group">
+                    <label>Tiêu đề *</label>
+                    <input type="text" id="noteTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Nội dung *</label>
+                    <textarea id="noteContent" required style="min-height: 150px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Danh mục</label>
+                    <input type="text" id="noteCategory" placeholder="VD: Toán, Lý, Hóa...">
+                </div>
+                <div class="form-group">
+                    <label>Tác giả</label>
+                    <input type="text" id="noteAuthor">
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script defer src="JavaScript/ADMIN_JS/admin.js"></script>
+    <script defer src="JavaScript/ADMIN_JS/admin-extended.js"></script>
+</body>
+</html>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
