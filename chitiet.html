@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết khóa học - EduHub</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="CSS/index.css" />
+    <style>
+      /* ============ COURSE DETAIL STYLES ============ */
+
+      /* Course Header */
+      .course-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 60px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .course-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .course-header-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .course-heading {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .course-description-short {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.7;
+        max-width: 700px;
+      }
+
+      .course-meta-info {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+        font-size: 0.95rem;
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .meta-item i {
+        font-size: 1.3rem;
+      }
+
+      /* Course Content */
+      .course-content {
+        padding: 80px 0;
+      }
+
+      /* Instructor Card */
+      .instructor-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: var(--shadow-md);
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 60px;
+      }
+
+      .instructor-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+        flex-shrink: 0;
+      }
+
+      .instructor-info h5 {
+        color: var(--dark-color);
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      .instructor-info p {
+        color: var(--text-secondary);
+        margin-bottom: 10px;
+      }
+
+      .instructor-rating {
+        color: var(--warning-color);
+        font-size: 0.9rem;
+      }
+
+      /* Course Curriculum */
+      .curriculum-section {
+        margin-bottom: 60px;
+      }
+
+      .section-heading {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--dark-color);
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid var(--primary-color);
+      }
+
+      .curriculum-item {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin-bottom: 15px;
+        transition: var(--transition-smooth);
+        overflow: hidden;
+      }
+
+      .curriculum-item:hover {
+        border-color: var(--primary-color);
+        box-shadow: var(--shadow-md);
+      }
+
+      .curriculum-header {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        background-color: #f7fafc;
+        transition: var(--transition-smooth);
+      }
+
+      .curriculum-header:hover {
+        background-color: rgba(102, 126, 234, 0.05);
+      }
+
+      .curriculum-header h6 {
+        margin: 0;
+        color: var(--dark-color);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .lesson-count {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .curriculum-icon {
+        color: var(--primary-color);
+        font-size: 1.3rem;
+      }
+
+      .curriculum-toggle {
+        color: var(--text-secondary);
+        transition: var(--transition-smooth);
+        font-size: 1.2rem;
+      }
+
+      .curriculum-item.active .curriculum-toggle {
+        transform: rotate(180deg);
+        color: var(--primary-color);
+      }
+
+      .curriculum-lessons {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+
+      .curriculum-item.active .curriculum-lessons {
+        max-height: 500px;
+      }
+
+      .lesson-item {
+        padding: 15px 20px;
+        padding-left: 60px;
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: var(--transition-smooth);
+      }
+
+      .lesson-item:hover {
+        background-color: #f7fafc;
+      }
+
+      .lesson-name {
+        color: var(--text-primary);
+        font-size: 0.95rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .lesson-duration {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+      }
+
+      /* Course Details Sidebar */
+      .course-details-card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: var(--shadow-md);
+        position: sticky;
+        top: 100px;
+        margin-bottom: 30px;
+      }
+
+      .course-details-card h5 {
+        font-weight: 700;
+        color: var(--dark-color);
+        margin-bottom: 20px;
+      }
+
+      .detail-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .detail-item:last-child {
+        border-bottom: none;
+      }
+
+      .detail-label {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .detail-value {
+        color: var(--dark-color);
+        font-weight: 600;
+      }
+
+      /* Enroll Button */
+      .enroll-section {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .price-tag {
+        font-size: 2rem;
+        font-weight: 800;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+      }
+
+      .course-details-card .btn {
+        width: 100%;
+        padding: 12px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        transition: var(--transition-smooth);
+      }
+
+      .course-details-card .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
+      /* Reviews Section */
+      .reviews-section {
+        margin-top: 60px;
+      }
+
+      .review-item {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        margin-bottom: 20px;
+        transition: var(--transition-smooth);
+      }
+
+      .review-item:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .review-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .reviewer-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .reviewer-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .reviewer-details h6 {
+        margin: 0;
+        color: var(--dark-color);
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      .reviewer-details p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+      }
+
+      .review-rating {
+        color: var(--warning-color);
+      }
+
+      .review-content {
+        color: var(--text-primary);
+        line-height: 1.6;
+      }
+
+      /* Breadcrumb */
+      .breadcrumb-custom {
+        background: transparent;
+        padding: 20px 0;
+        margin-bottom: 0;
+      }
+
+      .breadcrumb-custom .breadcrumb-item {
+        color: var(--text-secondary);
+      }
+
+      .breadcrumb-custom .breadcrumb-item.active {
+        color: var(--primary-color);
+      }
+
+      .breadcrumb-custom .breadcrumb-item a {
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .breadcrumb-custom .breadcrumb-item a:hover {
+        text-decoration: underline;
+      }
+
+      /* Course Video Placeholder */
+      .course-video-container {
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.1),
+          rgba(118, 75, 162, 0.1)
+        );
+        border-radius: 15px;
+        overflow: hidden;
+        aspect-ratio: 16/9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      .course-video-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .play-button {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        transition: var(--transition-bounce);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .play-button:hover {
+        transform: scale(1.15);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Requirements */
+      .requirements-list {
+        list-style: none;
+      }
+
+      .requirements-list li {
+        padding: 12px 0;
+        padding-left: 30px;
+        position: relative;
+        color: var(--text-primary);
+      }
+
+      .requirements-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--success-color);
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      /* Two Column Layout */
+      @media (max-width: 992px) {
+        .course-details-card {
+          position: static;
+          top: auto;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .course-heading {
+          font-size: 1.8rem;
+        }
+
+        .course-meta-info {
+          gap: 15px;
+        }
+
+        .instructor-card {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .section-heading {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============ NAVBAR ============ -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white navbar-sticky"
+      id="navbar"
+    >
+      <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <i class="bi bi-mortarboard-fill me-2"></i>
+          <span class="brand-text">EduHub</span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <div class="search-container mx-auto">
+            <div class="input-group">
+              <span class="input-group-text bg-light border-0">
+                <i class="bi bi-search"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control bg-light border-0"
+                placeholder="Tìm kiếm khóa học..."
+              />
+            </div>
+          </div>
+
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Khóa học</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Yêu thích</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Liên hệ</a>
+            </li>
+          </ul>
+
+          <div class="nav-icons ms-3">
+            <a href="#" class="icon-link me-3" title="Yêu thích">
+              <i class="bi bi-heart"></i>
+            </a>
+            <a href="#" class="icon-link me-3" title="Thông báo">
+              <i class="bi bi-bell"></i>
+            </a>
+            <button class="btn btn-primary btn-sm rounded-pill px-3">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ============ BREADCRUMB ============ -->
+    <div class="container mt-4">
+      <nav aria-label="breadcrumb" class="breadcrumb-custom">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+          <li class="breadcrumb-item"><a href="#">Khóa học</a></li>
+          <li class="breadcrumb-item"><a href="#">Danh mục</a></li>
+          <li class="breadcrumb-item active">
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- ============ COURSE HEADER ============ -->
+    <section class="course-header">
+      <div class="container">
+        <div class="course-header-content">
+          <h1 class="course-heading">
+          </h1>
+          <p class="course-description-short">
+          </p>
+          <div class="course-meta-info">
+            <div class="meta-item">
+              <i class="bi bi-star-fill"></i>
+              <span><strong></strong> ()</span>
+            </div>
+            <div class="meta-item">
+              <i class="bi bi-people"></i>
+              <span><strong></strong> </span>
+            </div>
+            <div class="meta-item">
+              <i class="bi bi-clock"></i>
+              <span><strong></strong> </span>
+            </div>
+            <div class="meta-item">
+              <i class="bi bi-trophy"></i>
+              <span>Cấp độ: <strong></strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COURSE CONTENT ============ -->
+    <section class="course-content">
+      <div class="container">
+        <div class="row g-4">
+          <!-- Main Content -->
+          <div class="col-lg-8">
+            <!-- Video Player -->
+            <div class="course-video-container">
+              <img
+                src=""
+                alt=""
+              />
+              <div class="play-button">
+                <i class="bi bi-play-fill"></i>
+              </div>
+            </div>
+
+            <!-- Instructor -->
+            <div class="instructor-card">
+              <div class="instructor-avatar">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <div class="instructor-info">
+                <h5></h5>
+                <p></p>
+                <div class="instructor-rating">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Description -->
+            <div class="curriculum-section">
+              <h3 class="section-heading">Mô tả khóa học</h3>
+              <p>
+              </p>
+            </div>
+            </div>
+
+            <!-- Curriculum -->
+            <div class="curriculum-section">
+              <h3 class="section-heading">Nội dung khóa học</h3>
+            </div>
+
+            <!-- Requirements -->
+            <div class="curriculum-section">
+              <h3 class="section-heading">Yêu cầu</h3>
+              <ul class="requirements-list">
+                <li>Không cần kinh nghiệm lập trình trước</li>
+                <li>Máy tính với trình duyệt hiện đại</li>
+                <li>Một trình soạn thảo mã (VS Code được khuyên dùng)</li>
+                <li>Sẵn sàng học và thực hành</li>
+              </ul>
+            </div>
+
+            <!-- Reviews -->
+            <div class="reviews-section">
+              <h3 class="section-heading">Đánh giá từ học viên</h3>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="col-lg-4">
+            <!-- Course Details Card -->
+            <div class="course-details-card">
+              <div class="price-tag"></div>
+              <button class="btn btn-primary btn-lg rounded-pill">
+                <i class="bi bi-shopping-cart me-2"></i> Đăng ký khóa học
+              </button>
+              <button class="btn btn-outline-primary rounded-pill">
+                <i class="bi bi-heart me-2"></i> Thêm vào yêu thích
+              </button>
+
+              <div class="enroll-section">
+                <h5>Thông tin khóa học</h5>
+
+                <div class="detail-item">
+                  <span class="detail-label">
+                    <i class="bi bi-clock"></i> Thời lượng
+                  </span>
+                  <span class="detail-value"></span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">
+                    <i class="bi bi-bar-chart"></i> Cấp độ
+                  </span>
+                  <span class="detail-value"></span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">
+                    <i class="bi bi-people"></i> Học viên
+                  </span>
+                  <span class="detail-value"></span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">
+                    <i class="bi bi-play-circle"></i> Bài học
+                  </span>
+                  <span class="detail-value"></span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">
+                    <i class="bi bi-download"></i> Tài liệu
+                  </span>
+                  <span class="detail-value"></span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">
+                    <i class="bi bi-telephone"></i> Hỗ trợ
+                  </span>
+                  <span class="detail-value"></span>
+                </div>
+
+                <div class="detail-item">
+                  <span class="detail-label">
+                    <i class="bi bi-shield-check"></i> Chứng chỉ
+                  </span>
+                  <span class="detail-value"></span>
+                </div>
+              </div>
+
+              <div
+                style="
+                  padding-top: 20px;
+                  border-top: 1px solid var(--border-color);
+                  margin-top: 20px;
+                "
+              >
+                <small class="text-muted d-block mb-3">
+                  <i class="bi bi-info-circle me-2"></i>
+                  Quay lại khóa học trong 30 ngày hoặc hoàn tiền 100%
+                </small>
+              </div>
+            </div>
+
+            <!-- Related Courses -->
+            <div
+              style="
+                background: white;
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: var(--shadow-md);
+              "
+            >
+              <h5
+                style="
+                  color: var(--dark-color);
+                  font-weight: 700;
+                  margin-bottom: 20px;
+                "
+              >
+                Khóa học liên quan
+              </h5>
+              <button class="btn btn-outline-primary w-100 rounded-pill">
+                Xem tất cả khóa học
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row g-5 mb-5">
+          <div class="col-md-3">
+            <h5 class="footer-title mb-4">
+              <i class="bi bi-mortarboard-fill me-2"></i> EduHub
+            </h5>
+            <p class="footer-text">
+              Nền tảng học tập trực tuyến hàng đầu dành cho sinh viên Việt Nam.
+            </p>
+            <div class="social-links mt-4">
+              <a href="#" class="social-icon">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="bi bi-twitter"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="bi bi-linkedin"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <h6 class="footer-title mb-4">Khóa học</h6>
+            <ul class="footer-links">
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">Mobile App</a></li>
+              <li><a href="#">Data Science</a></li>
+              <li><a href="#">UI/UX Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-md-3">
+            <h6 class="footer-title mb-4">Công ty</h6>
+            <ul class="footer-links">
+              <li><a href="#">Về chúng tôi</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Việc làm</a></li>
+              <li><a href="#">Tin tức</a></li>
+            </ul>
+          </div>
+
+          <div class="col-md-3">
+            <h6 class="footer-title mb-4">Liên hệ</h6>
+            <ul class="footer-links">
+              <li>
+                <i class="bi bi-telephone me-2"></i>
+                <a href="tel:+84123456789">+84 (123) 456-789</a>
+              </li>
+              <li>
+                <i class="bi bi-envelope me-2"></i>
+                <a href="mailto:info@eduhub.com">info@eduhub.com</a>
+              </li>
+              <li>
+                <i class="bi bi-geo-alt me-2"></i>
+                <span>Hà Nội, Việt Nam</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom py-4 border-top">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <p class="text-muted mb-0">
+                &copy; 2024 EduHub. Tất cả quyền được bảo lưu.
+              </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <a href="#" class="text-muted me-3">Chính sách bảo mật</a>
+              <a href="#" class="text-muted me-3">Điều khoản sử dụng</a>
+              <a href="#" class="text-muted">Cookie Settings</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Curriculum toggle
+      function toggleCurriculum(header) {
+        const item = header.parentElement;
+        item.classList.toggle("active");
+      }
+
+      // Heart button toggle
+      document
+        .querySelectorAll(".course-details-card button")
+        .forEach((btn) => {
+          if (btn.textContent.includes("Yêu thích")) {
+            btn.addEventListener("click", function (e) {
+              e.preventDefault();
+              this.classList.toggle("liked");
+              const icon = this.querySelector("i");
+              if (this.classList.contains("liked")) {
+                icon.classList.remove("bi-heart");
+                icon.classList.add("bi-heart-fill");
+              } else {
+                icon.classList.add("bi-heart");
+                icon.classList.remove("bi-heart-fill");
+              }
+            });
+          }
+        });
+    </script>
+  </body>
+</html>
