@@ -7,8 +7,8 @@ const api_url = {
   REVIEW_API_URL: "https://6a058a9faa826ca75c0a164c.mockapi.io/api/v1/review",
 };
 //hàm export api url
-function getApiUrl(apiName) {
-  return api_url.apiName;
+function getApiUrl() {
+  return api_url
 }
 //hàm lấy tất cả thông tin
 async function get(api_url) {
