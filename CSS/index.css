@@ -40,11 +40,17 @@ body {
   background-color: #ffffff;
   padding: 1rem 0;
   border-bottom: 1px solid transparent;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0  ;
 }
 
 .navbar.scrolled {
   box-shadow: var(--shadow-md);
   border-bottom-color: var(--border-color);
+
 }
 
 .navbar-brand {
