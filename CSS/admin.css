@@ -22,7 +22,7 @@
     --sidebar-bg-end: #0d1117;
 }
 
-/* ---- LIGHT MODE ---- */
+/* ---- CHẾ ĐỘ SÁNG ---- */
 body[data-theme="light"] {
     --bg-dark: #f0f4f8;
     --bg-darker: #e2e8f0;
@@ -51,14 +51,14 @@ body {
     overflow-x: hidden;
 }
 
-/* Layout */
+/* Bố cục */
 .container {
     display: flex;
     height: 100vh;
     background-color: var(--bg-dark);
 }
 
-/* Sidebar */
+/* Thanh bên */
 .sidebar {
     width: 170px;
     background: linear-gradient(180deg, var(--sidebar-bg-start) 0%, var(--sidebar-bg-end) 100%);
@@ -144,7 +144,7 @@ body {
     overflow-y: auto;
 }
 
-/* Upgrade Section */
+/* Phần nâng cấp */
 .upgrade-section {
     background: linear-gradient(135deg, #7ec041 0%, #6ba433 100%);
     border-radius: 10px;
@@ -182,7 +182,7 @@ body {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Admin Profile */
+/* Hồ sơ quản trị viên */
 .admin-profile {
     display: flex;
     align-items: center;
@@ -219,7 +219,7 @@ body {
     font-size: 12px;
 }
 
-/* Main Content */
+/* Nội dung chính */
 .main-content {
     flex: 1;
     display: flex;
@@ -228,7 +228,7 @@ body {
     background-color: var(--bg-dark);
 }
 
-/* Header */
+/* Đầu trang */
 .header {
     display: flex;
     justify-content: space-between;
@@ -346,14 +346,14 @@ body {
     font-weight: 600;
 }
 
-/* Dashboard */
+/* Bảng điều khiển */
 .dashboard {
     flex: 1;
     padding: 25px 35px;
     overflow-y: auto;
 }
 
-/* Stats Grid */
+/* Lưới thống kê */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -475,7 +475,7 @@ body {
     text-align: right;
 }
 
-/* Charts Row */
+/* Hàng biểu đồ */
 .charts-row {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -567,7 +567,7 @@ body {
     background-color: #1e96f3;
 }
 
-/* Categories */
+/* Danh mục */
 .categories-list {
     display: flex;
     flex-direction: column;
@@ -652,7 +652,7 @@ body {
     color: var(--primary-color);
 }
 
-/* Tables Section */
+/* Phần bảng */
 .tables-row {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -755,7 +755,7 @@ table tbody tr:hover {
     color: #4caf50;
 }
 
-/* Activity Container */
+/* Vùng chứa hoạt động */
 .activity-container {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -848,7 +848,7 @@ table tbody tr:hover {
     margin-left: 12px;
 }
 
-/* Bottom Charts Row */
+/* Hàng biểu đồ phía dưới */
 .bottom-charts-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -889,7 +889,7 @@ table tbody tr:hover {
     font-weight: 600;
 }
 
-/* System Status */
+/* Trạng thái hệ thống */
 .status-list {
     display: flex;
     flex-direction: column;
@@ -936,7 +936,7 @@ table tbody tr:hover {
     font-weight: 600;
 }
 
-/* Scrollbar Styling */
+/* Định kiểu thanh cuộn */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -956,7 +956,7 @@ table tbody tr:hover {
 }
 
 /* ============================================================
-   HAMBURGER BUTTON
+   NÚT HAMBURGER
    ============================================================ */
 .hamburger-btn {
     display: none;
@@ -978,7 +978,7 @@ table tbody tr:hover {
     color: var(--primary-color);
 }
 
-/* Sidebar Overlay */
+/* Lớp phủ thanh bên */
 .sidebar-overlay {
     display: none;
     position: fixed;
@@ -992,7 +992,7 @@ table tbody tr:hover {
 }
 
 /* ============================================================
-   PROFILE DROPDOWN
+   TRÌNH ĐƠN HỒ SƠ
    ============================================================ */
 .profile-wrapper {
     position: relative;
@@ -1038,7 +1038,7 @@ table tbody tr:hover {
 #dropdownLogout { color: #f44336 !important; }
 
 /* ============================================================
-   NOTIFICATION PANEL
+   BẢNG THÔNG BÁO
    ============================================================ */
 .notif-panel {
     position: fixed;
@@ -1086,7 +1086,7 @@ table tbody tr:hover {
 .notif-time { font-size: 11px; color: var(--text-tertiary); }
 
 /* ============================================================
-   TOAST
+   THÔNG BÁO TOAST
    ============================================================ */
 .toast {
     position: fixed;
@@ -1113,7 +1113,7 @@ table tbody tr:hover {
 .toast-error { border-left: 4px solid #f44336; }
 
 /* ============================================================
-   RESPONSIVE
+   ĐÁP ỨNG
    ============================================================ */
 @media (max-width: 1200px) {
     .charts-row {
@@ -1140,7 +1140,7 @@ table tbody tr:hover {
 }
 
 @media (max-width: 768px) {
-    /* Hamburger visible */
+    /* Hiển thị hamburger */
     .hamburger-btn { display: flex; }
 
     .container {
@@ -1149,7 +1149,7 @@ table tbody tr:hover {
         min-height: 100vh;
     }
 
-    /* Sidebar slides in from left */
+    /* Thanh bên trượt vào từ bên trái */
     .sidebar {
         position: fixed;
         top: 0;
@@ -1236,7 +1236,7 @@ table tbody tr:hover {
         font-size: 12px;
     }
 
-    /* Hide less important columns on mobile */
+    /* Ẩn các cột ít quan trọng trên thiết bị di động */
     table thead tr th:nth-child(3),
     table tbody tr td:nth-child(3),
     table thead tr th:nth-child(5),

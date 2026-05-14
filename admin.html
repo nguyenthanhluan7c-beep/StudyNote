@@ -6,14 +6,14 @@
     <title>Admin Panel - StudyNote</title>
     <link rel="stylesheet" href="CSS/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- jQuery -->
+    <!-- Thư viện jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- jQuery UI (optional, for dialogs) -->
+    <!-- jQuery UI (tùy chọn, cho hộp thoại) -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script defer src="JavaScript/API_JS/API.js"></script>
     <style>
-        /* Tabs & Sections */
+        /* Các thẻ & Phần */
         .tabs-container {
             display: flex;
             gap: 10px;
@@ -171,11 +171,11 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar Overlay (mobile) -->
+    <!-- Lớp phủ thanh bên (di động) -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="container">
-        <!-- Sidebar --> 
+        <!-- Thanh bên --> 
         <aside class="sidebar">
             <div class="logo">
                 <span class="logo-icon">📚</span>
@@ -213,14 +213,14 @@
                 </div>
             </nav>
 
-            <!-- Upgrade Plan -->
+            <!-- Nâng cấp gói -->
             <div class="upgrade-section">
                 <h3>Nâng cấp kế hoạch</h3>
                 <p>Mở khóa thêm tính năng và phân tích nâng cao.</p>
                 <button class="upgrade-btn">Nâng cấp ngay →</button>
             </div>
 
-            <!-- Admin Profile -->
+            <!-- Hồ sơ quản trị viên -->
             <div class="profile-wrapper">
                 <div class="admin-profile" id="adminProfileBtn">
                     <img src="https://ui-avatars.com/api/?name=Admin&background=7ec041&color=fff&size=40&rounded=true" alt="Admin">
@@ -230,22 +230,22 @@
                     </div>
                     <i class="fas fa-chevron-up" style="color:var(--text-tertiary);font-size:11px"></i>
                 </div>
-                <!-- Profile Dropdown -->
+                <!-- Trình đơn hồ sơ -->
                 <div id="profileDropdown">
-                    <a href="#"><i class="fas fa-user"></i> Hồ sơ của tôi</a>
-                    <a href="#"><i class="fas fa-cog"></i> Cài đặt</a>
+                    <a href="#" id="dropdownProfile"><i class="fas fa-user"></i> Hồ sơ của tôi</a>
+                    <a href="#" id="dropdownSettings"><i class="fas fa-cog"></i> Cài đặt</a>
                     <div class="divider"></div>
                     <button id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
                 </div>
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Nội dung chính -->
         <main class="main-content">
-            <!-- Header -->
+            <!-- Đầu trang -->
             <header class="header">
                 <div class="header-left" style="display:flex;align-items:center;gap:12px">
-                    <!-- Hamburger (mobile) -->
+                    <!-- Nút Hamburger (di động) -->
                     <button class="hamburger-btn" id="hamburgerBtn" title="Mở menu">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -275,9 +275,9 @@
                 </div>
             </header>
 
-            <!-- Dashboard Content -->
+            <!-- Nội dung bảng điều khiển -->
             <div class="dashboard">
-                <!-- Stats Cards -->
+                <!-- Thẻ thống kê -->
                 <section class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon users-icon">
@@ -361,9 +361,9 @@
                     </div>
                 </section>
 
-                <!-- Charts Section -->
+                <!-- Phần biểu đồ -->
                 <div class="charts-row">
-                    <!-- Overview Chart -->
+                    <!-- Biểu đồ tổng quan -->
                     <section class="chart-container overview-chart">
                         <div class="chart-header">
                             <h2>Tổng quan</h2>
@@ -378,7 +378,7 @@
                         <canvas id="overviewChart"></canvas>
                     </section>
 
-                    <!-- User Activity & Categories -->
+                    <!-- Hoạt động & Danh mục của người dùng -->
                     <div class="right-charts">
                         <section class="chart-container user-activity">
                             <div class="chart-header">
@@ -461,9 +461,9 @@
                     </div>
                 </div>
 
-                <!-- Tables Section -->
+                <!-- Phần bảng -->
                 <div class="tables-row">
-                    <!-- Recent Notes -->
+                    <!-- Ghi chú gần đây -->
                     <section class="table-container recent-notes">
                         <div class="table-header">
                             <h2>Ghi chú gần đây</h2>
@@ -488,7 +488,7 @@
                                     <td>John Doe</td>
                                     <td>245</td>
                                     <td>1,234</td>
-                                    <td>21 Tháng 5, 2024</td>
+                                    <td>21 Tháng 5, 2026</td>
                                     <td><span class="status published">Đã xuất bản</span></td>
                                 </tr>
                                 <tr>
@@ -531,7 +531,7 @@
                         </table>
                     </section>
 
-                    <!-- Recent Activities -->
+                    <!-- Hoạt động gần đây -->
                     <section class="activity-container recent-activities">
                         <div class="activity-header">
                             <h2>Hoạt động gần đây</h2>
@@ -592,7 +592,7 @@
                     </section>
                 </div>
 
-                <!-- Bottom Charts -->
+                <!-- Biểu đồ phía dưới -->
                 <div class="bottom-charts-row">
                     <section class="chart-container storage-overview">
                         <div class="chart-header">
@@ -663,7 +663,7 @@
                 </div>
             </div>
 
-            <!-- Users Management Tab -->
+            <!-- Thẻ quản lý người dùng -->
             <div id="users-tab" class="content-tab">
                 <div class="action-bar">
                     <h2>Quản lý Người dùng</h2>
@@ -689,7 +689,7 @@
                 </div>
             </div>
 
-            <!-- Notes Management Tab -->
+            <!-- Thẻ quản lý ghi chú -->
             <div id="notes-tab" class="content-tab">
                 <div class="action-bar">
                     <h2>Quản lý Ghi chú</h2>
@@ -716,7 +716,7 @@
                 </div>
             </div>
 
-            <!-- Uploads Management Tab -->
+            <!-- Thẻ quản lý tệp tải lên -->
             <div id="uploads-tab" class="content-tab">
                 <h2>Quản lý Tải lên</h2>
                 <div class="upload-zone" id="uploadZone">
@@ -731,7 +731,7 @@
                 </div>
             </div>
 
-            <!-- Downloads Management Tab -->
+            <!-- Thẻ quản lý tệp tải xuống -->
             <div id="downloads-tab" class="content-tab">
                 <h2>Quản lý Tải xuống</h2>
                 <div class="table-responsive">
@@ -755,7 +755,7 @@
 
         </main>
 
-        <!-- User Dialog -->
+        <!-- Hộp thoại người dùng -->
         <div id="userDialog" title="Thêm/Sửa Người dùng">
             <form id="userForm">
                 <div class="form-group">
@@ -780,7 +780,7 @@
             </form>
         </div>
 
-        <!-- Note Dialog -->
+        <!-- Hộp thoại ghi chú -->
         <div id="noteDialog" title="Thêm/Sửa Ghi chú">
             <form id="noteForm">
                 <div class="form-group">
@@ -802,15 +802,52 @@
             </form>
         </div>
 
-    </div>
+        <!-- Hộp thoại hồ sơ -->
+        <div id="profileDialog" title="Hồ sơ của tôi">
+            <div class="profile-details" style="text-align: center; padding: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=7ec041&color=fff&size=80&rounded=true" alt="Admin" style="margin-bottom: 15px;">
+                <h3 style="margin-bottom: 5px;">Admin</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">Quản trị viên cao cấp</p>
+                
+                <div class="form-group" style="text-align: left;">
+                    <label>Email liên hệ</label>
+                    <input type="email" value="admin@studynote.com" disabled>
+                </div>
+                <div class="form-group" style="text-align: left;">
+                    <label>Ngày tham gia</label>
+                    <input type="text" value="01/01/2024" disabled>
+                </div>
+            </div>
+        </div>
 
-    <script defer src="JavaScript/ADMIN_JS/admin.js"></script>
-    <script defer src="JavaScript/ADMIN_JS/admin-extended.js"></script>
-</body>
-</html>
+        <!-- Hộp thoại cài đặt -->
+        <div id="settingsDialog" title="Cài đặt hệ thống">
+            <form id="settingsForm">
+                <div class="form-group">
+                    <label>Tên hiển thị</label>
+                    <input type="text" id="settingName" value="Admin">
+                </div>
+                <div class="form-group">
+                    <label>Nhận thông báo qua Email</label>
+                    <select id="settingNotify">
+                        <option value="yes">Có</option>
+                        <option value="no">Không</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ngôn ngữ</label>
+                    <select id="settingLang">
+                        <option value="vi">Tiếng Việt</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <script src="JavaScript/ADMIN_JS/admin.js"></script>
+    <script defer src="JavaScript/ADMIN_JS/admin.js"></script>
+    <script defer src="JavaScript/ADMIN_JS/admin-extended.js"></script>
 </body>
 </html>

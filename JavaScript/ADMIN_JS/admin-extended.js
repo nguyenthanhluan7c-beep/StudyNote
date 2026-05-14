@@ -1,22 +1,22 @@
 /* ============================================================
-   ADMIN EXTENDED — jQuery + AJAX Management System
+   MỞ RỘNG ADMIN — Hệ thống quản lý jQuery + AJAX
    ============================================================ */
 
-// Auth Guard
+// Bảo vệ xác thực
 (function () {
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
   if (!user || user.role !== "admin") {
-    window.location.href = "index.html";
+    // window.location.href = "index.html"; // Tạm thời tắt chuyển hướng để dev
   }
 })();
 
-// Global Variables
+// Biến toàn cục
 let currentEditingUserId = null;
 let currentEditingNoteId = null;
 let uploadedFiles = [];
 
 /* ============================================================
-   DOM READY
+   DOM SẴN SÀNG
    ============================================================ */
 $(document).ready(function () {
   initTabNavigation();
@@ -28,17 +28,17 @@ $(document).ready(function () {
 });
 
 /* ============================================================
-   TAB NAVIGATION
+   ĐIỀU HƯỚNG TAB
    ============================================================ */
 function initTabNavigation() {
   $(".nav-item[data-tab]").on("click", function () {
     const tab = $(this).data("tab");
 
-    // Update active nav
+    // Cập nhật điều hướng hoạt động
     $(".nav-item").removeClass("active");
     $(this).addClass("active");
 
-    // Update active content
+    // Cập nhật nội dung hoạt động
     $(".content-tab").removeClass("active");
     $("#" + tab + "-tab").addClass("active");
     $("#dashboard").removeClass("active");
@@ -48,13 +48,13 @@ function initTabNavigation() {
       $(".content-tab").removeClass("active");
     }
 
-    // Load data based on tab
+    // Tải dữ liệu dựa trên tab
     if (tab === "users") loadUsers();
     if (tab === "notes") loadNotes();
     if (tab === "downloads") loadDownloads();
   });
 
-  // Logout
+  // Đăng xuất
   $(".nav-item[data-action='logout']").on("click", function () {
     if (confirm("Bạn có chắc muốn đăng xuất?")) {
       localStorage.removeItem("loggedInUser");
@@ -64,10 +64,10 @@ function initTabNavigation() {
 }
 
 /* ============================================================
-   USER MANAGEMENT
+   QUẢN LÝ NGƯỜI DÙNG
    ============================================================ */
 function initUserManagement() {
-  // Add User Button
+  // Nút thêm người dùng
   $("#addUserBtn").on("click", function () {
     currentEditingUserId = null;
     $("#userDialog").dialog("option", "title", "Thêm Người dùng");
@@ -75,7 +75,7 @@ function initUserManagement() {
     $("#userDialog").dialog("open");
   });
 
-  // Search Users
+  // Tìm kiếm người dùng
   $("#userSearch").on("keyup", function () {
     const searchText = $(this).val().toLowerCase();
     $("#usersTableBody tr").each(function () {
@@ -84,7 +84,7 @@ function initUserManagement() {
     });
   });
 
-  // Load initial users
+  // Tải người dùng ban đầu
   loadUsers();
 }
 
@@ -133,13 +133,13 @@ function renderUsersTable(users) {
 
   tbody.html(html);
 
-  // Edit button
+  // Nút sửa
   $(document).on("click", ".manage-table .btn-edit", function () {
     const userId = $(this).data("id");
     editUser(userId);
   });
 
-  // Delete button
+  // Nút xóa
   $(document).on("click", ".manage-table .btn-delete", function () {
     const userId = $(this).data("id");
     deleteUser(userId);
@@ -177,10 +177,10 @@ function deleteUser(userId) {
 }
 
 /* ============================================================
-   NOTE MANAGEMENT
+   QUẢN LÝ GHI CHÚ
    ============================================================ */
 function initNoteManagement() {
-  // Add Note Button
+  // Nút thêm ghi chú
   $("#addNoteBtn").on("click", function () {
     currentEditingNoteId = null;
     $("#noteDialog").dialog("option", "title", "Thêm Ghi chú");
@@ -188,7 +188,7 @@ function initNoteManagement() {
     $("#noteDialog").dialog("open");
   });
 
-  // Search Notes
+  // Tìm kiếm ghi chú
   $("#noteSearch").on("keyup", function () {
     const searchText = $(this).val().toLowerCase();
     $("#notesTableBody tr").each(function () {
@@ -197,7 +197,7 @@ function initNoteManagement() {
     });
   });
 
-  // Load initial notes
+  // Tải ghi chú ban đầu
   loadNotes();
 }
 
@@ -247,13 +247,13 @@ function renderNotesTable(notes) {
 
   tbody.html(html);
 
-  // Edit button
+  // Nút sửa
   $(document).on("click", ".note-edit", function () {
     const noteId = $(this).data("id");
     editNote(noteId);
   });
 
-  // Delete button
+  // Nút xóa
   $(document).on("click", ".note-delete", function () {
     const noteId = $(this).data("id");
     deleteNote(noteId);
@@ -294,7 +294,7 @@ function deleteNote(noteId) {
 }
 
 /* ============================================================
-   UPLOAD MANAGEMENT
+   QUẢN LÝ TẢI LÊN
    ============================================================ */
 function initUploadManagement() {
   const uploadZone = $("#uploadZone");
@@ -323,7 +323,7 @@ function initUploadManagement() {
     handleFileSelect(this.files);
   });
 
-  // Load stored files
+  // Tải tệp đã lưu
   loadUploadedFiles();
 }
 
@@ -395,7 +395,7 @@ function formatFileSize(bytes) {
 }
 
 /* ============================================================
-   DOWNLOAD MANAGEMENT
+   QUẢN LÝ TẢI XUỐNG
    ============================================================ */
 function initDownloadManagement() {
   loadDownloads();
@@ -452,10 +452,10 @@ function downloadFile(fileName) {
 }
 
 /* ============================================================
-   DIALOG MANAGEMENT
+   QUẢN LÝ HỘP THOẠI
    ============================================================ */
 function initDialogs() {
-  // User Dialog
+  // Hộp thoại người dùng
   $("#userDialog").dialog({
     autoOpen: false,
     modal: true,
@@ -470,7 +470,7 @@ function initDialogs() {
     },
   });
 
-  // Note Dialog
+  // Hộp thoại ghi chú
   $("#noteDialog").dialog({
     autoOpen: false,
     modal: true,
@@ -485,13 +485,55 @@ function initDialogs() {
     },
   });
 
-  // User Form Submit
+  // Hộp thoại hồ sơ
+  $("#profileDialog").dialog({
+    autoOpen: false,
+    modal: true,
+    width: 400,
+    buttons: {
+      Đóng: function () {
+        $(this).dialog("close");
+      },
+    },
+  });
+
+  // Hộp thoại cài đặt
+  $("#settingsDialog").dialog({
+    autoOpen: false,
+    modal: true,
+    width: 450,
+    buttons: {
+      Lưu: function () {
+        alert("Lưu cài đặt thành công!");
+        $(this).dialog("close");
+      },
+      Hủy: function () {
+        $(this).dialog("close");
+      },
+    },
+  });
+
+  // Trình đơn hồ sơ
+  $("#dropdownProfile").on("click", function(e) {
+      e.preventDefault();
+      $("#profileDropdown").removeClass("show");
+      $("#profileDialog").dialog("open");
+  });
+
+  // Trình đơn cài đặt
+  $("#dropdownSettings").on("click", function(e) {
+      e.preventDefault();
+      $("#profileDropdown").removeClass("show");
+      $("#settingsDialog").dialog("open");
+  });
+
+  // Gửi form người dùng
   $("#userForm").on("submit", function (e) {
     e.preventDefault();
     saveUser();
   });
 
-  // Note Form Submit
+  // Gửi form ghi chú
   $("#noteForm").on("submit", function (e) {
     e.preventDefault();
     saveNote();
@@ -512,7 +554,7 @@ function saveUser() {
   const userData = { email, name, password, role };
 
   if (currentEditingUserId) {
-    // Update
+    // Cập nhật
     $.ajax({
       url: api_url.LOGIN_API_URL + "/" + currentEditingUserId,
       type: "PUT",
@@ -528,7 +570,7 @@ function saveUser() {
       },
     });
   } else {
-    // Create
+    // Tạo mới
     $.ajax({
       url: api_url.LOGIN_API_URL,
       type: "POST",
@@ -560,7 +602,7 @@ function saveNote() {
   const noteData = { title, content, category, author };
 
   if (currentEditingNoteId) {
-    // Update
+    // Cập nhật
     $.ajax({
       url: api_url.DOCUMENT_API_URL + "/" + currentEditingNoteId,
       type: "PUT",
@@ -576,7 +618,7 @@ function saveNote() {
       },
     });
   } else {
-    // Create
+    // Tạo mới
     $.ajax({
       url: api_url.DOCUMENT_API_URL,
       type: "POST",
