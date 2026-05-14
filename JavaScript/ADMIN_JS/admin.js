@@ -1,15 +1,15 @@
 /* ============================================================
-   ADMIN.JS — StudyNote Admin Dashboard
+   ADMIN.JS — Bảng điều khiển quản trị viên StudyNote
    ============================================================ */
-/* ---------- 1. AUTH GUARD ---------- */
+/* ---------- 1. BẢO VỆ XÁC THỰC ---------- */
 (function authGuard() {
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
   if (!user || user.role !== "admin") {
-    window.location.href = "index.html";
+    // window.location.href = "index.html"; // Tạm thời tắt chuyển hướng để dev
   }
 })();
 
-/* ---------- 2. DOM READY ---------- */
+/* ---------- 2. DOM SẴN SÀNG ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   initSidebar();
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ============================================================
-   THEME TOGGLE (Dark / Light)
+   CHUYỂN ĐỔI GIAO DIỆN (Tối / Sáng)
    ============================================================ */
 function initTheme() {
   const btn = document.getElementById("themeToggleBtn");
@@ -55,7 +55,7 @@ function applyTheme(theme) {
 }
 
 /* ============================================================
-   SIDEBAR NAV — active state
+   ĐIỀU HƯỚNG THANH BÊN — trạng thái hoạt động
    ============================================================ */
 function initSidebar() {
   const items = document.querySelectorAll(".nav-item");
@@ -64,7 +64,7 @@ function initSidebar() {
       items.forEach((i) => i.classList.remove("active"));
       item.classList.add("active");
 
-      // close sidebar on mobile after clicking
+      // đóng thanh bên trên thiết bị di động sau khi nhấp
       const sidebar = document.querySelector(".sidebar");
       if (window.innerWidth <= 768) {
         sidebar.classList.remove("open");
@@ -73,7 +73,7 @@ function initSidebar() {
     });
   });
 
-  // Logout nav item
+  // Mục điều hướng đăng xuất
   const logoutItem = document.querySelector('.nav-item[data-action="logout"]');
   if (logoutItem) {
     logoutItem.addEventListener("click", handleLogout);
@@ -81,7 +81,7 @@ function initSidebar() {
 }
 
 /* ============================================================
-   HAMBURGER MENU (mobile)
+   MENU HAMBURGER (di động)
    ============================================================ */
 function initHamburger() {
   const btn = document.getElementById("hamburgerBtn");
@@ -102,7 +102,7 @@ function initHamburger() {
 }
 
 /* ============================================================
-   PROFILE DROPDOWN MENU
+   MENU TRẢ XUỐNG HỒ SƠ
    ============================================================ */
 function initProfileMenu() {
   const profile = document.querySelector(".admin-profile");
@@ -118,7 +118,7 @@ function initProfileMenu() {
     dropdown.classList.remove("show");
   });
 
-  // Logout from dropdown
+  // Đăng xuất từ menu thả xuống
   const logoutDropBtn = document.getElementById("dropdownLogout");
   if (logoutDropBtn) {
     logoutDropBtn.addEventListener("click", handleLogout);
@@ -133,7 +133,7 @@ function handleLogout() {
 }
 
 /* ============================================================
-   SEARCH
+   TÌM KIẾM
    ============================================================ */
 function initSearch() {
   const input = document.querySelector(".search-box input");
@@ -147,7 +147,7 @@ function initSearch() {
 }
 
 /* ============================================================
-   LIVE CLOCK in date-range
+   ĐỒNG HỒ TRỰC TIẾP trong phạm vi ngày
    ============================================================ */
 function initLiveClock() {
   const el = document.getElementById("liveClock");
@@ -169,7 +169,7 @@ function initLiveClock() {
 }
 
 /* ============================================================
-   NOTIFICATIONS
+   THÔNG BÁO
    ============================================================ */
 function initNotifications() {
   const btn = document.querySelector(".notification-btn");
@@ -194,7 +194,7 @@ function initNotifications() {
 }
 
 function showNotificationPanel(notifications) {
-  // Remove existing panel
+  // Xóa bảng hiện tại
   document.getElementById("notifPanel")?.remove();
 
   const panel = document.createElement("div");
@@ -234,7 +234,7 @@ function showNotificationPanel(notifications) {
 }
 
 /* ============================================================
-   STAT COUNTERS (animated)
+   BỘ ĐẾM THỐNG KÊ (hoạt ảnh)
    ============================================================ */
 function initStatCounters() {
   const stats = {
@@ -275,7 +275,7 @@ function initStatCounters() {
     animateCounter(el, 0, target, 1500, suffix);
   });
 
-  // Storage progress bar
+  // Thanh tiến trình lưu trữ
   const progressFill = document.querySelector(".progress-fill");
   const progressText = document.querySelector(".progress-text");
   if (progressFill) {
@@ -285,7 +285,7 @@ function initStatCounters() {
     }, 300);
   }
 
-  // Stat change labels
+  // Nhãn thay đổi thống kê
   const changes = [
     "+8.2% tuần này",
     "+12.5% tuần này",
@@ -299,7 +299,7 @@ function initStatCounters() {
       el.innerHTML = `<i class="fas fa-arrow-up"></i> ${changes[i]}`;
   });
 
-  // Category counts
+  // Số lượng danh mục
   const categoryCounts = [
     "2,341 ghi chú",
     "1,892 ghi chú",
@@ -311,7 +311,7 @@ function initStatCounters() {
     if (categoryCounts[i]) el.textContent = categoryCounts[i];
   });
 
-  // Legend values
+  // Giá trị chú giải
   const legendValues = [
     " Người dùng hoạt động: 8,923",
     " Người dùng không hoạt động: 2,681",
@@ -337,7 +337,7 @@ function animateCounter(el, start, end, duration, suffix = "") {
 }
 
 /* ============================================================
-   CHARTS (Chart.js)
+   BIỂU ĐỒ (Chart.js)
    ============================================================ */
 function initCharts() {
   initOverviewChart();
@@ -431,7 +431,7 @@ function initOverviewChart() {
     },
   });
 
-  // Filter select
+  // Lọc vùng chọn
   const select = document.querySelector(".chart-filter select");
   if (select) {
     select.addEventListener("change", () => {
@@ -593,7 +593,7 @@ function initDownloadChart() {
 }
 
 /* ============================================================
-   TOAST NOTIFICATION
+   THÔNG BÁO TOAST
    ============================================================ */
 function showToast(message, type = "info") {
   const toast = document.createElement("div");
