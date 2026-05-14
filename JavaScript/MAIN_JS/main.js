@@ -177,13 +177,17 @@ function viewCourseDetail(id, title, image) {
 // ============ LOGOUT ============
 function handleLogout() {
   localStorage.removeItem("isLoggedIn");
-  window.location.href = "loggin.html";
+  window.location.href = "login.html";
 }
 // Check auth on page load
 document.addEventListener("DOMContentLoaded", () => {
   const logged = localStorage.getItem("isLoggedIn");
+  const role = localStorage.getItem("role");
   if(logged !== "true") {
     window.location.href = "login.html";
     return;
+  }
+  if(role === "admin") {
+    window.location.href = "admin.html";
   }
 });
