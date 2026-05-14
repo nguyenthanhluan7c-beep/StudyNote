@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduHub - Nền tảng đăng ký khóa học</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./CSS/use.css" />
+  </head>
+  <body>
+    <!-- ============ NAVBAR ============ -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white navbar-sticky"
+      id="navbar"
+    >
+      <div class="container-fluid px-4">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" href="#">
+          <i class="bi bi-mortarboard-fill me-2"></i>
+          <span class="brand-text">StudyNote</span>
+        </a>
+
+        <!-- Toggle Button for Mobile -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <!-- Search Bar -->
+          <div class="search-container mx-auto">
+            <div class="input-group">
+              <span class="input-group-text bg-light border-0">
+                <i class="bi bi-search"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control bg-light border-0"
+                placeholder="Tìm kiếm khóa học..."
+              />
+            </div>
+          </div>
+
+          <!-- Menu -->
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Khóa học</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./yeuthich.html">Yêu thích</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="lienhe.html">Liên hệ</a>
+            </li>
+          </ul>
+
+          <!-- User Icon & Login -->
+          <div class="nav-icons ms-3">
+            <a href="#" class="icon-link me-3" title="Yêu thích">
+              <i class="bi bi-heart"></i>
+            </a>
+            <a href="#" class="icon-link me-3" title="Thông báo">
+              <i class="bi bi-bell"></i>
+            </a>
+            <button
+              class="btn btn-primary btn-sm rounded-pill px-3"
+              onclick="handleLogout()"
+            >
+              <i class="bi bi-box-arrow-in-right me-1"></i> Đăng xuất
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero-section py-5">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <!-- Text Content -->
+          <div
+            class="col-lg-6 mb-5 mb-lg-0 hero-text fade-in"
+            style="padding-left: 40px; padding-top: 50px"
+          >
+            <h1 class="hero-title mb-3">
+              Nền tảng đăng ký khóa học dành cho sinh viên
+            </h1>
+            <p class="hero-subtitle mb-4">
+              Học từ các khóa học chất lượng cao với giảng viên hàng đầu. Phát
+              triển kỹ năng và đạt được sự nghiệp mơ ước của bạn.
+            </p>
+            <div class="d-flex gap-3" style="padding-left: 200px">
+              <button class="btn btn-outline-primary btn-lg rounded-pill px-4">
+                <i class="bi bi-arrow-right me-2"></i> Đăng ký ngay
+              </button>
+            </div>
+          </div>
+
+          <!-- Image Content -->
+          <div class="col-lg-6 text-center">
+            <img
+              style="height: auto"
+              src="https://thietkewebso.com/upload/blog/2022/09/15/ma-nguon-website-la-gi-20220915103538-200177.png"
+              alt="Hero Image"
+              class="img-fluid hero-image fade-in"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MAIN SECTION WITH SIDEBAR & COURSES ============ -->
+    <section class="courses-section py-5">
+      <div class="container-fluid">
+        <div class="row g-4">
+          <!-- ============ SIDEBAR FILTER ============ -->
+          <div class="col-lg-3">
+            <div class="sidebar-filter glass-morphism">
+              <h5 class="sidebar-title mb-4">
+                <i class="bi bi-funnel me-2"></i> Bộ lọc
+              </h5>
+
+              <!-- Filter: Năm học -->
+              <div class="filter-group mb-4">
+                <h6 class="filter-label">Năm học</h6>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="year2024"
+                    checked
+                  />
+                  <label class="form-check-label" for="year2024">
+                    2024 - 2025
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="year2023"
+                  />
+                  <label class="form-check-label" for="year2023">
+                    2023 - 2024
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="year2022"
+                  />
+                  <label class="form-check-label" for="year2022">
+                    2022 - 2023
+                  </label>
+                </div>
+              </div>
+
+              <!-- Filter: Học kỳ -->
+              <div class="filter-group mb-4">
+                <h6 class="filter-label">Học kỳ</h6>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="semester1"
+                    checked
+                  />
+                  <label class="form-check-label" for="semester1">
+                    Học kỳ 1
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="semester2"
+                  />
+                  <label class="form-check-label" for="semester2">
+                    Học kỳ 2
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="semester3"
+                  />
+                  <label class="form-check-label" for="semester3">
+                    Học kỳ hè
+                  </label>
+                </div>
+              </div>
+
+              <!-- Filter: Danh mục -->
+              <div class="filter-group mb-4">
+                <h6 class="filter-label">Danh mục</h6>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="category1"
+                    checked
+                  />
+                  <label class="form-check-label" for="category1">
+                    Lập trình Web
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="category2"
+                  />
+                  <label class="form-check-label" for="category2">
+                    Mobile App
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="category3"
+                  />
+                  <label class="form-check-label" for="category3">
+                    Data Science
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="category4"
+                  />
+                  <label class="form-check-label" for="category4">
+                    UI/UX Design
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="category5"
+                  />
+                  <label class="form-check-label" for="category5">
+                    Cloud Computing
+                  </label>
+                </div>
+              </div>
+
+              <!-- Reset Filter Button -->
+              <button class="btn btn-outline-secondary w-100 rounded-pill mt-3">
+                <i class="bi bi-arrow-clockwise me-2"></i> Làm mới
+              </button>
+            </div>
+          </div>
+
+          <!-- ============ COURSES LIST ============ -->
+          <div class="col-lg-9">
+            <!-- Section Title -->
+            <div class="mb-5">
+              <h3 class="section-title mb-2">Các khóa học phổ biến</h3>
+              <p class="section-subtitle text-muted">
+                Khám phá những khóa học được yêu thích nhất từ cộng đồng sinh
+                viên
+              </p>
+            </div>
+
+            <!-- Courses Grid -->
+            <div class="row g-4 mb-5" id="coursesGrid">
+              <!-- Course Card 1 -->
+              <div class="col-md-6 col-lg-4">
+                <div class="course-card">
+                  <div class="course-image-wrapper">
+                    <img
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png"
+                      alt=""
+                    />
+                    <div class="course-overlay">
+                      <button class="btn btn-light rounded-circle">
+                        <i class="bi bi-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="category-badge"></div>
+                    <h5 class="card-title">c++ nâng cao</h5>
+                    <div class="course-meta mb-3">
+                      <span class="me-3">
+                        <i class="bi bi-people me-1"></i>
+                      </span>
+                      <span>
+                        <i class="bi bi-star-fill text-warning me-1"></i>
+                      </span>
+                    </div>
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          1,
+                          'C++ nâng cao',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png',
+                        )
+                      "
+                    >
+                      Xem chi tiết
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Card 2 -->
+              <div class="col-md-6 col-lg-4">
+                <div class="course-card">
+                  <div class="course-image-wrapper">
+                    <img
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png"
+                      alt=""
+                    />
+                    <div class="course-overlay">
+                      <button class="btn btn-light rounded-circle">
+                        <i class="bi bi-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="category-badge"></div>
+                    <h5 class="card-title">Cấu trúc dữ liệu và giải thuật</h5>
+                    <div class="course-meta mb-3">
+                      <span class="me-3">
+                        <i class="bi bi-people me-1"></i>
+                      </span>
+                      <span>
+                        <i class="bi bi-star-fill text-warning me-1"></i>
+                      </span>
+                    </div>
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          2,
+                          'Cấu trúc dữ liệu và giải thuật',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png',
+                        )
+                      "
+                    >
+                      Xem chi tiết
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Card 3 -->
+              <div class="col-md-6 col-lg-4">
+                <div class="course-card">
+                  <div class="course-image-wrapper">
+                    <img
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png"
+                      alt=""
+                    />
+                    <div class="course-overlay">
+                      <button class="btn btn-light rounded-circle">
+                        <i class="bi bi-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="category-badge"></div>
+                    <h5 class="card-title">Làm quen với SQL</h5>
+                    <div class="course-meta mb-3">
+                      <span class="me-3">
+                        <i class="bi bi-people me-1"></i>
+                      </span>
+                      <span>
+                        <i class="bi bi-star-fill text-warning me-1"></i>
+                      </span>
+                    </div>
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          3,
+                          'Làm quen với SQL',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png',
+                        )
+                      "
+                    >
+                      Xem chi tiết
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Card 4 -->
+              <div class="col-md-6 col-lg-4">
+                <div class="course-card">
+                  <div class="course-image-wrapper">
+                    <img
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png"
+                      alt=""
+                    />
+                    <div class="course-overlay">
+                      <button class="btn btn-light rounded-circle">
+                        <i class="bi bi-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="category-badge"></div>
+                    <h5 class="card-title">C# cơ bản</h5>
+                    <div class="course-meta mb-3">
+                      <span class="me-3">
+                        <i class="bi bi-people me-1"></i>
+                      </span>
+                      <span>
+                        <i class="bi bi-star-fill text-warning me-1"></i>
+                      </span>
+                    </div>
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          4,
+                          'C# cơ bản',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png',
+                        )
+                      "
+                    >
+                      Xem chi tiết
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Card 5 -->
+              <div class="col-md-6 col-lg-4">
+                <div class="course-card">
+                  <div class="course-image-wrapper">
+                    <img
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png"
+                      alt=""
+                    />
+                    <div class="course-overlay">
+                      <button class="btn btn-light rounded-circle">
+                        <i class="bi bi-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="category-badge"></div>
+                    <h5 class="card-title">JavaScript cơ bản</h5>
+                    <div class="course-meta mb-3">
+                      <span class="me-3">
+                        <i class="bi bi-people me-1"></i>
+                      </span>
+                      <span>
+                        <i class="bi bi-star-fill text-warning me-1"></i>
+                      </span>
+                    </div>
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          5,
+                          'JavaScript cơ bản',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png',
+                        )
+                      "
+                    >
+                      Xem chi tiết
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Card 6 -->
+              <div class="col-md-6 col-lg-4">
+                <div class="course-card">
+                  <div class="course-image-wrapper">
+                    <img
+                      src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lap-trinh-huong-doi-tuong-trong-cpp_653cb309970b492ca7f69162384814f8.png"
+                      alt=""
+                    />
+                    <div class="course-overlay">
+                      <button class="btn btn-light rounded-circle">
+                        <i class="bi bi-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="category-badge"></div>
+                    <h5 class="card-title">
+                      Lập trình hướng đối tượng trong C++
+                    </h5>
+                    <div class="course-meta mb-3">
+                      <span class="me-3">
+                        <i class="bi bi-people me-1"></i>
+                      </span>
+                      <span>
+                        <i class="bi bi-star-fill text-warning me-1"></i>
+                      </span>
+                    </div>
+                    <button
+                      class="btn btn-primary w-100 rounded-pill"
+                      onclick="
+                        viewCourseDetail(
+                          6,
+                          'Lập trình hướng đối tượng trong C++',
+                          'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lap-trinh-huong-doi-tuong-trong-cpp_653cb309970b492ca7f69162384814f8.png',
+                        )
+                      "
+                    >
+                      Xem chi tiết
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- View More Button -->
+            <div class="text-center">
+              <button class="btn btn-outline-primary btn-lg rounded-pill px-5">
+                Xem thêm khóa học <i class="bi bi-arrow-right ms-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED COURSES SECTION ============ -->
+    <section class="featured-section py-5 bg-light">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mb-5 text-center">
+            <h3 class="section-title mb-2">Khóa học nổi bật</h3>
+            <p class="section-subtitle text-muted">
+              Những khóa học được đánh giá cao nhất
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <!-- Featured Card 1 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="featured-card">
+              <div class="featured-badge">
+                <i class="bi bi-star-fill"></i> Nổi bật
+              </div>
+              <img
+                src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Python_-_Algorithms_6865856c821b4bbe88a9b9e88dba2208.png"
+                alt=""
+                class="featured-image"
+              />
+              <div class="featured-content">
+                <h5 class="featured-title">giải thuật Python</h5>
+                <p class="featured-description"></p>
+                <div class="featured-rating mb-3">
+                  <span class="stars">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                  </span>
+                  <span class="rating-text"></span>
+                </div>
+                <button class="btn btn-primary w-100 rounded-pill">
+                  Đăng ký ngay
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Featured Card 2 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="featured-card">
+              <div class="featured-badge">
+                <i class="bi bi-star-fill"></i> Nổi bật
+              </div>
+              <img
+                src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Python_-_Ad_3561581c4f074d9694a4704ed184b60e.png"
+                alt=""
+                class="featured-image"
+              />
+              <div class="featured-content">
+                <h5 class="featured-title">Python nâng cao</h5>
+                <p class="featured-description"></p>
+                <div class="featured-rating mb-3">
+                  <span class="stars">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                  </span>
+                  <span class="rating-text"></span>
+                </div>
+                <button class="btn btn-primary w-100 rounded-pill">
+                  Đăng ký ngay
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Featured Card 3 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="featured-card">
+              <div class="featured-badge">
+                <i class="bi bi-star-fill"></i> Nổi bật
+              </div>
+              <img
+                src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/html-css-cho-nguoi-moi-bat-dau_3867537473444f328a4de0fa0231a6ea.jpg"
+                alt=""
+                class="featured-image"
+              />
+              <div class="featured-content">
+                <h5 class="featured-title">HTML & CSS cho người mới bắt đầu</h5>
+                <p class="featured-description"></p>
+                <div class="featured-rating mb-3">
+                  <span class="stars">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-half"></i>
+                  </span>
+                  <span class="rating-text"></span>
+                </div>
+                <button class="btn btn-primary w-100 rounded-pill">
+                  Đăng ký ngay
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA SECTION ============ -->
+    <section class="cta-section py-5">
+      <div class="container">
+        <div class="cta-content text-center">
+          <h2 class="cta-title mb-3">Sẵn sàng bắt đầu hành trình học tập?</h2>
+          <p class="cta-subtitle mb-4">
+            Đăng ký ngay hôm nay và nhận được 20% giảm giá cho khóa học đầu tiên
+          </p>
+          <button class="btn btn-light btn-lg rounded-pill px-5">
+            <i class="bi bi-arrow-right me-2"></i> Đăng ký ngay
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row g-5 mb-5">
+          <!-- About -->
+          <div class="col-md-3">
+            <h5 class="footer-title mb-4">
+              <i class="bi bi-mortarboard-fill me-2"></i> EduHub
+            </h5>
+            <p class="footer-text">
+              Nền tảng học tập trực tuyến hàng đầu dành cho sinh viên Việt Nam.
+            </p>
+            <div class="social-links mt-4">
+              <a href="#" class="social-icon">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="bi bi-twitter"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="bi bi-linkedin"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Courses -->
+          <div class="col-md-3">
+            <h6 class="footer-title mb-4">Khóa học</h6>
+            <ul class="footer-links">
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">Mobile App</a></li>
+              <li><a href="#">Data Science</a></li>
+              <li><a href="#">UI/UX Design</a></li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div class="col-md-3">
+            <h6 class="footer-title mb-4">Công ty</h6>
+            <ul class="footer-links">
+              <li><a href="#">Về chúng tôi</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Việc làm</a></li>
+              <li><a href="#">Tin tức</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div class="col-md-3">
+            <h6 class="footer-title mb-4">Liên hệ</h6>
+            <ul class="footer-links">
+              <li>
+                <i class="bi bi-telephone me-2"></i>
+                <a href="tel:+84123456789">+84 (123) 456-789</a>
+              </li>
+              <li>
+                <i class="bi bi-envelope me-2"></i>
+                <a href="mailto:info@eduhub.com">info@eduhub.com</a>
+              </li>
+              <li>
+                <i class="bi bi-geo-alt me-2"></i>
+                <span>Hà Nội, Việt Nam</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="footer-bottom py-4 border-top">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <p class="text-muted mb-0">
+                &copy; 2024 EduHub. Tất cả quyền được bảo lưu.
+              </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <a href="#" class="text-muted me-3">Chính sách bảo mật</a>
+              <a href="#" class="text-muted me-3">Điều khoản sử dụng</a>
+              <a href="#" class="text-muted">Cookie Settings</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      // ============ NAVBAR SHADOW ON SCROLL ============
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // ============ SMOOTH SCROLL ============
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // ============ HEART BUTTON TOGGLE ============
+      // Course data for favorites
+      const courseData = {
+        1: {
+          id: 1,
+          title: "C++ nâng cao",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png",
+        },
+        2: {
+          id: 2,
+          title: "Cấu trúc dữ liệu và giải thuật",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png",
+        },
+        3: {
+          id: 3,
+          title: "Làm quen với SQL",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png",
+        },
+        4: {
+          id: 4,
+          title: "C# cơ bản",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png",
+        },
+        5: {
+          id: 5,
+          title: "JavaScript cơ bản",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png",
+        },
+        6: {
+          id: 6,
+          title: "Lập trình hướng đối tượng trong C++",
+          image:
+            "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lap-trinh-huong-doi-tuong-trong-cpp_653cb309970b492ca7f69162384814f8.png",
+        },
+      };
+
+      // Initialize favorite buttons
+      function initFavoriteButtons() {
+        document.querySelectorAll(".course-overlay button").forEach((btn) => {
+          const courseCard = btn.closest(".course-card");
+          const courseIndex =
+            Array.from(document.querySelectorAll(".course-card")).indexOf(
+              courseCard,
+            ) + 1;
+
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFavorite(courseIndex, btn);
+          });
+
+          // Check if course is already in favorites
+          if (isCourseInFavorites(courseIndex)) {
+            btn.classList.add("liked");
+            const icon = btn.querySelector("i");
+            icon.classList.remove("bi-heart");
+            icon.classList.add("bi-heart-fill");
+          }
+        });
+      }
+
+      // Get favorites from localStorage
+      function getFavorites() {
+        const favorites = localStorage.getItem("favoritesCourses") || "[]";
+        return JSON.parse(favorites);
+      }
+
+      // Save favorites to localStorage
+      function saveFavorites(favorites) {
+        localStorage.setItem("favoritesCourses", JSON.stringify(favorites));
+      }
+
+      // Check if course is in favorites
+      function isCourseInFavorites(courseId) {
+        const favorites = getFavorites();
+        return favorites.some((fav) => fav.id === courseId);
+      }
+
+      // Toggle favorite
+      function toggleFavorite(courseId, btn) {
+        let favorites = getFavorites();
+        const course = courseData[courseId];
+
+        if (isCourseInFavorites(courseId)) {
+          // Remove from favorites
+          favorites = favorites.filter((fav) => fav.id !== courseId);
+          btn.classList.remove("liked");
+          const icon = btn.querySelector("i");
+          icon.classList.add("bi-heart");
+          icon.classList.remove("bi-heart-fill");
+        } else {
+          // Add to favorites
+          favorites.push({
+            id: courseId,
+            title: course.title,
+            image: course.image,
+          });
+          btn.classList.add("liked");
+          const icon = btn.querySelector("i");
+          icon.classList.remove("bi-heart");
+          icon.classList.add("bi-heart-fill");
+        }
+
+        saveFavorites(favorites);
+      }
+
+      // ============ COURSE CARD ANIMATION ON SCROLL ============
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add("visible");
+            }, index * 100);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".course-card").forEach((card) => {
+        observer.observe(card);
+      });
+
+      // ============ FILTER INTERACTION ============
+      document
+        .querySelectorAll('.filter-group input[type="checkbox"]')
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", function () {
+            console.log(
+              `${this.id} is ${this.checked ? "checked" : "unchecked"}`,
+            );
+            // Apply filter logic here
+          });
+        });
+
+      // ============ AUTH CHECK ============
+      function checkAuth() {
+        const loggedInUser = JSON.parse(
+          localStorage.getItem("loggedInUser") || "null",
+        );
+        if (!loggedInUser) {
+          window.location.href = "index.html";
+        }
+      }
+
+      // ============ VIEW COURSE DETAIL ============
+      function viewCourseDetail(id, title, image) {
+        const courseData = {
+          id: id,
+          title: title,
+          image: image,
+        };
+        localStorage.setItem("selectedCourse", JSON.stringify(courseData));
+        window.location.href = "chitiet.html";
+      }
+
+      // ============ LOGOUT ============
+      function handleLogout() {
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "index.html";
+      }
+
+      // Check auth on page load
+      checkAuth();
+    </script>
+  </body>
+</html>
