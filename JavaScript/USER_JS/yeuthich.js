@@ -2,14 +2,6 @@
    YEUTHICH.JS — Trang yêu thích khóa học
    ============================================================ */
 
-// Auth check
-(function authGuard() {
-  const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
-  if (!user) {
-    window.location.href = "index.html";
-  }
-})();
-
 // Dữ liệu khóa học
 const allCourses = {
   1: {
@@ -184,6 +176,9 @@ window.addEventListener("scroll", () => {
 
 // Logout
 function handleLogout() {
-  localStorage.removeItem("loggedInUser");
-  window.location.href = "index.html";
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("role");
+  localStorage.removeItem("favoritesCourses");
+  window.location.href = "./login.html";
 }

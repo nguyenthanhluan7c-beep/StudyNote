@@ -171,19 +171,23 @@ function viewCourseDetail(id, title, image) {
     image: image,
   };
   localStorage.setItem("selectedCourse", JSON.stringify(courseData));
-  window.location.href = "chitiet.html";
+  window.location.href = "./chitiet.html";
 }
 
 // ============ LOGOUT ============
 function handleLogout() {
   localStorage.removeItem("isLoggedIn");
-  window.location.href = "loggin.html";
+  window.location.href = "login.html";
 }
 // Check auth on page load
 document.addEventListener("DOMContentLoaded", () => {
   const logged = localStorage.getItem("isLoggedIn");
-  if(logged !== "true") {
+  const role = localStorage.getItem("role");
+  if (logged !== "true") {
     window.location.href = "login.html";
     return;
+  }
+  if (role === "admin") {
+    window.location.href = "admin.html";
   }
 });
