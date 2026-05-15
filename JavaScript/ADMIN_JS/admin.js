@@ -698,3 +698,8 @@ function showToast(message, type = "info") {
     setTimeout(() => toast.remove(), 400);
   }, 3000);
 }
+document.addEventListener("DOMContentLoaded", async () => {
+  const adminId = localStorage.getItem("userId");
+  const adminData = await getOneById(api_url.LOGIN_API_URL, adminId);
+  loadAdminImage(adminData, "admin-avatar");
+});
