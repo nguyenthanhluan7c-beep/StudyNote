@@ -22,4 +22,7 @@ function loadAdminImage(adminData, imgELement) {
         imgWrapper.style.backgroundImage = default_img[adminData.id % 10];
         imgWrapper.innerText = adminData.username[0].toUpperCase();
     }
+    else {
+        imgWrapper.innerHTML = `<img class=admin-avatar src=${adminData.user_image} alt=admin-avatar>`
+    }
 }
