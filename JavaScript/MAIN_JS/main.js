@@ -183,11 +183,11 @@ function handleLogout() {
 document.addEventListener("DOMContentLoaded", () => {
   const logged = localStorage.getItem("isLoggedIn");
   const role = localStorage.getItem("role");
-  if (logged !== "true") {
+  if(logged !== "true") {
     window.location.href = "login.html";
     return;
   }
-  if (role === "admin") {
+  if(role === "admin") {
     window.location.href = "admin.html";
   }
 });
