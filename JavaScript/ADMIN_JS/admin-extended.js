@@ -114,7 +114,7 @@ function renderUsersTable(users) {
     <tr>
       <td>${user.id || "N/A"}</td>
       <td>${user.email || "N/A"}</td>
-      <td>${user.name || "N/A"}</td>
+      <td>${user.username || "N/A"}</td>
       <td><span style="background: #7ec041; color: white; padding: 3px 8px; border-radius: 3px;">${user.role || "user"}</span></td>
       <td>${new Date(user.createdAt || Date.now()).toLocaleDateString("vi-VN")}</td>
       <td>
