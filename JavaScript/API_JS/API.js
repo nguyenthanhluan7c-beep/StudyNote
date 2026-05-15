@@ -5,6 +5,7 @@ const api_url = {
   DOCUMENT_API_URL: "https://69ff073c8c70b15fa3cafc5c.mockapi.io/api/v1/document",
   COMMENT_API_URL: "https://6a058a9faa826ca75c0a164c.mockapi.io/api/v1/comment",
   REVIEW_API_URL: "https://6a058a9faa826ca75c0a164c.mockapi.io/api/v1/review",
+  ADMIN_PANEL_API_URL: "https://6a066e32c83ba8ad9b3d7701.mockapi.io/api/v1/Adminpanel",
 };
 //hàm export api url
 function getApiUrl() {
