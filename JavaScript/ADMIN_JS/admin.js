@@ -9,6 +9,15 @@
   }
 })();
 
+//get api url
+async function getdata()
+{
+  const apiUrl = getApiUrl();
+  const adminData = await getOneById(apiUrl.ADMIN_PANEL_API_URL, 1);
+  return adminData;
+  console.log(adminData);
+}
+
 /* ---------- 2. DOM SẴN SÀNG ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
@@ -236,36 +245,38 @@ function showNotificationPanel(notifications) {
 /* ============================================================
    BỘ ĐẾM THỐNG KÊ (hoạt ảnh)
    ============================================================ */
-function initStatCounters() {
+async function initStatCounters() {
+  const adminData = await getdata();
+  console.log(adminData);
   const stats = {
     totalUsers: {
       el: document.querySelector(".stat-card:nth-child(1) .stat-value"),
-      target: 12847,
+      target: adminData.user_number || 0,
       suffix: "",
     },
     totalNotes: {
       el: document.querySelector(".stat-card:nth-child(2) .stat-value"),
-      target: 45231,
+      target: adminData.note_number || 0,
       suffix: "",
     },
     uploads: {
       el: document.querySelector(".stat-card:nth-child(3) .stat-value"),
-      target: 8549,
+      target: adminData.upload_number || 0,
       suffix: "",
     },
     downloads: {
       el: document.querySelector(".stat-card:nth-child(4) .stat-value"),
-      target: 93210,
+      target: adminData.download_number || 0,
       suffix: "",
     },
     active: {
       el: document.querySelector(".stat-card:nth-child(5) .stat-value"),
-      target: 1243,
+      target: adminData.comment_number || 0,
       suffix: "",
     },
     storage: {
       el: document.querySelector(".stat-card:nth-child(6) .stat-value"),
-      target: 642,
+      target: adminData.storage || 642,
       suffix: " GB",
     },
   };
