@@ -13,7 +13,7 @@ const courseDetails = {
     instructor: "Thầy Nguyễn Văn A",
     rating: 4.8,
     reviews: 234,
-    students: 5600,
+    students: 0,
     duration: "24 giờ",
     level: "Nâng cao",
     category: "Lập trình C++",
@@ -168,6 +168,36 @@ const courseDetails = {
     requirements: ["Kiến thức cơ bản về C++", "Hiểu biết về cấu trúc cơ bản"],
     price: "480,000 VNĐ",
   },
+  7: {
+    title: "python cơ bản",
+    image:
+      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Python_-_Ad_3561581c4f074d9694a4704ed184b60e.png",
+    description:
+      "Khóa học Python cơ bản sẽ giúp bạn nắm vững các khái niệm cơ bản về lập trình với Python. Từ biến, hàm, đến các cấu trúc dữ liệu và thư viện phổ biến.",
+    instructor: "Thầy Nguyễn Văn G",
+    rating: 4.7,
+    reviews: 412,
+    students: 7100,
+    duration: "26 giờ",
+    level: "Trung bình",
+    category: "Web Development",
+    curriculum: [
+      "Giới thiệu OOP",
+      "Class và Object",
+      "Constructor và Destructor",
+      "Encapsulation",
+      "Inheritance",
+      "Polymorphism",
+      "Virtual Function",
+      "Abstract Class",
+      "SOLID Principles",
+    ],
+    requirements: [
+      "Kiến thức cơ bản về Python",
+      "Hiểu biết về cấu trúc cơ bản",
+    ],
+    price: "480,000 VNĐ",
+  },
 };
 
 // Load course detail on page load
@@ -226,7 +256,18 @@ function renderCourseDetail(course, courseId) {
                 <div class="col-lg-8">
                     <!-- Course Image -->
                     <div class="mb-4">
-                        <img src="${escapeHtml(course.image)}" alt="${escapeHtml(course.title)}" class="course-detail-image">
+                        <img 
+  src="${escapeHtml(course.image)}"
+  alt="${escapeHtml(course.title)}"
+  class="course-detail-image"
+  style="
+    width: 100%;
+    height: ${courseId === 7 ? "600px" : "500px"};
+    object-fit: contain;
+    border-radius: 20px;
+  "
+>
+                        
                     </div>
 
                     <!-- Course Details Container -->
@@ -330,7 +371,7 @@ function renderEmptyState() {
                     <i class="bi bi-inbox"></i>
                 </div>
                 <div class="empty-state-text">Không tìm thấy khóa học</div>
-                <a href="use.html" class="btn btn-primary rounded-pill px-4">
+                <a href="./index.html" class="btn btn-primary rounded-pill px-4">
                     <i class="bi bi-arrow-left me-2"></i> Quay lại trang chủ
                 </a>
             </div>
