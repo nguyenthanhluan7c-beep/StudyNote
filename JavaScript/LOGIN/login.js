@@ -86,16 +86,14 @@ function resetBtn(btnId, html) {
 // ──────────────────────────────────────
 //  API
 // ──────────────────────────────────────
-var data;
-document.addEventListener("DOMContentLoaded", async () => {
-  const api_url = getApiUrl();
-  data = await get(api_url.LOGIN_API_URL);
-});
+
 // ──────────────────────────────────────
 //  LOGIN
 // ──────────────────────────────────────
-$("#loginBtn").click(function () {
+$("#loginBtn").click(async function () {
   setLoading("loginBtn", "loading");
+  const api_url = getApiUrl();
+  const data = await get(api_url.LOGIN_API_URL);
   const inputUsername = $("#loginUsername").val();
   const inputPassword = $("#loginPassword").val();
   let hasUsename = false;
@@ -110,13 +108,13 @@ $("#loginBtn").click(function () {
     resetBtn("loginBtn", "<i class=fas fa-right-to-bracket></i>Đăng nhập");
     return;
   }
-  for (let i = 1; i < data.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     if (inputUsername === data[i].username) {
       hasUsename = true;
       userId = i;
       break;
     }
-  }
+  }  
   if (!hasUsename) {
     showAlert("Tài khoản không tồn tại, xin mời đăng ký!", "error");
     resetBtn("loginBtn", "<i class=fas fa-right-to-bracket></i>Đăng nhập");
@@ -134,7 +132,7 @@ $("#loginBtn").click(function () {
   }
   hideAlert();
   localStorage.setItem("isLoggedIn", "true");
-  localStorage.setItem("userId", userId);
+  localStorage.setItem("userId", userId+1);
   localStorage.setItem("role", currentRole);
   if (currentRole === "user") {
     window.location.href = "index.html";
@@ -148,6 +146,8 @@ $("#loginBtn").click(function () {
 // ──────────────────────────────────────
 $("#registerBtn").click(async function () {
   setLoading("registerBtn", "loading");
+  const api_url = getApiUrl();
+  const data = await get(api_url.LOGIN_API_URL);
   const inputUsername = $("#regName").val();
   const inputEmail = $("#regEmail").val();
   const inputPassword = $("#regPassword").val();
