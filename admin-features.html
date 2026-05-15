@@ -1,488 +1,545 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quản lý Admin - StudyNote</title>
-    <link rel="stylesheet" href="CSS/admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./CSS/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <script defer src="JavaScript/API_JS/API.js"></script>
     <style>
-        .content-section {
-            display: none;
-            padding: 30px;
-        }
-        .content-section.active {
-            display: block;
-        }
-        .btn-primary {
-            background-color: #7ec041;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        .btn-primary:hover {
-            background-color: #6ba433;
-        }
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .btn-edit {
-            background-color: #ffc107;
-            color: black;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-right: 5px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: var(--bg-card);
-        }
-        table thead {
-            background-color: #7ec041;
-            color: white;
-        }
-        table th, table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-        table tbody tr:hover {
-            background-color: var(--bg-hover);
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-content {
-            background-color: var(--bg-card);
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .modal-header h2 {
-            margin: 0;
-        }
-        .close {
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
-            font-family: inherit;
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-        .upload-area {
-            border: 2px dashed #7ec041;
-            border-radius: 8px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            background-color: var(--bg-hover);
-        }
-        .upload-area:hover {
-            background-color: rgba(126, 192, 65, 0.1);
-        }
-        .upload-area i {
-            font-size: 48px;
-            color: #7ec041;
-            margin-bottom: 10px;
-        }
-        .uploaded-files {
-            margin-top: 30px;
-        }
-        .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background-color: var(--bg-hover);
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .file-info {
-            flex: 1;
-        }
-        .file-name {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .file-size {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 5px;
-        }
-        .file-actions {
-            display: flex;
-            gap: 10px;
-        }
-        .search-box {
-            margin-bottom: 20px;
-        }
-        .search-box input {
-            width: 100%;
-            max-width: 400px;
-            padding: 10px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
-        }
-        .stats-mini {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .stat-mini-card {
-            background-color: var(--bg-hover);
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .stat-mini-card .number {
-            font-size: 28px;
-            font-weight: 700;
-            color: #7ec041;
-        }
-        .stat-mini-card .label {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-top: 5px;
-        }
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-secondary);
-        }
+      .content-section {
+        display: none;
+        padding: 30px;
+      }
+      .content-section.active {
+        display: block;
+      }
+      .btn-primary {
+        background-color: #7ec041;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+      .btn-primary:hover {
+        background-color: #6ba433;
+      }
+      .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .btn-edit {
+        background-color: #ffc107;
+        color: black;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 12px;
+        margin-right: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: var(--bg-card);
+      }
+      table thead {
+        background-color: #7ec041;
+        color: white;
+      }
+      table th,
+      table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+      }
+      table tbody tr:hover {
+        background-color: var(--bg-hover);
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-content {
+        background-color: var(--bg-card);
+        padding: 30px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .modal-header h2 {
+        margin: 0;
+      }
+      .close {
+        background: none;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: var(--text-secondary);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        background-color: var(--bg-dark);
+        color: var(--text-primary);
+        font-family: inherit;
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      .form-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+      .upload-area {
+        border: 2px dashed #7ec041;
+        border-radius: 8px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s;
+        background-color: var(--bg-hover);
+      }
+      .upload-area:hover {
+        background-color: rgba(126, 192, 65, 0.1);
+      }
+      .upload-area i {
+        font-size: 48px;
+        color: #7ec041;
+        margin-bottom: 10px;
+      }
+      .uploaded-files {
+        margin-top: 30px;
+      }
+      .file-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        background-color: var(--bg-hover);
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+      .file-info {
+        flex: 1;
+      }
+      .file-name {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      .file-size {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-top: 5px;
+      }
+      .file-actions {
+        display: flex;
+        gap: 10px;
+      }
+      .search-box {
+        margin-bottom: 20px;
+      }
+      .search-box input {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        background-color: var(--bg-dark);
+        color: var(--text-primary);
+      }
+      .stats-mini {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .stat-mini-card {
+        background-color: var(--bg-hover);
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .stat-mini-card .number {
+        font-size: 28px;
+        font-weight: 700;
+        color: #7ec041;
+      }
+      .stat-mini-card .label {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-top: 5px;
+      }
+      .no-data {
+        text-align: center;
+        padding: 40px;
+        color: var(--text-secondary);
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Sidebar Overlay (mobile) -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="container">
-        <!-- Sidebar --> 
-        <aside class="sidebar">
-            <div class="logo">
-                <span class="logo-icon">📚</span>
-                <span class="logo-text">StudyNote</span>
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="logo">
+          <span class="logo-icon">📚</span>
+          <span class="logo-text">StudyNote</span>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <p class="section-title">QUẢN LÝ</p>
+            <ul class="nav-list">
+              <li class="nav-item active" data-tab="dashboard">
+                <i class="fas fa-th-large"></i>
+                <span>Bảng điều khiển</span>
+              </li>
+              <li class="nav-item" data-tab="users">
+                <i class="fas fa-users"></i>
+                <span>Người dùng</span>
+              </li>
+              <li class="nav-item" data-tab="notes">
+                <i class="fas fa-sticky-note"></i>
+                <span>Ghi chú</span>
+              </li>
+              <li class="nav-item" data-tab="uploads">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Tải lên</span>
+              </li>
+              <li class="nav-item" data-tab="downloads">
+                <i class="fas fa-cloud-download-alt"></i>
+                <span>Tải xuống</span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Admin Profile -->
+        <div class="profile-wrapper">
+          <div class="admin-profile" id="adminProfileBtn">
+            <img
+              src="https://ui-avatars.com/api/?name=Admin&background=7ec041&color=fff&size=40&rounded=true"
+              alt="Admin"
+            />
+            <div class="profile-info">
+              <p class="profile-name">Admin</p>
+              <p class="profile-role">Quản trị viên</p>
             </div>
-            <nav class="sidebar-nav">
-                <div class="nav-section">
-                    <p class="section-title">QUẢN LÝ</p>
-                    <ul class="nav-list">
-                        <li class="nav-item active" data-tab="dashboard">
-                            <i class="fas fa-th-large"></i>
-                            <span>Bảng điều khiển</span>
-                        </li>
-                        <li class="nav-item" data-tab="users">
-                            <i class="fas fa-users"></i>
-                            <span>Người dùng</span>
-                        </li>
-                        <li class="nav-item" data-tab="notes">
-                            <i class="fas fa-sticky-note"></i>
-                            <span>Ghi chú</span>
-                        </li>
-                        <li class="nav-item" data-tab="uploads">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <span>Tải lên</span>
-                        </li>
-                        <li class="nav-item" data-tab="downloads">
-                            <i class="fas fa-cloud-download-alt"></i>
-                            <span>Tải xuống</span>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+          </div>
+          <div id="profileDropdown">
+            <button id="logoutBtn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </div>
+        </div>
+      </aside>
 
-            <!-- Admin Profile -->
-            <div class="profile-wrapper">
-                <div class="admin-profile" id="adminProfileBtn">
-                    <img src="https://ui-avatars.com/api/?name=Admin&background=7ec041&color=fff&size=40&rounded=true" alt="Admin">
-                    <div class="profile-info">
-                        <p class="profile-name">Admin</p>
-                        <p class="profile-role">Quản trị viên</p>
-                    </div>
-                </div>
-                <div id="profileDropdown">
-                    <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
-                </div>
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+          <div class="header-left">
+            <h1 id="pageTitle">Bảng điều khiển</h1>
+          </div>
+          <div class="header-right">
+            <div class="header-icons">
+              <button class="icon-btn" id="themeToggleBtn">
+                <i class="fas fa-moon"></i>
+              </button>
             </div>
-        </aside>
+          </div>
+        </header>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header -->
-            <header class="header">
-                <div class="header-left">
-                    <h1 id="pageTitle">Bảng điều khiển</h1>
-                </div>
-                <div class="header-right">
-                    <div class="header-icons">
-                        <button class="icon-btn" id="themeToggleBtn">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Dashboard Section -->
-            <div id="dashboard" class="content-section active">
-                <div class="stats-mini">
-                    <div class="stat-mini-card">
-                        <div class="number" id="totalUsersCount">0</div>
-                        <div class="label">Tổng Người dùng</div>
-                    </div>
-                    <div class="stat-mini-card">
-                        <div class="number" id="totalNotesCount">0</div>
-                        <div class="label">Tổng Ghi chú</div>
-                    </div>
-                    <div class="stat-mini-card">
-                        <div class="number" id="totalCommentsCount">0</div>
-                        <div class="label">Tổng Bình luận</div>
-                    </div>
-                    <div class="stat-mini-card">
-                        <div class="number" id="totalReviewsCount">0</div>
-                        <div class="label">Tổng Đánh giá</div>
-                    </div>
-                </div>
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="content-section active">
+          <div class="stats-mini">
+            <div class="stat-mini-card">
+              <div class="number" id="totalUsersCount">0</div>
+              <div class="label">Tổng Người dùng</div>
             </div>
-
-            <!-- Users Management Section -->
-            <div id="users" class="content-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2>Quản lý Người dùng</h2>
-                    <button class="btn-primary" id="addUserBtn">
-                        <i class="fas fa-plus"></i> Thêm Người dùng
-                    </button>
-                </div>
-
-                <div class="search-box">
-                    <input type="text" id="userSearchInput" placeholder="Tìm kiếm theo email hoặc tên...">
-                </div>
-
-                <table id="usersTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>Tên</th>
-                            <th>Role</th>
-                            <th>Ngày tạo</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTableBody">
-                        <tr><td colspan="6" class="no-data">Đang tải dữ liệu...</td></tr>
-                    </tbody>
-                </table>
+            <div class="stat-mini-card">
+              <div class="number" id="totalNotesCount">0</div>
+              <div class="label">Tổng Ghi chú</div>
             </div>
-
-            <!-- Notes Management Section -->
-            <div id="notes" class="content-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2>Quản lý Ghi chú</h2>
-                    <button class="btn-primary" id="addNoteBtn">
-                        <i class="fas fa-plus"></i> Thêm Ghi chú
-                    </button>
-                </div>
-
-                <div class="search-box">
-                    <input type="text" id="noteSearchInput" placeholder="Tìm kiếm theo tiêu đề...">
-                </div>
-
-                <table id="notesTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tiêu đề</th>
-                            <th>Nội dung</th>
-                            <th>Danh mục</th>
-                            <th>Tác giả</th>
-                            <th>Ngày tạo</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody id="notesTableBody">
-                        <tr><td colspan="7" class="no-data">Đang tải dữ liệu...</td></tr>
-                    </tbody>
-                </table>
+            <div class="stat-mini-card">
+              <div class="number" id="totalCommentsCount">0</div>
+              <div class="label">Tổng Bình luận</div>
             </div>
-
-            <!-- Uploads Management Section -->
-            <div id="uploads" class="content-section">
-                <h2 style="margin-bottom: 20px;">Quản lý Tải lên</h2>
-
-                <div class="upload-area" id="uploadArea">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p><strong>Kéo & thả tệp hoặc nhấp để chọn</strong></p>
-                    <small>Hỗ trợ PDF, Word, Image, Video...</small>
-                    <input type="file" id="fileInput" style="display: none;" multiple>
-                </div>
-
-                <div class="uploaded-files">
-                    <h3 style="margin-bottom: 15px;">Tệp đã tải lên</h3>
-                    <div id="uploadedFilesList">
-                        <div class="no-data">Chưa có tệp nào</div>
-                    </div>
-                </div>
+            <div class="stat-mini-card">
+              <div class="number" id="totalReviewsCount">0</div>
+              <div class="label">Tổng Đánh giá</div>
             </div>
+          </div>
+        </div>
 
-            <!-- Downloads Management Section -->
-            <div id="downloads" class="content-section">
-                <h2 style="margin-bottom: 20px;">Quản lý Tải xuống</h2>
+        <!-- Users Management Section -->
+        <div id="users" class="content-section">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <h2>Quản lý Người dùng</h2>
+            <button class="btn-primary" id="addUserBtn">
+              <i class="fas fa-plus"></i> Thêm Người dùng
+            </button>
+          </div>
 
-                <table id="downloadsTable">
-                    <thead>
-                        <tr>
-                            <th>Tên tệp</th>
-                            <th>Loại</th>
-                            <th>Kích thước</th>
-                            <th>Lượt tải</th>
-                            <th>Ngày tạo</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody id="downloadsTableBody">
-                        <tr><td colspan="6" class="no-data">Đang tải dữ liệu...</td></tr>
-                    </tbody>
-                </table>
+          <div class="search-box">
+            <input
+              type="text"
+              id="userSearchInput"
+              placeholder="Tìm kiếm theo email hoặc tên..."
+            />
+          </div>
+
+          <table id="usersTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Tên</th>
+                <th>Role</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <tr>
+                <td colspan="6" class="no-data">Đang tải dữ liệu...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Notes Management Section -->
+        <div id="notes" class="content-section">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <h2>Quản lý Ghi chú</h2>
+            <button class="btn-primary" id="addNoteBtn">
+              <i class="fas fa-plus"></i> Thêm Ghi chú
+            </button>
+          </div>
+
+          <div class="search-box">
+            <input
+              type="text"
+              id="noteSearchInput"
+              placeholder="Tìm kiếm theo tiêu đề..."
+            />
+          </div>
+
+          <table id="notesTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tiêu đề</th>
+                <th>Nội dung</th>
+                <th>Danh mục</th>
+                <th>Tác giả</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="notesTableBody">
+              <tr>
+                <td colspan="7" class="no-data">Đang tải dữ liệu...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Uploads Management Section -->
+        <div id="uploads" class="content-section">
+          <h2 style="margin-bottom: 20px">Quản lý Tải lên</h2>
+
+          <div class="upload-area" id="uploadArea">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p><strong>Kéo & thả tệp hoặc nhấp để chọn</strong></p>
+            <small>Hỗ trợ PDF, Word, Image, Video...</small>
+            <input type="file" id="fileInput" style="display: none" multiple />
+          </div>
+
+          <div class="uploaded-files">
+            <h3 style="margin-bottom: 15px">Tệp đã tải lên</h3>
+            <div id="uploadedFilesList">
+              <div class="no-data">Chưa có tệp nào</div>
             </div>
-        </main>
+          </div>
+        </div>
+
+        <!-- Downloads Management Section -->
+        <div id="downloads" class="content-section">
+          <h2 style="margin-bottom: 20px">Quản lý Tải xuống</h2>
+
+          <table id="downloadsTable">
+            <thead>
+              <tr>
+                <th>Tên tệp</th>
+                <th>Loại</th>
+                <th>Kích thước</th>
+                <th>Lượt tải</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="downloadsTableBody">
+              <tr>
+                <td colspan="6" class="no-data">Đang tải dữ liệu...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
     </div>
 
     <!-- User Modal -->
     <div id="userModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="userModalTitle">Thêm Người dùng</h2>
-                <button class="close" onclick="closeModal('userModal')">&times;</button>
-            </div>
-            <form id="userForm">
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" id="userEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Tên *</label>
-                    <input type="text" id="userName" required>
-                </div>
-                <div class="form-group">
-                    <label>Mật khẩu *</label>
-                    <input type="password" id="userPassword" required>
-                </div>
-                <div class="form-group">
-                    <label>Role</label>
-                    <select id="userRole">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-danger" onclick="closeModal('userModal')">Hủy</button>
-                    <button type="submit" class="btn-primary">Lưu</button>
-                </div>
-            </form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="userModalTitle">Thêm Người dùng</h2>
+          <button class="close" onclick="closeModal('userModal')">
+            &times;
+          </button>
         </div>
+        <form id="userForm">
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" id="userEmail" required />
+          </div>
+          <div class="form-group">
+            <label>Tên *</label>
+            <input type="text" id="userName" required />
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu *</label>
+            <input type="password" id="userPassword" required />
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <select id="userRole">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn-danger"
+              onclick="closeModal('userModal')"
+            >
+              Hủy
+            </button>
+            <button type="submit" class="btn-primary">Lưu</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Note Modal -->
     <div id="noteModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="noteModalTitle">Thêm Ghi chú</h2>
-                <button class="close" onclick="closeModal('noteModal')">&times;</button>
-            </div>
-            <form id="noteForm">
-                <div class="form-group">
-                    <label>Tiêu đề *</label>
-                    <input type="text" id="noteTitle" required>
-                </div>
-                <div class="form-group">
-                    <label>Nội dung *</label>
-                    <textarea id="noteContent" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Danh mục</label>
-                    <input type="text" id="noteCategory" placeholder="VD: Toán, Lý, Hóa...">
-                </div>
-                <div class="form-group">
-                    <label>Tác giả</label>
-                    <input type="text" id="noteAuthor">
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-danger" onclick="closeModal('noteModal')">Hủy</button>
-                    <button type="submit" class="btn-primary">Lưu</button>
-                </div>
-            </form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="noteModalTitle">Thêm Ghi chú</h2>
+          <button class="close" onclick="closeModal('noteModal')">
+            &times;
+          </button>
         </div>
+        <form id="noteForm">
+          <div class="form-group">
+            <label>Tiêu đề *</label>
+            <input type="text" id="noteTitle" required />
+          </div>
+          <div class="form-group">
+            <label>Nội dung *</label>
+            <textarea id="noteContent" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Danh mục</label>
+            <input
+              type="text"
+              id="noteCategory"
+              placeholder="VD: Toán, Lý, Hóa..."
+            />
+          </div>
+          <div class="form-group">
+            <label>Tác giả</label>
+            <input type="text" id="noteAuthor" />
+          </div>
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn-danger"
+              onclick="closeModal('noteModal')"
+            >
+              Hủy
+            </button>
+            <button type="submit" class="btn-primary">Lưu</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script defer src="JavaScript/ADMIN_JS/admin-features.js"></script>
-</body>
+  </body>
 </html>
