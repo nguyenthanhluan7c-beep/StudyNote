@@ -196,7 +196,9 @@ body {
 .admin-avatar {
     width: 36px;
     height: 36px;
-    border-radius: 6px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 36px;
 }
 
 .profile-info {
