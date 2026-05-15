@@ -9,6 +9,15 @@
   }
 })();
 
+//get api url
+async function getdata()
+{
+  const apiUrl = getApiUrl();
+  const adminData = await getOneById(apiUrl.ADMIN_PANEL_API_URL, 1);
+  return adminData;
+  console.log(adminData);
+}
+
 /* ---------- 2. DOM SẴN SÀNG ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
@@ -20,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initCharts();
   initNotifications();
   initStatCounters();
+  initViewAllLinks();
+  loadRecentNotes();
 });
 
 /* ============================================================
@@ -236,36 +247,38 @@ function showNotificationPanel(notifications) {
 /* ============================================================
    BỘ ĐẾM THỐNG KÊ (hoạt ảnh)
    ============================================================ */
-function initStatCounters() {
+async function initStatCounters() {
+  const adminData = await getdata();
+  console.log(adminData);
   const stats = {
     totalUsers: {
       el: document.querySelector(".stat-card:nth-child(1) .stat-value"),
-      target: 12847,
+      target: adminData.user_number || 0,
       suffix: "",
     },
     totalNotes: {
       el: document.querySelector(".stat-card:nth-child(2) .stat-value"),
-      target: 45231,
+      target: adminData.note_number || 0,
       suffix: "",
     },
     uploads: {
       el: document.querySelector(".stat-card:nth-child(3) .stat-value"),
-      target: 8549,
+      target: adminData.upload_number || 0,
       suffix: "",
     },
     downloads: {
       el: document.querySelector(".stat-card:nth-child(4) .stat-value"),
-      target: 93210,
+      target: adminData.download_number || 0,
       suffix: "",
     },
     active: {
       el: document.querySelector(".stat-card:nth-child(5) .stat-value"),
-      target: 1243,
+      target: adminData.comment_number || 0,
       suffix: "",
     },
     storage: {
       el: document.querySelector(".stat-card:nth-child(6) .stat-value"),
-      target: 642,
+      target: adminData.storage || 642,
       suffix: " GB",
     },
   };
@@ -555,6 +568,85 @@ function initUploadChart() {
   });
 }
 
+/* ============================================================
+   LIÊN KẾT "XEM TẤT CẢ" VỚI API
+   ============================================================ */
+function initViewAllLinks() {
+  // Link "Xem tất cả ghi chú" - chuyển sang tab notes
+  const viewAllNotesLink = document.querySelector(".recent-notes .view-all");
+  if (viewAllNotesLink) {
+    viewAllNotesLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      // Kích hoạt tab "notes" thông qua jQuery
+      if (typeof $ !== "undefined") {
+        $(".nav-item[data-tab='notes']").click();
+      }
+    });
+  }
+
+  // Link "Xem tất cả danh mục" 
+  const viewAllCategoriesLink = document.querySelector(".top-categories .view-all");
+  if (viewAllCategoriesLink) {
+    viewAllCategoriesLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("Sắp có tính năng xem tất cả danh mục!");
+    });
+  }
+
+  // Span "Xem tất cả hoạt động"
+  const viewAllActivitySpan = document.querySelector(".recent-activities .view-all");
+  if (viewAllActivitySpan) {
+    viewAllActivitySpan.addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("Sắp có tính năng xem tất cả hoạt động!");
+    });
+  }
+}
+
+/* ============================================================
+   TẢI GHI CHÚ GẦN ĐÂY TỪ API
+   ============================================================ */
+async function loadRecentNotes() {
+  try {
+    const notes = await get(api_url.DOCUMENT_API_URL);
+    renderRecentNotes(notes);
+  } catch (error) {
+    const tbody = document.getElementById("recentNotesBody");
+    if (tbody) {
+      tbody.innerHTML = '<tr><td colspan="5" class="no-data">Lỗi tải dữ liệu</td></tr>';
+    }
+  }
+}
+
+function renderRecentNotes(notes) {
+  const tbody = document.getElementById("recentNotesBody");
+  if (!tbody) return;
+
+  if (!notes || notes.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="no-data">Chưa có ghi chú nào</td></tr>';
+    return;
+  }
+
+  // Lấy 5 ghi chú gần đây nhất
+  const recentNotes = notes.slice(0, 5);
+  
+  let html = recentNotes
+    .map(
+      (note) => `
+    <tr>
+      <td>${note.title || "N/A"}</td>
+      <td><span class="badge">${note.category || "Chung"}</span></td>
+      <td>${note.author || "Admin"}</td>
+      <td>${new Date(note.createdAt || Date.now()).toLocaleDateString("vi-VN")}</td>
+      <td><span class="status published">Đã thêm</span></td>
+    </tr>
+  `
+    )
+    .join("");
+
+  tbody.innerHTML = html;
+}
+
 function initDownloadChart() {
   const ctx = document.getElementById("downloadChart");
   if (!ctx) return;
@@ -606,3 +698,8 @@ function showToast(message, type = "info") {
     setTimeout(() => toast.remove(), 400);
   }, 3000);
 }
+document.addEventListener("DOMContentLoaded", async () => {
+  const adminId = localStorage.getItem("userId");
+  const adminData = await getOneById(api_url.LOGIN_API_URL, adminId);
+  loadAdminImage(adminData, "admin-avatar");
+});
