@@ -2,14 +2,6 @@
    CHITET.JS — Chi tiết khóa học
    ============================================================ */
 
-// Auth check
-(function authGuard() {
-  const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
-  if (!user) {
-    window.location.href = "index.html";
-  }
-})();
-
 // Dữ liệu khóa học chi tiết
 const courseDetails = {
   1: {
@@ -405,7 +397,9 @@ window.addEventListener("scroll", () => {
 
 // Logout
 function handleLogout() {
-  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("role");
   localStorage.removeItem("selectedCourse");
-  window.location.href = "index.html";
+  window.location.href = "./login.html";
 }

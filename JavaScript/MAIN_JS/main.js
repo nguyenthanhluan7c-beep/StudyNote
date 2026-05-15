@@ -171,7 +171,7 @@ function viewCourseDetail(id, title, image) {
     image: image,
   };
   localStorage.setItem("selectedCourse", JSON.stringify(courseData));
-  window.location.href = "chitiet.html";
+  window.location.href = "./chitiet.html";
 }
 
 // ============ LOGOUT ============
