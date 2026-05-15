@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initCharts();
   initNotifications();
   initStatCounters();
+  initViewAllLinks();
+  loadRecentNotes();
 });
 
 /* ============================================================
@@ -564,6 +566,85 @@ function initUploadChart() {
       },
     },
   });
+}
+
+/* ============================================================
+   LIÊN KẾT "XEM TẤT CẢ" VỚI API
+   ============================================================ */
+function initViewAllLinks() {
+  // Link "Xem tất cả ghi chú" - chuyển sang tab notes
+  const viewAllNotesLink = document.querySelector(".recent-notes .view-all");
+  if (viewAllNotesLink) {
+    viewAllNotesLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      // Kích hoạt tab "notes" thông qua jQuery
+      if (typeof $ !== "undefined") {
+        $(".nav-item[data-tab='notes']").click();
+      }
+    });
+  }
+
+  // Link "Xem tất cả danh mục" 
+  const viewAllCategoriesLink = document.querySelector(".top-categories .view-all");
+  if (viewAllCategoriesLink) {
+    viewAllCategoriesLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("Sắp có tính năng xem tất cả danh mục!");
+    });
+  }
+
+  // Span "Xem tất cả hoạt động"
+  const viewAllActivitySpan = document.querySelector(".recent-activities .view-all");
+  if (viewAllActivitySpan) {
+    viewAllActivitySpan.addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("Sắp có tính năng xem tất cả hoạt động!");
+    });
+  }
+}
+
+/* ============================================================
+   TẢI GHI CHÚ GẦN ĐÂY TỪ API
+   ============================================================ */
+async function loadRecentNotes() {
+  try {
+    const notes = await get(api_url.DOCUMENT_API_URL);
+    renderRecentNotes(notes);
+  } catch (error) {
+    const tbody = document.getElementById("recentNotesBody");
+    if (tbody) {
+      tbody.innerHTML = '<tr><td colspan="5" class="no-data">Lỗi tải dữ liệu</td></tr>';
+    }
+  }
+}
+
+function renderRecentNotes(notes) {
+  const tbody = document.getElementById("recentNotesBody");
+  if (!tbody) return;
+
+  if (!notes || notes.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="no-data">Chưa có ghi chú nào</td></tr>';
+    return;
+  }
+
+  // Lấy 5 ghi chú gần đây nhất
+  const recentNotes = notes.slice(0, 5);
+  
+  let html = recentNotes
+    .map(
+      (note) => `
+    <tr>
+      <td>${note.title || "N/A"}</td>
+      <td><span class="badge">${note.category || "Chung"}</span></td>
+      <td>${note.author || "Admin"}</td>
+      <td>${new Date(note.createdAt || Date.now()).toLocaleDateString("vi-VN")}</td>
+      <td><span class="status published">Đã thêm</span></td>
+    </tr>
+  `
+    )
+    .join("");
+
+  tbody.innerHTML = html;
 }
 
 function initDownloadChart() {
