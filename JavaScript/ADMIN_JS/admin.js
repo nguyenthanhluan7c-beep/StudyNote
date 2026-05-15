@@ -3,9 +3,9 @@
    ============================================================ */
 /* ---------- 1. BẢO VỆ XÁC THỰC ---------- */
 (function authGuard() {
-  const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
-  if (!user || user.role !== "admin") {
-    // window.location.href = "index.html"; // Tạm thời tắt chuyển hướng để dev
+  const role = localStorage.getItem("role");
+  if (role !== "admin") {
+    window.location.href = "index.html";
   }
 })();
 
