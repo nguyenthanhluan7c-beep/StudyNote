@@ -117,7 +117,7 @@ function renderEmptyState(container) {
             </div>
             <p class="empty-text">Không có khóa học yêu thích</p>
             <p class="empty-subtext">Hãy quay lại trang chủ và thêm các khóa học yêu thích của bạn</p>
-            <a href="use.html" class="btn-back-shop">
+            <a href="index.html" class="btn-back-shop">
                 <i class="bi bi-arrow-left me-2"></i> Quay lại trang chủ
             </a>
         </div>
