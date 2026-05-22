@@ -187,7 +187,7 @@
     >
       <div class="container-fluid px-4">
         <!-- Logo -->
-        <a class="navbar-brand fw-bold" href="use.html">
+        <a class="navbar-brand fw-bold" href="index.html">
           <i class="bi bi-mortarboard-fill me-2"></i>
           <span class="brand-text">StudyNote</span>
         </a>
@@ -212,31 +212,33 @@
             <li class="nav-item">
               <a class="nav-link active" href="yeuthich.html">Yêu thích</a>
             </li>
+              <li class="nav-item">
+              <a class="nav-link" href="./khoahoc.html">Khóa học của tôi</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="lienhe.html">Liên hệ</a>
             </li>
+          
           </ul>
 
           <!-- User Icon & Logout -->
           <div class="nav-icons ms-3">
             <button
-              class="btn btn-primary btn-sm rounded-pill px-3"
+              class="btn btn-danger btn-sm rounded-pill px-3"
               onclick="handleLogout()"
             >
               <i class="bi bi-box-arrow-in-right me-1"></i> Đăng xuất
+            </button>
+            <button
+              class="btn btn-primary btn-sm rounded-pill px-3"
+              id="user_info"
+            >
+              <i class="bi bi-person-circle me-1"></i> Người dùng
             </button>
           </div>
         </div>
       </div>
     </nav>
-
-    <!-- ============ FAVORITES HERO ============ -->
-    <section class="favorites-hero">
-      <div class="container">
-        <h1 class="display-4 mb-2 fw-bold">Khóa học yêu thích</h1>
-        <p class="lead mb-0">Những khóa học bạn lưu để học sau</p>
-      </div>
-    </section>
 
     <!-- ============ FAVORITES CONTENT ============ -->
     <section class="py-5">
