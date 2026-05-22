@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "login.html";
     return;
   }
-  if(role === "admin") {
+  if(role ==="admin") {
     window.location.href = "admin.html";
   }
 });
