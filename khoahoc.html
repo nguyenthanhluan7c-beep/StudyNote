@@ -19,7 +19,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./CSS/index.css" />
-
+    <link rel="stylesheet" href="./index.html">
+    <script defer src="./JavaScript/MAIN_JS/khoahoc.js"></script>
     <style>
       body {
         background: #f5f7fb;
@@ -150,24 +151,29 @@
             <li class="nav-item">
               <a class="nav-link" href="./index.html">Trang chủ</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Khóa học</a>
-            </li>
+            
             <li class="nav-item">
               <a class="nav-link" href="./yeuthich.html">Yêu thích</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link active" href="./khoahoc.html">Khóa học của tôi</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="./lienhe.html">Liên hệ</a>
             </li>
+            
           </ul>
 
           <!-- User Icon & Logout -->
           <div class="nav-icons ms-3">
             <button
-              class="btn btn-primary btn-sm rounded-pill px-3"
+              class="btn btn-danger btn-sm rounded-pill px-3"
               onclick="handleLogout()"
             >
               <i class="bi bi-box-arrow-in-right me-1"></i> Đăng xuất
+            </button>
+            <button class="btn btn-primary btn-sm rounded-pill px-3" id="user_info" ">
+              <i class="bi bi-person-circle me-1" ></i> Người dùng
             </button>
           </div>
         </div>
@@ -177,262 +183,121 @@
     <!-- ===== HERO SECTION ===== -->
     <section class="hero-section">
       <div class="container">
-        <h1>Khám phá các khóa học</h1>
-        <p class="mt-3">
-          Học tập với hàng trăm khóa học chất lượng dành cho sinh viên
-        </p>
+        <h1>Khóa học của tôi</h1>
+        
         <div class="mt-4">
-          <button class="btn btn-light btn-lg rounded-pill px-4">
-            Khám phá ngay
-          </button>
+    
         </div>
       </div>
     </section>
 
-    <!-- ===== DANH MỤC ===== -->
-    <section class="container mt-5 mb-5">
-      <div class="mb-4">
-        <h3>Danh mục khóa học</h3>
-      </div>
-      <div class="row g-4">
-        <div class="col-md-3 col-sm-6">
-          <div class="category-box">
-            <i class="bi bi-code-slash"></i>
-            <h5 class="mt-3 mb-0">Lập trình Web</h5>
-          </div>
-        </div>
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <button
+        class="btn btn-primary rounded-pill"
+        data-bs-toggle="modal"
+        data-bs-target="#addCourseModal"
+      >
+        <i class="bi bi-plus-circle me-2"></i>
+        Thêm khóa học
+      </button>
+    </div>
 
-        <div class="col-md-3 col-sm-6">
-          <div class="category-box">
-            <i class="bi bi-phone"></i>
-            <h5 class="mt-3 mb-0">Mobile App</h5>
-          </div>
-        </div>
+    <div class="row g-4" id="courseList">
+      
+    </div>
+  </div>
+</section>
+    <!-- Modal thêm khóa học -->
+<div
+  class="modal fade"
+  id="addCourseModal"
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-        <div class="col-md-3 col-sm-6">
-          <div class="category-box">
-            <i class="bi bi-bar-chart"></i>
-            <h5 class="mt-3 mb-0">Data Science</h5>
-          </div>
-        </div>
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Thêm khóa học
+        </h5>
 
-        <div class="col-md-3 col-sm-6">
-          <div class="category-box">
-            <i class="bi bi-palette"></i>
-            <h5 class="mt-3 mb-0">UI/UX Design</h5>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== KHÓA HỌC ===== -->
-    <section class="container mb-5">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3>Khóa học nổi bật</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
       </div>
 
-      <div class="row g-4">
-        <!-- Course 1 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="course-card">
-            <img
-              src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Python_-_Ad_3561581c4f074d9694a4704ed184b60e.png"
-                alt="Python cơ bản"
-            />
-            <div class="course-content">
-              <h5 class="course-title">Python cơ bản</h5>
-              <p class="course-desc">
-                Học xây dựng website từ cơ bản đến nâng cao.
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="course-price">299.000đ</span>
-                <button
-                  class="btn btn-primary btn-sm rounded-pill"
-                  onclick="
-                    viewCourseDetail(
-                      7,
-                      'Python cơ bản',
-                      'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Python_-_Ad_3561581c4f074d9694a4704ed184b60e.png',
-                    )"
-                >
-                  Xem chi tiết
-                </button>
-              </div>
-              <div class="course-meta">
-                ⭐ 4.9 (234 đánh giá) • 5600 học viên
-              </div>
-            </div>
-          </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label class="form-label">
+            Tên khóa học
+          </label>
+
+          <input
+            type="text"
+            class="form-control"
+            id="courseName"
+          >
         </div>
 
-        <!-- Course 2 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="course-card">
-            <img
-              src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png"
-              alt="JavaScript cơ bản"
-            />
-            <div class="course-content">
-              <h5 class="course-title">JavaScript cơ bản</h5>
-              <p class="course-desc">Làm chủ JavaScript và tạo website động.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="course-price">420.000đ</span>
-                <button
-                  class="btn btn-primary btn-sm rounded-pill"
-                  onclick="
-                    viewCourseDetail(
-                      5,
-                      'JavaScript cơ bản',
-                      'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png',
-                    )
-                  "
-                >
-                  Xem chi tiết
-                </button>
-              </div>
-              <div class="course-meta">
-                ⭐ 4.8 (678 đánh giá) • 9800 học viên
-              </div>
-            </div>
-          </div>
+        <div class="mb-3">
+          <label class="form-label">
+            Giá khóa học
+          </label>
+
+          <input
+            type="number"
+            class="form-control"
+            id="coursePrice"
+          >
         </div>
 
-        <!-- Course 3 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="course-card">
-            <img
-              src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png"
-              alt="C++ nâng cao"
-            />
-            <div class="course-content">
-              <h5 class="course-title">C++ nâng cao</h5>
-              <p class="course-desc">
-                Thành thạo thuật toán và lập trình hướng đối tượng.
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="course-price">450.000đ</span>
-                
-                
-                <button
-                  class="btn btn-primary btn-sm rounded-pill"
-                  onclick="
-                    viewCourseDetail(
-                      1,
-                      'C++ nâng cao',
-                      'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png',
-                    )
-                  "
-                >
-                  Xem chi tiết
-                </button>
-              </div>
-              <div class="course-meta">
-                ⭐ 4.8 (234 đánh giá) • 5600 học viên
-              </div>
-            </div>
-          </div>
+        <div class="mb-3">
+          <label class="form-label">
+            Ảnh khóa học
+          </label>
+
+          <input
+            type="text"
+            class="form-control"
+            id="courseImage"
+          >
         </div>
 
-        <!-- Course 4 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="course-card">
-            <img
-              src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png"
-              alt="Làm quen với SQL"
-            />
-            <div class="course-content">
-              <h5 class="course-title">Làm quen với SQL</h5>
-              <p class="course-desc">Học quản lý cơ sở dữ liệu với SQL.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="course-price">350.000đ</span>
-                <button
-                  class="btn btn-primary btn-sm rounded-pill"
-                  onclick="
-                    viewCourseDetail(
-                      3,
-                      'Làm quen với SQL',
-                      'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png',
-                    )
-                  "
-                >
-                  xem chi tiết
-                </button>
-              </div>
-              <div class="course-meta">
-                ⭐ 4.7 (345 đánh giá) • 6500 học viên
-              </div>
-            </div>
-          </div>
+        <div class="mb-3">
+          <label class="form-label">
+            Thông tin chi tiết
+          </label>
+
+          <textarea
+            class="form-control"
+            rows="4"
+            id="courseDetail"
+          ></textarea>
         </div>
 
-        <!-- Course 5 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="course-card">
-            <img
-              src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png"
-              alt="C# cơ bản"
-            />
-            <div class="course-content">
-              <h5 class="course-title">C# cơ bản</h5>
-              <p class="course-desc">Học lập trình ứng dụng bằng C# từ đầu.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="course-price">400.000đ</span>
-                <button
-                  class="btn btn-primary btn-sm rounded-pill"
-                  onclick="
-                    viewCourseDetail(
-                      4,
-                      'C# cơ bản',
-                      'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png',
-                    )
-                  "
-                >
-                  Xem chi tiết
-                </button>
-              </div>
-              <div class="course-meta">
-                ⭐ 4.6 (289 đánh giá) • 4200 học viên
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Course 6 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="course-card">
-            <img
-              src="https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png"
-              alt="Cấu trúc dữ liệu và giải thuật"
-            />
-            <div class="course-content">
-              <h5 class="course-title">Cấu trúc dữ liệu và giải thuật</h5>
-              <p class="course-desc">
-                Xây dựng nền tảng vững chắc về cấu trúc dữ liệu.
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="course-price">500.000đ</span>
-                <button
-                  class="btn btn-primary btn-sm rounded-pill"
-                  onclick="
-                    viewCourseDetail(
-                      2,
-                      'Cấu trúc dữ liệu và giải thuật',
-                      'https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png',
-                    )
-                  "
-                >
-                  Xem chi tiết
-                </button>
-              </div>
-              <div class="course-meta">
-                ⭐ 4.9 (567 đánh giá) • 8900 học viên
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
 
+      <div class="modal-footer">
+        <button
+          class="btn btn-primary"
+          onclick="addCourse()"
+        >
+          Lưu khóa học
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+    
+
+      
     <!-- ============ FOOTER ============ -->
     <footer class="footer py-5">
       <div class="container">

@@ -12,9 +12,8 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script defer src="JavaScript/API_JS/API.js"></script>
-    <script src="JavaScript/API_JS/usefulFuntion.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Lớp phủ thanh bên (di động) -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -57,22 +56,134 @@
                 </div>
             </nav>
 
-            <!-- Hồ sơ quản trị viên -->
-            <div class="profile-wrapper">
-                <div class="admin-profile" id="adminProfileBtn">
-                    <div id="admin-avatar"></div>
-                    <div class="profile-info">
-                        <p class="profile-name">Admin</p>
-                        <p class="profile-role">Quản trị viên cao cấp</p>
-                    </div>
-                    <i class="fas fa-chevron-up" style="color:var(--text-tertiary);font-size:11px"></i>
-                </div>
-                <!-- Trình đơn hồ sơ -->
-                <div id="profileDropdown">
-                    <a href="#" id="dropdownProfile"><i class="fas fa-user"></i> Hồ sơ của tôi</a>
-                    <a href="#" id="dropdownSettings"><i class="fas fa-cog"></i> Cài đặt</a>
-                    <div class="divider"></div>
-                    <button id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+      <!-- Nội dung chính -->
+      <main class="main-content">
+        <!-- Đầu trang -->
+        <header class="header">
+          <div
+            class="header-left"
+            style="display: flex; align-items: center; gap: 12px"
+          >
+            <!-- Nút Hamburger (di động) -->
+            <button class="hamburger-btn" id="hamburgerBtn" title="Mở menu">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div>
+              <h1>Bảng điều khiển</h1>
+              <p class="subtitle">
+                Chào mừng trở lại! Đây là những gì đang xảy ra với StudyNote.
+              </p>
+            </div>
+          </div>
+          <div class="header-right">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                placeholder="Tìm kiếm người dùng, ghi chú, tệp..."
+              />
+            </div>
+            <div class="date-range">
+              <i class="fas fa-calendar"></i>
+              <span id="liveClock">--</span>
+            </div>
+            <div class="header-icons">
+              <button
+                class="icon-btn"
+                id="themeToggleBtn"
+                title="Chuyển nền sáng/tối"
+              >
+                <i class="fas fa-moon"></i>
+              </button>
+              <button class="icon-btn notification-btn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Nội dung bảng điều khiển -->
+        <div class="dashboard">
+          <!-- Thẻ thống kê -->
+          <section class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon users-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="stat-content">
+                <h3 class="stat-label">Tổng người dùng</h3>
+                <p class="stat-value">-</p>
+                <p class="stat-change positive">
+                  <i class="fas fa-arrow-up"></i> -
+                </p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon notes-icon">
+                <i class="fas fa-sticky-note"></i>
+              </div>
+              <div class="stat-content">
+                <h3 class="stat-label">Tổng ghi chú</h3>
+                <p class="stat-value">-</p>
+                <p class="stat-change positive">
+                  <i class="fas fa-arrow-up"></i> -
+                </p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon uploads-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+              </div>
+              <div class="stat-content">
+                <h3 class="stat-label">Tải lên</h3>
+                <p class="stat-value">-</p>
+                <p class="stat-change positive">
+                  <i class="fas fa-arrow-up"></i> -
+                </p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon downloads-icon">
+                <i class="fas fa-cloud-download-alt"></i>
+              </div>
+              <div class="stat-content">
+                <h3 class="stat-label">Tải xuống</h3>
+                <p class="stat-value">-</p>
+                <p class="stat-change positive">
+                  <i class="fas fa-arrow-up"></i> -
+                </p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon active-icon">
+                <i class="fas fa-users-check"></i>
+              </div>
+              <div class="stat-content">
+                <h3 class="stat-label">Số lượng bài viết</h3>
+                <p class="stat-value">-</p>
+                <p class="stat-change positive">
+                  <i class="fas fa-arrow-up"></i> -
+                </p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon storage-icon">
+                <i class="fas fa-hdd"></i>
+              </div>
+              <div class="stat-content">
+                <h3 class="stat-label">Bộ nhớ sử dụng</h3>
+                <p class="stat-value">-</p>
+                <div class="storage-progress">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                  </div>
+                  <span class="progress-text">-</span>
                 </div>
             </div>
         </aside>
