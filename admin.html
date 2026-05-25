@@ -39,7 +39,7 @@
                         </li>
                         <li class="nav-item" data-tab="notes">
                             <i class="fas fa-sticky-note"></i>
-                            <span>Ghi chú</span>
+                            <span>Quản lý bài đăng</span>
                         </li>
                         <li class="nav-item" data-tab="uploads">
                             <i class="fas fa-cloud-upload-alt"></i>
@@ -134,7 +134,7 @@
                             <i class="fas fa-sticky-note"></i>
                         </div>
                         <div class="stat-content">
-                            <h3 class="stat-label">Tổng ghi chú</h3>
+                            <h3 class="stat-label">Tổng bài đăng</h3>
                             <p class="stat-value">-</p>
                             <p class="stat-change positive">
                                 <i class="fas fa-arrow-up"></i> -
@@ -301,16 +301,16 @@
 
                 <!-- Phần bảng -->
                 <div class="tables-row">
-                    <!-- Ghi chú gần đây -->
+                    <!-- Bài đăng gần đây -->
                     <section class="table-container recent-notes">
                         <div class="table-header">
-                            <h2>Ghi chú gần đây</h2>
-                            <a href="#" class="view-all">Xem tất cả ghi chú →</a>
+                            <h2>Bài đăng gần đây</h2>
+                            <a href="#" class="view-all">Xem tất cả bài đăng →</a>
                         </div>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Tiêu đề ghi chú</th>
+                                    <th>Tiêu đề bài đăng</th>
                                     <th>Danh mục</th>
                                     <th>Được tải lên bởi</th>
                                     <th>Tạo lúc</th>
@@ -459,8 +459,10 @@
             <div id="users-tab" class="content-tab">
                 <div class="action-bar">
                     <h2>Quản lý Người dùng</h2>
-                    <input type="text" id="userSearch" class="search-input" placeholder="Tìm kiếm email hoặc tên...">
-                    <button class="btn-add" id="addUserBtn"><i class="fas fa-plus"></i> Thêm Người dùng</button>
+                    <div style="display: flex; gap: 15px; flex: 1;">
+                        <input type="text" id="userSearch" class="search-input" placeholder="Tìm kiếm email hoặc tên...">
+                        <button class="btn-add" id="addUserBtn"><i class="fas fa-plus"></i> Thêm Người dùng</button>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="manage-table" id="usersTable">
@@ -485,8 +487,10 @@
             <div id="notes-tab" class="content-tab">
                 <div class="action-bar">
                     <h2>Quản lý Ghi chú</h2>
-                    <input type="text" id="noteSearch" class="search-input" placeholder="Tìm kiếm tiêu đề...">
-                    <button class="btn-add" id="addNoteBtn"><i class="fas fa-plus"></i> Thêm Ghi chú</button>
+                    <div style="display: flex; gap: 15px; flex: 1;">
+                        <input type="text" id="noteSearch" class="search-input" placeholder="Tìm kiếm tiêu đề...">
+                        <button class="btn-add" id="addNoteBtn"><i class="fas fa-plus"></i> Thêm Ghi chú</button>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="manage-table" id="notesTable">
@@ -510,11 +514,13 @@
 
             <!-- Thẻ quản lý tệp tải lên -->
             <div id="uploads-tab" class="content-tab">
-                <h2>Quản lý Tải lên</h2>
+                <div class="action-bar">
+                    <h2>Quản lý Tải lên</h2>
+                </div>
                 <div class="upload-zone" id="uploadZone">
-                    <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #7ec041; margin-bottom: 10px; display: block;"></i>
-                    <p><strong>Kéo & thả tệp hoặc nhấp để chọn</strong></p>
-                    <small>Hỗ trợ PDF, Word, Image, Video...</small>
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #22c55e; margin-bottom: 15px; display: block;"></i>
+                    <p style="font-size: 16px; font-weight: 600; margin-bottom: 5px;"><strong>Kéo & thả tệp hoặc nhấp để chọn</strong></p>
+                    <small style="color: var(--text-tertiary);">Hỗ trợ PDF, Word, Image, Video...</small>
                     <input type="file" id="fileInput" style="display: none;" multiple>
                 </div>
                 <div id="uploadedFiles" style="margin-top: 30px;">
@@ -525,7 +531,9 @@
 
             <!-- Thẻ quản lý tệp tải xuống -->
             <div id="downloads-tab" class="content-tab">
-                <h2>Quản lý Tải xuống</h2>
+                <div class="action-bar">
+                    <h2>Quản lý Tải xuống</h2>
+                </div>
                 <div class="table-responsive">
                     <table class="manage-table" id="downloadsTable">
                         <thead>
