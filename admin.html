@@ -41,6 +41,10 @@
                             <i class="fas fa-sticky-note"></i>
                             <span>Quản lý bài đăng</span>
                         </li>
+                        <li class="nav-item" data-tab="courses">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Duyệt khóa học</span>
+                        </li>
                         <li class="nav-item" data-tab="uploads">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <span>Tải lên</span>
@@ -512,6 +516,30 @@
                 </div>
             </div>
 
+            <!-- Thẻ duyệt khóa học -->
+            <div id="courses-tab" class="content-tab">
+                <div class="action-bar" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+                    <h2>Duyệt khóa học</h2>
+                    <span id="pendingCoursesBadge" class="badge bg-danger" style="font-size:0.9rem; display:none;">0 chờ duyệt</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="manage-table" id="pendingCoursesTable">
+                        <thead>
+                            <tr>
+                                <th>Tên khóa học</th>
+                                <th>Giá</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày gửi</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingCoursesTableBody">
+                            <tr><td colspan="5" class="no-data">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- Thẻ quản lý tệp tải lên -->
             <div id="uploads-tab" class="content-tab">
                 <div class="action-bar">
@@ -598,6 +626,32 @@
                 <div class="form-group">
                     <label>Tác giả</label>
                     <input type="text" id="noteAuthor">
+                </div>
+            </form>
+        </div>
+
+        <!-- Hộp thoại thông tin khóa học tải lên -->
+        <div id="uploadCourseDialog" title="Thông tin khóa học tải lên">
+            <form id="uploadCourseForm">
+                <div class="form-group">
+                    <label>Tên khóa học *</label>
+                    <input type="text" id="uploadCourseTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Mô tả khóa học *</label>
+                    <textarea id="uploadCourseDescription" required style="min-height: 120px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Danh mục</label>
+                    <input type="text" id="uploadCourseCategory" placeholder="Ví dụ: Lập trình, Toán...">
+                </div>
+                <div class="form-group">
+                    <label>Link ảnh đại diện</label>
+                    <input type="text" id="uploadCourseImage" placeholder="URL ảnh hoặc để trống để dùng ảnh mặc định">
+                </div>
+                <div class="form-group">
+                    <label>Giá</label>
+                    <input type="text" id="uploadCoursePrice" placeholder="Ví dụ: 199000">
                 </div>
             </form>
         </div>

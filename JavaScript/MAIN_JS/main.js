@@ -63,23 +63,25 @@ const courseData = {
   },
 };
 
+const COURSE_API_URL = "https://69fd352830ad0a6fd1c093f8.mockapi.io/api/v1/courses";
+
 // Initialize favorite buttons
 function initFavoriteButtons() {
   document.querySelectorAll(".course-overlay button").forEach((btn) => {
     const courseCard = btn.closest(".course-card");
-    const courseIndex =
-      Array.from(document.querySelectorAll(".course-card")).indexOf(
-        courseCard,
-      ) + 1;
+    let courseId =
+      courseCard?.dataset.courseId || courseCard?.dataset.id ||
+      Array.from(document.querySelectorAll(".course-card")).indexOf(courseCard) + 1;
+    courseId = String(courseId);
 
     btn.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
-      toggleFavorite(courseIndex, btn);
+      toggleFavorite(courseId, btn);
     });
 
     // Check if course is already in favorites
-    if (isCourseInFavorites(courseIndex)) {
+    if (isCourseInFavorites(courseId)) {
       btn.classList.add("liked");
       const icon = btn.querySelector("i");
       icon.classList.remove("bi-heart");
@@ -87,6 +89,150 @@ function initFavoriteButtons() {
     }
   });
 }
+
+function getPublishedCourses() {
+  return JSON.parse(localStorage.getItem("publishedCourses") || "[]");
+}
+
+function renderPublishedCourses() {
+  const published = getPublishedCourses();
+  if (!published || published.length === 0) return;
+
+  const container = document.getElementById("coursesGrid");
+  if (!container) return;
+
+  published.forEach((course) => {
+    if (document.querySelector(`.course-card[data-course-id="${course.id}"]`)) {
+      return;
+    }
+
+    if (!courseData[course.id]) {
+      courseData[course.id] = {
+        id: course.id,
+        title: course.title,
+        image: course.image,
+      };
+    }
+
+    const cardHtml = `
+      <div class="col-md-6 col-lg-4">
+        <div class="course-card" data-course-id="${course.id}">
+          <div class="course-image-wrapper">
+            <img src="${course.image}" alt="${course.title}" />
+            <div class="course-overlay">
+              <button class="btn btn-light rounded-circle">
+                <i class="bi bi-heart"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="category-badge">${course.category || "Khóa học mới"}</div>
+            <h5 class="card-title">${course.title}</h5>
+            <p class="course-desc">${course.description.substring(0, 100)}...</p>
+            <div class="course-meta mb-3">
+              <span class="me-3">${course.price ? `${course.price}đ` : "Miễn phí"}</span>
+            </div>
+            <button
+              class="btn btn-primary w-100 rounded-pill"
+              onclick="viewCourseDetail('${course.id}', '${escapeStringForHtml(course.title)}', '${escapeStringForHtml(course.image)}')"
+            >
+              Xem chi tiết
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    container.insertAdjacentHTML("beforeend", cardHtml);
+  });
+
+  observeCourseCards();
+}
+
+function escapeStringForHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+async function loadApprovedCourses() {
+  try {
+    const response = await fetch(COURSE_API_URL);
+    if (!response.ok) throw new Error("Không thể tải khóa học đã duyệt");
+    const courses = await response.json();
+    if (!Array.isArray(courses)) return;
+
+    const approved = courses.filter((course) => course.status === "approved");
+    approved.forEach((course) => {
+      if (document.querySelector(`.course-card[data-course-id="${course.id}"]`)) {
+        return;
+      }
+      const courseTitle = course.name || "Khóa học không tên";
+      const courseImage = course.image || "https://via.placeholder.com/300x220?text=Khóa+học";
+      const courseDetail = course.detail || "Không có mô tả";
+      const coursePrice = course.price ? `${course.price}đ` : "Miễn phí";
+
+      const cardHtml = `
+        <div class="col-md-6 col-lg-4">
+          <div class="course-card" data-course-id="${course.id}">
+            <div class="course-image-wrapper">
+              <img src="${courseImage}" alt="${escapeStringForHtml(courseTitle)}" />
+              <div class="course-overlay">
+                <button class="btn btn-light rounded-circle">
+                  <i class="bi bi-heart"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="category-badge">${escapeStringForHtml(course.status === "approved" ? "Mới duyệt" : "Khóa học")}</div>
+              <h5 class="card-title">${escapeStringForHtml(courseTitle)}</h5>
+              <p class="course-desc">${escapeStringForHtml(courseDetail.substring(0, 100))}...</p>
+              <div class="course-meta mb-3">
+                <span class="me-3">${coursePrice}</span>
+              </div>
+              <button
+                class="btn btn-primary w-100 rounded-pill"
+                onclick="viewCourseDetail('${course.id}', '${escapeStringForHtml(courseTitle)}', '${escapeStringForHtml(courseImage)}')"
+              >
+                Xem chi tiết
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const container = document.getElementById("coursesGrid");
+      if (container) {
+        container.insertAdjacentHTML("beforeend", cardHtml);
+      }
+    });
+
+    observeCourseCards();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function observeCourseCards() {
+  document.querySelectorAll(".course-card").forEach((card) => {
+    if (!card.classList.contains("observed")) {
+      observer.observe(card);
+      card.classList.add("observed");
+    }
+  });
+}
+
+window.addEventListener("storage", (event) => {
+  if (event.key === "publishedCourses") {
+    renderPublishedCourses();
+  }
+  if (event.key === "coursesUpdatedAt") {
+    loadApprovedCourses();
+  }
+});
 
 // Get favorites from localStorage
 function getFavorites() {
@@ -102,13 +248,23 @@ function saveFavorites(favorites) {
 // Check if course is in favorites
 function isCourseInFavorites(courseId) {
   const favorites = getFavorites();
-  return favorites.some((fav) => fav.id === courseId);
+  return favorites.some((fav) => String(fav.id) === String(courseId));
 }
 
 // Toggle favorite
 function toggleFavorite(courseId, btn) {
   let favorites = getFavorites();
-  const course = courseData[courseId];
+  const course =
+    courseData[courseId] ||
+    (() => {
+      const courseCard = btn.closest(".course-card");
+      return {
+        title: courseCard?.querySelector(".card-title")?.textContent?.trim() || "Khóa học",
+        image:
+          courseCard?.querySelector("img")?.getAttribute("src") ||
+          "https://via.placeholder.com/300x220?text=StudyNote",
+      };
+    })();
 
   if (isCourseInFavorites(courseId)) {
     // Remove from favorites
@@ -152,6 +308,7 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".course-card").forEach((card) => {
   observer.observe(card);
+  card.classList.add("observed");
 });
 
 // ============ FILTER INTERACTION ============
@@ -187,7 +344,13 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "login.html";
     return;
   }
-  if(role ==="admin") {
+  if (role === "admin") {
     window.location.href = "admin.html";
+    return;
   }
+
+  renderPublishedCourses();
+  loadApprovedCourses().then(() => {
+    initFavoriteButtons();
+  });
 });

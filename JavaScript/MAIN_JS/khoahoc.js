@@ -31,7 +31,7 @@ async function addCourse() {
 
     if (!response.ok) throw new Error("Không thể thêm khóa học lên API");
 
-    alert("Thêm khóa học thành công!");
+    alert("Thêm khóa học thành công! Khóa học sẽ xuất hiện sau khi admin duyệt.");
 
     // Reset dữ liệu trong các ô input
     document.getElementById("courseName").value = "";
@@ -101,6 +101,13 @@ async function getCourses() {
       const cDetail = course.detail || "Chưa có mô tả chi tiết cho khóa học này.";
       const cPrice = course.price || "0";
       const cImage = course.image || "https://via.placeholder.com/300x220?text=Anh+Trong";
+      const status = course.status || "pending";
+      const statusBadge =
+        status === "approved"
+          ? '<span class="badge bg-success">Đã duyệt</span>'
+          : status === "rejected"
+          ? '<span class="badge bg-danger">Bị từ chối</span>'
+          : '<span class="badge bg-warning">Chờ duyệt</span>';
 
       courseList.innerHTML += `
         <div class="col-md-6 col-lg-4">
@@ -115,7 +122,7 @@ async function getCourses() {
               <p class="course-desc">${cDetail}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <span class="course-price">${cPrice}đ</span>
-                <span class="badge bg-warning">Chờ duyệt</span>
+                ${statusBadge}
               </div>
             </div>
           </div>
