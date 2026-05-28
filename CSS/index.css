@@ -544,8 +544,7 @@ body {
 
 /* Course card animation on scroll */
 .course-card {
-  opacity: 0;
-  transform: translateY(30px);
+   transform: translateY(30px);
   transition: var(--transition-smooth);
 }
 
