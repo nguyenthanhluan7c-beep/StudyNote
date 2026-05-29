@@ -1,773 +1,707 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - StudyNote</title>
-    <link rel="stylesheet" href="./CSS/admin.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="CSS/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Thư viện jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- jQuery UI (tùy chọn, cho hộp thoại) -->
-    <link
-      rel="stylesheet"
-      href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
-    />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script defer src="JavaScript/API_JS/API.js"></script>
-  </head>
-  <body>
+    <script src="JavaScript/API_JS/usefulFuntion.js"></script>
+</head>
+<body>
     <!-- Lớp phủ thanh bên (di động) -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="container">
-      <!-- Thanh bên -->
-      <aside class="sidebar">
-        <div class="logo">
-          <span class="logo-icon">📚</span>
-          <span class="logo-text">StudyNote</span>
-        </div>
-        <nav class="sidebar-nav">
-          <div class="nav-section">
-            <p class="section-title">QUẢN LÝ ADMIN</p>
-            <ul class="nav-list">
-              <li class="nav-item active" data-tab="dashboard">
-                <i class="fas fa-th-large"></i>
-                <span>Bảng điều khiển</span>
-              </li>
-              <li class="nav-item" data-tab="users">
-                <i class="fas fa-users"></i>
-                <span>Người dùng</span>
-              </li>
-              <li class="nav-item" data-tab="notes">
-                <i class="fas fa-sticky-note"></i>
-                <span>Ghi chú</span>
-              </li>
-              <li class="nav-item" data-tab="uploads">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <span>Tải lên</span>
-              </li>
-              <li class="nav-item" data-tab="downloads">
-                <i class="fas fa-cloud-download-alt"></i>
-                <span>Tải xuống</span>
-              </li>
-              <li class="nav-item" data-action="logout">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Đăng xuất</span>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
-        <!-- Hồ sơ quản trị viên -->
-        <div class="profile-wrapper">
-          <div class="admin-profile" id="adminProfileBtn">
-            <img
-              src="https://ui-avatars.com/api/?name=Admin&background=7ec041&color=fff&size=40&rounded=true"
-              alt="Admin"
-            />
-            <div class="profile-info">
-              <p class="profile-name">Admin</p>
-              <p class="profile-role">Quản trị viên cao cấp</p>
+        <!-- Thanh bên --> 
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span class="logo-text">StudyNote</span>
             </div>
-            <i
-              class="fas fa-chevron-up"
-              style="color: var(--text-tertiary); font-size: 11px"
-            ></i>
-          </div>
-          <!-- Trình đơn hồ sơ -->
-          <div id="profileDropdown">
-            <a href="#" id="dropdownProfile"
-              ><i class="fas fa-user"></i> Hồ sơ của tôi</a
-            >
-            <a href="#" id="dropdownSettings"
-              ><i class="fas fa-cog"></i> Cài đặt</a
-            >
-            <div class="divider"></div>
-            <button id="dropdownLogout">
-              <i class="fas fa-sign-out-alt"></i> Đăng xuất
-            </button>
-          </div>
-        </div>
-      </aside>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <p class="section-title">QUẢN LÝ ADMIN</p>
+                    <ul class="nav-list">
+                        <li class="nav-item active" data-tab="dashboard">
+                            <i class="fas fa-th-large"></i>
+                            <span>Bảng điều khiển</span>
+                        </li>
+                        <li class="nav-item" data-tab="users">
+                            <i class="fas fa-users"></i>
+                            <span>Người dùng</span>
+                        </li>
+                        <li class="nav-item" data-tab="notes">
+                            <i class="fas fa-sticky-note"></i>
+                            <span>Quản lý bài đăng</span>
+                        </li>
+                        <li class="nav-item" data-tab="courses">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Duyệt khóa học</span>
+                        </li>
+                        <li class="nav-item" data-tab="uploads">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Tải lên</span>
+                        </li>
+                        <li class="nav-item" data-tab="downloads">
+                            <i class="fas fa-cloud-download-alt"></i>
+                            <span>Tải xuống</span>
+                        </li>
+                        <li class="nav-item" data-action="logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Đăng xuất</span>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-      <!-- Nội dung chính -->
-      <main class="main-content">
-        <!-- Đầu trang -->
-        <header class="header">
-          <div
-            class="header-left"
-            style="display: flex; align-items: center; gap: 12px"
-          >
-            <!-- Nút Hamburger (di động) -->
-            <button class="hamburger-btn" id="hamburgerBtn" title="Mở menu">
-              <i class="fas fa-bars"></i>
-            </button>
-            <div>
-              <h1>Bảng điều khiển</h1>
-              <p class="subtitle">
-                Chào mừng trở lại! Đây là những gì đang xảy ra với StudyNote.
-              </p>
+            <!-- Hồ sơ quản trị viên -->
+            <div class="profile-wrapper">
+                <div class="admin-profile" id="adminProfileBtn">
+                    <div id="admin-avatar"></div>
+                    <div class="profile-info">
+                        <p class="profile-name">Admin</p>
+                        <p class="profile-role">Quản trị viên cao cấp</p>
+                    </div>
+                    <i class="fas fa-chevron-up" style="color:var(--text-tertiary);font-size:11px"></i>
+                </div>
+                <!-- Trình đơn hồ sơ -->
+                <div id="profileDropdown">
+                    <a href="#" id="dropdownProfile"><i class="fas fa-user"></i> Hồ sơ của tôi</a>
+                    <a href="#" id="dropdownSettings"><i class="fas fa-cog"></i> Cài đặt</a>
+                    <div class="divider"></div>
+                    <button id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+                </div>
             </div>
-          </div>
-          <div class="header-right">
-            <div class="search-box">
-              <i class="fas fa-search"></i>
-              <input
-                type="text"
-                placeholder="Tìm kiếm người dùng, ghi chú, tệp..."
-              />
+        </aside>
+
+        <!-- Nội dung chính -->
+        <main class="main-content">
+            <!-- Đầu trang -->
+            <header class="header">
+                <div class="header-left" style="display:flex;align-items:center;gap:12px">
+                    <!-- Nút Hamburger (di động) -->
+                    <button class="hamburger-btn" id="hamburgerBtn" title="Mở menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1>Bảng điều khiển</h1>
+                        <p class="subtitle">Chào mừng trở lại! Đây là những gì đang xảy ra với StudyNote.</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Tìm kiếm người dùng, ghi chú, tệp...">
+                    </div>
+                    <div class="date-range">
+                        <i class="fas fa-calendar"></i>
+                        <span id="liveClock">--</span>
+                    </div>
+                    <div class="header-icons">
+                        <button class="icon-btn" id="themeToggleBtn" title="Chuyển nền sáng/tối">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="icon-btn notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Nội dung bảng điều khiển -->
+            <div class="dashboard">
+                <!-- Thẻ thống kê -->
+                <section class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon users-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Tổng người dùng</h3>
+                            <p class="stat-value">-</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> -
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon notes-icon">
+                            <i class="fas fa-sticky-note"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Tổng bài đăng</h3>
+                            <p class="stat-value">-</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> -
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon uploads-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Tải lên</h3>
+                            <p class="stat-value">-</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> -
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon downloads-icon">
+                            <i class="fas fa-cloud-download-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Tải xuống</h3>
+                            <p class="stat-value">-</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> -
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon active-icon">
+                            <i class="fas fa-users-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Số lượng bài viết
+                            </h3>
+                            <p class="stat-value">-</p>
+                            <p class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> -
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon storage-icon">
+                            <i class="fas fa-hdd"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-label">Bộ nhớ sử dụng</h3>
+                            <p class="stat-value">-</p>
+                            <div class="storage-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="progress-text">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Phần biểu đồ -->
+                <div class="charts-row">
+                    <!-- Biểu đồ tổng quan -->
+                    <section class="chart-container overview-chart">
+                        <div class="chart-header">
+                            <h2>Tổng quan</h2>
+                            <div class="chart-filter">
+                                <select>
+                                    <option>Người dùng</option>
+                                    <option>Ghi chú</option>
+                                    <option>Hoạt động</option>
+                                </select>
+                            </div>
+                        </div>
+                        <canvas id="overviewChart"></canvas>
+                    </section>
+
+                    <!-- Hoạt động & Danh mục của người dùng -->
+                    <div class="right-charts">
+                        <section class="chart-container user-activity">
+                            <div class="chart-header">
+                                <h2>Hoạt động người dùng</h2>
+                                <span class="chart-meta">Tuần này</span>
+                            </div>
+                            <div class="user-activity-content">
+                                <canvas id="userActivityChart"></canvas>
+                                <div class="activity-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-dot active-users"></span>
+                                        <span>Người dùng hoạt động: -</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot inactive-users"></span>
+                                        <span>Người dùng không hoạt động: -</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot new-users"></span>
+                                        <span>Người dùng mới: -</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="chart-container top-categories">
+                            <div class="chart-header">
+                                <h2>Danh mục hàng đầu</h2>
+                                <span class="chart-meta">Tuần này</span>
+                            </div>
+                            <div class="categories-list">
+                                <div class="category-item">
+                                    <div class="category-icon physics">
+                                        <i class="fas fa-atom"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Vật lý</p>
+                                        <p class="category-count">-</p>
+                                    </div>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-icon chemistry">
+                                        <i class="fas fa-flask"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Hóa học</p>
+                                        <p class="category-count">-</p>
+                                    </div>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-icon math">
+                                        <i class="fas fa-square-root-alt"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Toán học</p>
+                                        <p class="category-count">-</p>
+                                    </div>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-icon biology">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Sinh học</p>
+                                        <p class="category-count">-</p>
+                                    </div>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-icon cs">
+                                        <i class="fas fa-laptop-code"></i>
+                                    </div>
+                                    <div class="category-info">
+                                        <p class="category-name">Khoa học máy tính</p>
+                                        <p class="category-count">-</p>
+                                    </div>
+                                </div>
+                                <a href="#" class="view-all">Xem tất cả danh mục →</a>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Phần bảng -->
+                <div class="tables-row">
+                    <!-- Bài đăng gần đây -->
+                    <section class="table-container recent-notes">
+                        <div class="table-header">
+                            <h2>Bài đăng gần đây</h2>
+                            <a href="#" class="view-all">Xem tất cả bài đăng →</a>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tiêu đề bài đăng</th>
+                                    <th>Danh mục</th>
+                                    <th>Được tải lên bởi</th>
+                                    <th>Tạo lúc</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentNotesBody">
+                                <tr><td colspan="5" class="no-data">Đang tải dữ liệu...</td></tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- Hoạt động gần đây -->
+                    <section class="activity-container recent-activities">
+                        <div class="activity-header">
+                            <h2>Hoạt động gần đây</h2>
+                            <span class="view-all">Xem tất cả hoạt động →</span>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon new-user">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Người dùng mới đăng ký</p>
+                                    <p class="activity-detail">Alice Johnson đã tham gia StudyNote</p>
+                                </div>
+                                <span class="activity-time">2 phút trước</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon upload">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Ghi chú được tải lên</p>
+                                    <p class="activity-detail">Công thức Vật lý đã được tải lên</p>
+                                </div>
+                                <span class="activity-time">10 phút trước</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon download">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Tệp được tải xuống</p>
+                                    <p class="activity-detail">Công thức Vật lý đã được tải xuống</p>
+                                </div>
+                                <span class="activity-time">28 phút trước</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon deleted">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Người dùng bị cấm</p>
+                                    <p class="activity-detail">Robert Smith đã bị cấm</p>
+                                </div>
+                                <span class="activity-time">1 giờ trước</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon created">
+                                    <i class="fas fa-folder-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-title">Danh mục được tạo</p>
+                                    <p class="activity-detail">Danh mục "Trí tuệ nhân tạo" đã được thêm</p>
+                                </div>
+                                <span class="activity-time">2 giờ trước</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Biểu đồ phía dưới -->
+                <div class="bottom-charts-row">
+                    <section class="chart-container storage-overview">
+                        <div class="chart-header">
+                            <h2>Tổng quan bộ nhớ</h2>
+                        </div>
+                        <div class="storage-content">
+                            <canvas id="storageChart"></canvas>
+                            <div class="storage-breakdown">
+                                <div class="storage-item">
+                                    <span class="storage-label">Ghi chú</span>
+                                    <span class="storage-value">256 GB</span>
+                                </div>
+                                <div class="storage-item">
+                                    <span class="storage-label">Tải lên</span>
+                                    <span class="storage-value">256 GB</span>
+                                </div>
+                                <div class="storage-item">
+                                    <span class="storage-label">Khác</span>
+                                    <span class="storage-value">130 GB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="chart-container upload-stats">
+                        <div class="chart-header">
+                            <h2>Thống kê tải lên</h2>
+                            <span class="chart-meta">Tuần này</span>
+                        </div>
+                        <canvas id="uploadChart"></canvas>
+                    </section>
+
+                    <section class="chart-container download-stats">
+                        <div class="chart-header">
+                            <h2>Thống kê tải xuống</h2>
+                            <span class="chart-meta">Tuần này</span>
+                        </div>
+                        <canvas id="downloadChart"></canvas>
+                    </section>
+
+                    <section class="chart-container system-status">
+                        <div class="chart-header">
+                            <h2>Trạng thái hệ thống</h2>
+                        </div>
+                        <div class="status-list">
+                            <div class="status-item">
+                                <span class="status-dot online"></span>
+                                <span class="status-label">Trạng thái máy chủ</span>
+                                <span class="status-value">Trực tuyến</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot online"></span>
+                                <span class="status-label">Cơ sở dữ liệu</span>
+                                <span class="status-value">Đã kết nối</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot online"></span>
+                                <span class="status-label">Bộ nhớ</span>
+                                <span class="status-value">Tốt</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot online"></span>
+                                <span class="status-label">Sao lưu</span>
+                                <span class="status-value">Sao lưu lần cuối 2h trước</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
-            <div class="date-range">
-              <i class="fas fa-calendar"></i>
-              <span id="liveClock">--</span>
-            </div>
-            <div class="header-icons">
-              <button
-                class="icon-btn"
-                id="themeToggleBtn"
-                title="Chuyển nền sáng/tối"
-              >
-                <i class="fas fa-moon"></i>
-              </button>
-              <button class="icon-btn notification-btn">
-                <i class="fas fa-bell"></i>
-                <span class="notification-badge">3</span>
-              </button>
-            </div>
-          </div>
-        </header>
 
-        <!-- Nội dung bảng điều khiển -->
-        <div class="dashboard">
-          <!-- Thẻ thống kê -->
-          <section class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-icon users-icon">
-                <i class="fas fa-users"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-label">Tổng người dùng</h3>
-                <p class="stat-value">-</p>
-                <p class="stat-change positive">
-                  <i class="fas fa-arrow-up"></i> -
-                </p>
-              </div>
+            <!-- Thẻ quản lý người dùng -->
+            <div id="users-tab" class="content-tab">
+                <div class="action-bar">
+                    <h2>Quản lý Người dùng</h2>
+                    <div style="display: flex; gap: 15px; flex: 1;">
+                        <input type="text" id="userSearch" class="search-input" placeholder="Tìm kiếm email hoặc tên...">
+                        <button class="btn-add" id="addUserBtn"><i class="fas fa-plus"></i> Thêm Người dùng</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="manage-table" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Tên</th>
+                                <th>Role</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr><td colspan="6" class="no-data">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-icon notes-icon">
-                <i class="fas fa-sticky-note"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-label">Tổng ghi chú</h3>
-                <p class="stat-value">-</p>
-                <p class="stat-change positive">
-                  <i class="fas fa-arrow-up"></i> -
-                </p>
-              </div>
+            <!-- Thẻ quản lý ghi chú -->
+            <div id="notes-tab" class="content-tab">
+                <div class="action-bar">
+                    <h2>Quản lý Ghi chú</h2>
+                    <div style="display: flex; gap: 15px; flex: 1;">
+                        <input type="text" id="noteSearch" class="search-input" placeholder="Tìm kiếm tiêu đề...">
+                        <button class="btn-add" id="addNoteBtn"><i class="fas fa-plus"></i> Thêm Ghi chú</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="manage-table" id="notesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tiêu đề</th>
+                                <th>Nội dung</th>
+                                <th>Danh mục</th>
+                                <th>Tác giả</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="notesTableBody">
+                            <tr><td colspan="7" class="no-data">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-icon uploads-icon">
-                <i class="fas fa-cloud-upload-alt"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-label">Tải lên</h3>
-                <p class="stat-value">-</p>
-                <p class="stat-change positive">
-                  <i class="fas fa-arrow-up"></i> -
-                </p>
-              </div>
+            <!-- Thẻ duyệt khóa học -->
+            <div id="courses-tab" class="content-tab">
+                <div class="action-bar" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+                    <h2>Duyệt khóa học</h2>
+                    <span id="pendingCoursesBadge" class="badge bg-danger" style="font-size:0.9rem; display:none;">0 chờ duyệt</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="manage-table" id="pendingCoursesTable">
+                        <thead>
+                            <tr>
+                                <th>Tên khóa học</th>
+                                <th>Giá</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày gửi</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingCoursesTableBody">
+                            <tr><td colspan="5" class="no-data">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-icon downloads-icon">
-                <i class="fas fa-cloud-download-alt"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-label">Tải xuống</h3>
-                <p class="stat-value">-</p>
-                <p class="stat-change positive">
-                  <i class="fas fa-arrow-up"></i> -
-                </p>
-              </div>
+            <!-- Thẻ quản lý tệp tải lên -->
+            <div id="uploads-tab" class="content-tab">
+                <div class="action-bar">
+                    <h2>Quản lý Tải lên</h2>
+                </div>
+                <div class="upload-zone" id="uploadZone">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #22c55e; margin-bottom: 15px; display: block;"></i>
+                    <p style="font-size: 16px; font-weight: 600; margin-bottom: 5px;"><strong>Kéo & thả tệp hoặc nhấp để chọn</strong></p>
+                    <small style="color: var(--text-tertiary);">Hỗ trợ PDF, Word, Image, Video...</small>
+                    <input type="file" id="fileInput" style="display: none;" multiple>
+                </div>
+                <div id="uploadedFiles" style="margin-top: 30px;">
+                    <h3>Tệp đã tải lên</h3>
+                    <div id="filesList"></div>
+                </div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-icon active-icon">
-                <i class="fas fa-users-check"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-label">Số lượng bài viết</h3>
-                <p class="stat-value">-</p>
-                <p class="stat-change positive">
-                  <i class="fas fa-arrow-up"></i> -
-                </p>
-              </div>
+            <!-- Thẻ quản lý tệp tải xuống -->
+            <div id="downloads-tab" class="content-tab">
+                <div class="action-bar">
+                    <h2>Quản lý Tải xuống</h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="manage-table" id="downloadsTable">
+                        <thead>
+                            <tr>
+                                <th>Tên tệp</th>
+                                <th>Loại</th>
+                                <th>Kích thước</th>
+                                <th>Lượt tải</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="downloadsTableBody">
+                            <tr><td colspan="6" class="no-data">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-icon storage-icon">
-                <i class="fas fa-hdd"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-label">Bộ nhớ sử dụng</h3>
-                <p class="stat-value">-</p>
-                <div class="storage-progress">
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%"></div>
-                  </div>
-                  <span class="progress-text">-</span>
-                </div>
-              </div>
-            </div>
-          </section>
+        </main>
 
-          <!-- Phần biểu đồ -->
-          <div class="charts-row">
-            <!-- Biểu đồ tổng quan -->
-            <section class="chart-container overview-chart">
-              <div class="chart-header">
-                <h2>Tổng quan</h2>
-                <div class="chart-filter">
-                  <select>
-                    <option>Người dùng</option>
-                    <option>Ghi chú</option>
-                    <option>Hoạt động</option>
-                  </select>
+        <!-- Hộp thoại người dùng -->
+        <div id="userDialog" title="Thêm/Sửa Người dùng">
+            <form id="userForm">
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="userEmail" required>
                 </div>
-              </div>
-              <canvas id="overviewChart"></canvas>
-            </section>
-
-            <!-- Hoạt động & Danh mục của người dùng -->
-            <div class="right-charts">
-              <section class="chart-container user-activity">
-                <div class="chart-header">
-                  <h2>Hoạt động người dùng</h2>
-                  <span class="chart-meta">Tuần này</span>
+                <div class="form-group">
+                    <label>Tên *</label>
+                    <input type="text" id="userName" required>
                 </div>
-                <div class="user-activity-content">
-                  <canvas id="userActivityChart"></canvas>
-                  <div class="activity-legend">
-                    <div class="legend-item">
-                      <span class="legend-dot active-users"></span>
-                      <span>Người dùng hoạt động: -</span>
-                    </div>
-                    <div class="legend-item">
-                      <span class="legend-dot inactive-users"></span>
-                      <span>Người dùng không hoạt động: -</span>
-                    </div>
-                    <div class="legend-item">
-                      <span class="legend-dot new-users"></span>
-                      <span>Người dùng mới: -</span>
-                    </div>
-                  </div>
+                <div class="form-group">
+                    <label>Mật khẩu *</label>
+                    <input type="password" id="userPassword" required>
                 </div>
-              </section>
-
-              <section class="chart-container top-categories">
-                <div class="chart-header">
-                  <h2>Danh mục hàng đầu</h2>
-                  <span class="chart-meta">Tuần này</span>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="userRole">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
                 </div>
-                <div class="categories-list">
-                  <div class="category-item">
-                    <div class="category-icon physics">
-                      <i class="fas fa-atom"></i>
-                    </div>
-                    <div class="category-info">
-                      <p class="category-name">Vật lý</p>
-                      <p class="category-count">-</p>
-                    </div>
-                  </div>
-                  <div class="category-item">
-                    <div class="category-icon chemistry">
-                      <i class="fas fa-flask"></i>
-                    </div>
-                    <div class="category-info">
-                      <p class="category-name">Hóa học</p>
-                      <p class="category-count">-</p>
-                    </div>
-                  </div>
-                  <div class="category-item">
-                    <div class="category-icon math">
-                      <i class="fas fa-square-root-alt"></i>
-                    </div>
-                    <div class="category-info">
-                      <p class="category-name">Toán học</p>
-                      <p class="category-count">-</p>
-                    </div>
-                  </div>
-                  <div class="category-item">
-                    <div class="category-icon biology">
-                      <i class="fas fa-leaf"></i>
-                    </div>
-                    <div class="category-info">
-                      <p class="category-name">Sinh học</p>
-                      <p class="category-count">-</p>
-                    </div>
-                  </div>
-                  <div class="category-item">
-                    <div class="category-icon cs">
-                      <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="category-info">
-                      <p class="category-name">Khoa học máy tính</p>
-                      <p class="category-count">-</p>
-                    </div>
-                  </div>
-                  <a href="#" class="view-all">Xem tất cả danh mục →</a>
-                </div>
-              </section>
-            </div>
-          </div>
-
-          <!-- Phần bảng -->
-          <div class="tables-row">
-            <!-- Ghi chú gần đây -->
-            <section class="table-container recent-notes">
-              <div class="table-header">
-                <h2>Ghi chú gần đây</h2>
-                <a href="#" class="view-all">Xem tất cả ghi chú →</a>
-              </div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Tiêu đề ghi chú</th>
-                    <th>Danh mục</th>
-                    <th>Được tải lên bởi</th>
-                    <th>Tải lên</th>
-                    <th>Tải xuống</th>
-                    <th>Tạo lúc</th>
-                    <th>Trạng thái</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Cơ bản cơ học lượng tử</td>
-                    <td><span class="badge category-physics">Vật lý</span></td>
-                    <td>John Doe</td>
-                    <td>245</td>
-                    <td>1,234</td>
-                    <td>21 Tháng 5, 2026</td>
-                    <td><span class="status published">Đã xuất bản</span></td>
-                  </tr>
-                  <tr>
-                    <td>Lập trình hướng đối tượng</td>
-                    <td>
-                      <span class="badge category-cs">Khoa học máy tính</span>
-                    </td>
-                    <td>Sarah Johnson</td>
-                    <td>189</td>
-                    <td>987</td>
-                    <td>21 Tháng 5, 2024</td>
-                    <td><span class="status published">Đã xuất bản</span></td>
-                  </tr>
-                  <tr>
-                    <td>Đạo hàm giải tích</td>
-                    <td><span class="badge category-math">Toán học</span></td>
-                    <td>Michael Lee</td>
-                    <td>156</td>
-                    <td>876</td>
-                    <td>20 Tháng 5, 2024</td>
-                    <td><span class="status published">Đã xuất bản</span></td>
-                  </tr>
-                  <tr>
-                    <td>Lập trình frontend</td>
-                    <td>
-                      <span class="badge category-cs">Khoa học máy tính</span>
-                    </td>
-                    <td>Emily Brown</td>
-                    <td>134</td>
-                    <td>789</td>
-                    <td>20 Tháng 5, 2024</td>
-                    <td><span class="status published">Đã xuất bản</span></td>
-                  </tr>
-                  <tr>
-                    <td>Ghi chú cấu trúc dữ liệu</td>
-                    <td>
-                      <span class="badge category-cs">Khoa học máy tính</span>
-                    </td>
-                    <td>David Wilson</td>
-                    <td>98</td>
-                    <td>654</td>
-                    <td>19 Tháng 5, 2024</td>
-                    <td><span class="status published">Đã xuất bản</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-
-            <!-- Hoạt động gần đây -->
-            <section class="activity-container recent-activities">
-              <div class="activity-header">
-                <h2>Hoạt động gần đây</h2>
-                <span class="view-all">Xem tất cả hoạt động →</span>
-              </div>
-              <div class="activity-list">
-                <div class="activity-item">
-                  <div class="activity-icon new-user">
-                    <i class="fas fa-user-plus"></i>
-                  </div>
-                  <div class="activity-content">
-                    <p class="activity-title">Người dùng mới đăng ký</p>
-                    <p class="activity-detail">
-                      Alice Johnson đã tham gia StudyNote
-                    </p>
-                  </div>
-                  <span class="activity-time">2 phút trước</span>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-icon upload">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                  </div>
-                  <div class="activity-content">
-                    <p class="activity-title">Ghi chú được tải lên</p>
-                    <p class="activity-detail">
-                      Công thức Vật lý đã được tải lên
-                    </p>
-                  </div>
-                  <span class="activity-time">10 phút trước</span>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-icon download">
-                    <i class="fas fa-download"></i>
-                  </div>
-                  <div class="activity-content">
-                    <p class="activity-title">Tệp được tải xuống</p>
-                    <p class="activity-detail">
-                      Công thức Vật lý đã được tải xuống
-                    </p>
-                  </div>
-                  <span class="activity-time">28 phút trước</span>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-icon deleted">
-                    <i class="fas fa-trash"></i>
-                  </div>
-                  <div class="activity-content">
-                    <p class="activity-title">Người dùng bị cấm</p>
-                    <p class="activity-detail">Robert Smith đã bị cấm</p>
-                  </div>
-                  <span class="activity-time">1 giờ trước</span>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-icon created">
-                    <i class="fas fa-folder-plus"></i>
-                  </div>
-                  <div class="activity-content">
-                    <p class="activity-title">Danh mục được tạo</p>
-                    <p class="activity-detail">
-                      Danh mục "Trí tuệ nhân tạo" đã được thêm
-                    </p>
-                  </div>
-                  <span class="activity-time">2 giờ trước</span>
-                </div>
-              </div>
-            </section>
-          </div>
-
-          <!-- Biểu đồ phía dưới -->
-          <div class="bottom-charts-row">
-            <section class="chart-container storage-overview">
-              <div class="chart-header">
-                <h2>Tổng quan bộ nhớ</h2>
-              </div>
-              <div class="storage-content">
-                <canvas id="storageChart"></canvas>
-                <div class="storage-breakdown">
-                  <div class="storage-item">
-                    <span class="storage-label">Ghi chú</span>
-                    <span class="storage-value">256 GB</span>
-                  </div>
-                  <div class="storage-item">
-                    <span class="storage-label">Tải lên</span>
-                    <span class="storage-value">256 GB</span>
-                  </div>
-                  <div class="storage-item">
-                    <span class="storage-label">Khác</span>
-                    <span class="storage-value">130 GB</span>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section class="chart-container upload-stats">
-              <div class="chart-header">
-                <h2>Thống kê tải lên</h2>
-                <span class="chart-meta">Tuần này</span>
-              </div>
-              <canvas id="uploadChart"></canvas>
-            </section>
-
-            <section class="chart-container download-stats">
-              <div class="chart-header">
-                <h2>Thống kê tải xuống</h2>
-                <span class="chart-meta">Tuần này</span>
-              </div>
-              <canvas id="downloadChart"></canvas>
-            </section>
-
-            <section class="chart-container system-status">
-              <div class="chart-header">
-                <h2>Trạng thái hệ thống</h2>
-              </div>
-              <div class="status-list">
-                <div class="status-item">
-                  <span class="status-dot online"></span>
-                  <span class="status-label">Trạng thái máy chủ</span>
-                  <span class="status-value">Trực tuyến</span>
-                </div>
-                <div class="status-item">
-                  <span class="status-dot online"></span>
-                  <span class="status-label">Cơ sở dữ liệu</span>
-                  <span class="status-value">Đã kết nối</span>
-                </div>
-                <div class="status-item">
-                  <span class="status-dot online"></span>
-                  <span class="status-label">Bộ nhớ</span>
-                  <span class="status-value">Tốt</span>
-                </div>
-                <div class="status-item">
-                  <span class="status-dot online"></span>
-                  <span class="status-label">Sao lưu</span>
-                  <span class="status-value">Sao lưu lần cuối 2h trước</span>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <!-- Thẻ quản lý người dùng -->
-        <div id="users-tab" class="content-tab">
-          <div class="action-bar">
-            <h2>Quản lý Người dùng</h2>
-            <input
-              type="text"
-              id="userSearch"
-              class="search-input"
-              placeholder="Tìm kiếm email hoặc tên..."
-            />
-            <button class="btn-add" id="addUserBtn">
-              <i class="fas fa-plus"></i> Thêm Người dùng
-            </button>
-          </div>
-          <div class="table-responsive">
-            <table class="manage-table" id="usersTable">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Email</th>
-                  <th>Tên</th>
-                  <th>Role</th>
-                  <th>Ngày tạo</th>
-                  <th>Hành động</th>
-                </tr>
-              </thead>
-              <tbody id="usersTableBody">
-                <tr>
-                  <td colspan="6" class="no-data">Đang tải dữ liệu...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Thẻ quản lý ghi chú -->
-        <div id="notes-tab" class="content-tab">
-          <div class="action-bar">
-            <h2>Quản lý Ghi chú</h2>
-            <input
-              type="text"
-              id="noteSearch"
-              class="search-input"
-              placeholder="Tìm kiếm tiêu đề..."
-            />
-            <button class="btn-add" id="addNoteBtn">
-              <i class="fas fa-plus"></i> Thêm Ghi chú
-            </button>
-          </div>
-          <div class="table-responsive">
-            <table class="manage-table" id="notesTable">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Tiêu đề</th>
-                  <th>Nội dung</th>
-                  <th>Danh mục</th>
-                  <th>Tác giả</th>
-                  <th>Ngày tạo</th>
-                  <th>Hành động</th>
-                </tr>
-              </thead>
-              <tbody id="notesTableBody">
-                <tr>
-                  <td colspan="7" class="no-data">Đang tải dữ liệu...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Thẻ quản lý tệp tải lên -->
-        <div id="uploads-tab" class="content-tab">
-          <h2>Quản lý Tải lên</h2>
-          <div class="upload-zone" id="uploadZone">
-            <i
-              class="fas fa-cloud-upload-alt"
-              style="
-                font-size: 48px;
-                color: #7ec041;
-                margin-bottom: 10px;
-                display: block;
-              "
-            ></i>
-            <p><strong>Kéo & thả tệp hoặc nhấp để chọn</strong></p>
-            <small>Hỗ trợ PDF, Word, Image, Video...</small>
-            <input type="file" id="fileInput" style="display: none" multiple />
-          </div>
-          <div id="uploadedFiles" style="margin-top: 30px">
-            <h3>Tệp đã tải lên</h3>
-            <div id="filesList"></div>
-          </div>
+            </form>
         </div>
 
-        <!-- Thẻ quản lý tệp tải xuống -->
-        <div id="downloads-tab" class="content-tab">
-          <h2>Quản lý Tải xuống</h2>
-          <div class="table-responsive">
-            <table class="manage-table" id="downloadsTable">
-              <thead>
-                <tr>
-                  <th>Tên tệp</th>
-                  <th>Loại</th>
-                  <th>Kích thước</th>
-                  <th>Lượt tải</th>
-                  <th>Ngày tạo</th>
-                  <th>Hành động</th>
-                </tr>
-              </thead>
-              <tbody id="downloadsTableBody">
-                <tr>
-                  <td colspan="6" class="no-data">Đang tải dữ liệu...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <!-- Hộp thoại ghi chú -->
+        <div id="noteDialog" title="Thêm/Sửa Ghi chú">
+            <form id="noteForm">
+                <div class="form-group">
+                    <label>Tiêu đề *</label>
+                    <input type="text" id="noteTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Nội dung *</label>
+                    <textarea id="noteContent" required style="min-height: 150px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Danh mục</label>
+                    <input type="text" id="noteCategory" placeholder="VD: Toán, Lý, Hóa...">
+                </div>
+                <div class="form-group">
+                    <label>Tác giả</label>
+                    <input type="text" id="noteAuthor">
+                </div>
+            </form>
         </div>
-      </main>
 
-      <!-- Hộp thoại người dùng -->
-      <div id="userDialog" title="Thêm/Sửa Người dùng">
-        <form id="userForm">
-          <div class="form-group">
-            <label>Email *</label>
-            <input type="email" id="userEmail" required />
-          </div>
-          <div class="form-group">
-            <label>Tên *</label>
-            <input type="text" id="userName" required />
-          </div>
-          <div class="form-group">
-            <label>Mật khẩu *</label>
-            <input type="password" id="userPassword" required />
-          </div>
-          <div class="form-group">
-            <label>Role</label>
-            <select id="userRole">
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
-        </form>
-      </div>
-
-      <!-- Hộp thoại ghi chú -->
-      <div id="noteDialog" title="Thêm/Sửa Ghi chú">
-        <form id="noteForm">
-          <div class="form-group">
-            <label>Tiêu đề *</label>
-            <input type="text" id="noteTitle" required />
-          </div>
-          <div class="form-group">
-            <label>Nội dung *</label>
-            <textarea
-              id="noteContent"
-              required
-              style="min-height: 150px"
-            ></textarea>
-          </div>
-          <div class="form-group">
-            <label>Danh mục</label>
-            <input
-              type="text"
-              id="noteCategory"
-              placeholder="VD: Toán, Lý, Hóa..."
-            />
-          </div>
-          <div class="form-group">
-            <label>Tác giả</label>
-            <input type="text" id="noteAuthor" />
-          </div>
-        </form>
-      </div>
-
-      <!-- Hộp thoại hồ sơ -->
-      <div id="profileDialog" title="Hồ sơ của tôi">
-        <div class="profile-details" style="text-align: center; padding: 10px">
-          <img
-            src="https://ui-avatars.com/api/?name=Admin&background=7ec041&color=fff&size=80&rounded=true"
-            alt="Admin"
-            style="margin-bottom: 15px"
-          />
-          <h3 style="margin-bottom: 5px">Admin</h3>
-          <p style="color: var(--text-secondary); margin-bottom: 20px">
-            Quản trị viên cao cấp
-          </p>
-
-          <div class="form-group" style="text-align: left">
-            <label>Email liên hệ</label>
-            <input type="email" value="admin@studynote.com" disabled />
-          </div>
-          <div class="form-group" style="text-align: left">
-            <label>Ngày tham gia</label>
-            <input type="text" value="01/01/2024" disabled />
-          </div>
+        <!-- Hộp thoại thông tin khóa học tải lên -->
+        <div id="uploadCourseDialog" title="Thông tin khóa học tải lên">
+            <form id="uploadCourseForm">
+                <div class="form-group">
+                    <label>Tên khóa học *</label>
+                    <input type="text" id="uploadCourseTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Mô tả khóa học *</label>
+                    <textarea id="uploadCourseDescription" required style="min-height: 120px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Danh mục</label>
+                    <input type="text" id="uploadCourseCategory" placeholder="Ví dụ: Lập trình, Toán...">
+                </div>
+                <div class="form-group">
+                    <label>Link ảnh đại diện</label>
+                    <input type="text" id="uploadCourseImage" placeholder="URL ảnh hoặc để trống để dùng ảnh mặc định">
+                </div>
+                <div class="form-group">
+                    <label>Giá</label>
+                    <input type="text" id="uploadCoursePrice" placeholder="Ví dụ: 199000">
+                </div>
+            </form>
         </div>
-      </div>
 
-      <!-- Hộp thoại cài đặt -->
-      <div id="settingsDialog" title="Cài đặt hệ thống">
-        <form id="settingsForm">
-          <div class="form-group">
-            <label>Tên hiển thị</label>
-            <input type="text" id="settingName" value="Admin" />
-          </div>
-          <div class="form-group">
-            <label>Nhận thông báo qua Email</label>
-            <select id="settingNotify">
-              <option value="yes">Có</option>
-              <option value="no">Không</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Ngôn ngữ</label>
-            <select id="settingLang">
-              <option value="vi">Tiếng Việt</option>
-              <option value="en">English</option>
-            </select>
-          </div>
-        </form>
-      </div>
+        <!-- Hộp thoại hồ sơ -->
+        <div id="profileDialog" title="Hồ sơ của tôi">
+            <div class="profile-details" style="text-align: center; padding: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=7ec041&color=fff&size=80&rounded=true" alt="Admin" style="margin-bottom: 15px;">
+                <h3 style="margin-bottom: 5px;">Admin</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">Quản trị viên cao cấp</p>
+                
+                <div class="form-group" style="text-align: left;">
+                    <label>Email liên hệ</label>
+                    <input type="email" value="admin@studynote.com" disabled>
+                </div>
+                <div class="form-group" style="text-align: left;">
+                    <label>Ngày tham gia</label>
+                    <input type="text" value="01/01/2024" disabled>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hộp thoại cài đặt -->
+        <div id="settingsDialog" title="Cài đặt hệ thống">
+            <form id="settingsForm">
+                <div class="form-group">
+                    <label>Tên hiển thị</label>
+                    <input type="text" id="settingName" value="Admin">
+                </div>
+                <div class="form-group">
+                    <label>Nhận thông báo qua Email</label>
+                    <select id="settingNotify">
+                        <option value="yes">Có</option>
+                        <option value="no">Không</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ngôn ngữ</label>
+                    <select id="settingLang">
+                        <option value="vi">Tiếng Việt</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script defer src="JavaScript/ADMIN_JS/admin.js"></script>
     <script defer src="JavaScript/ADMIN_JS/admin-extended.js"></script>
-  </body>
+</body>
 </html>

@@ -22,64 +22,26 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// ============ HEART BUTTON TOGGLE ============
-// Course data for favorites
-const courseData = {
-  1: {
-    id: 1,
-    title: "C++ nâng cao",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png",
-  },
-  2: {
-    id: 2,
-    title: "Cấu trúc dữ liệu và giải thuật",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png",
-  },
-  3: {
-    id: 3,
-    title: "Làm quen với SQL",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png",
-  },
-  4: {
-    id: 4,
-    title: "C# cơ bản",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png",
-  },
-  5: {
-    id: 5,
-    title: "JavaScript cơ bản",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png",
-  },
-  6: {
-    id: 6,
-    title: "Lập trình hướng đối tượng trong C++",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lap-trinh-huong-doi-tuong-trong-cpp_653cb309970b492ca7f69162384814f8.png",
-  },
-};
+// ============ MOCK API URL ============
+const COURSE_API_URL = "https://69fd352830ad0a6fd1c093f8.mockapi.io/api/v1/courses";
 
 // Initialize favorite buttons
 function initFavoriteButtons() {
   document.querySelectorAll(".course-overlay button").forEach((btn) => {
     const courseCard = btn.closest(".course-card");
-    const courseIndex =
-      Array.from(document.querySelectorAll(".course-card")).indexOf(
-        courseCard,
-      ) + 1;
+    let courseId =
+      courseCard?.dataset.courseId || courseCard?.dataset.id ||
+      Array.from(document.querySelectorAll(".course-card")).indexOf(courseCard) + 1;
+    courseId = String(courseId);
 
     btn.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
-      toggleFavorite(courseIndex, btn);
+      toggleFavorite(courseId, btn);
     });
 
     // Check if course is already in favorites
-    if (isCourseInFavorites(courseIndex)) {
+    if (isCourseInFavorites(courseId)) {
       btn.classList.add("liked");
       const icon = btn.querySelector("i");
       icon.classList.remove("bi-heart");
@@ -87,6 +49,91 @@ function initFavoriteButtons() {
     }
   });
 }
+
+function escapeStringForHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// ============ LOAD COURSES FROM MOCK API ============
+async function loadApprovedCourses() {
+  try {
+    const response = await fetch(COURSE_API_URL);
+    if (!response.ok) throw new Error("Không thể tải khóa học đã duyệt");
+    const courses = await response.json();
+    if (!Array.isArray(courses)) return;
+
+    const container = document.getElementById("coursesGrid");
+    if (!container) return;
+
+    const approved = courses.filter((course) => course.status === "approved");
+    approved.forEach((course) => {
+      // Tránh trùng lặp nếu thẻ đã tồn tại
+      if (document.querySelector(`.course-card[data-course-id="${course.id}"]`)) {
+        return;
+      }
+      
+      const courseTitle = course.name || "Khóa học không tên";
+      const courseImage = course.image || "https://via.placeholder.com/300x220?text=Khóa+học";
+      const courseDetail = course.detail || "Không có mô tả";
+      const coursePrice = course.price ? `${course.price}đ` : "Miễn phí";
+
+      const cardHtml = `
+        <div class="col-md-6 col-lg-4">
+          <div class="course-card" data-course-id="${course.id}">
+            <div class="course-image-wrapper">
+              <img src="${courseImage}" alt="${escapeStringForHtml(courseTitle)}" />
+              <div class="course-overlay">
+                <button class="btn btn-light rounded-circle">
+                  <i class="bi bi-heart"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="category-badge">${escapeStringForHtml(course.status === "approved" ? "Mới duyệt" : "Khóa học")}</div>
+              <h5 class="card-title">${escapeStringForHtml(courseTitle)}</h5>
+              <p class="course-desc">${escapeStringForHtml(courseDetail.substring(0, 100))}...</p>
+              <div class="course-meta mb-3">
+                <span class="me-3">${coursePrice}</span>
+              </div>
+              <button
+                class="btn btn-primary w-100 rounded-pill"
+                onclick="viewCourseDetail('${course.id}', '${escapeStringForHtml(courseTitle)}', '${escapeStringForHtml(courseImage)}')"
+              >
+                Xem chi tiết
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.insertAdjacentHTML("beforeend", cardHtml);
+    });
+
+    observeCourseCards();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function observeCourseCards() {
+  document.querySelectorAll(".course-card").forEach((card) => {
+    if (!card.classList.contains("observed")) {
+      observer.observe(card);
+      card.classList.add("observed");
+    }
+  });
+}
+
+window.addEventListener("storage", (event) => {
+  if (event.key === "coursesUpdatedAt") {
+    loadApprovedCourses();
+  }
+});
 
 // Get favorites from localStorage
 function getFavorites() {
@@ -102,17 +149,23 @@ function saveFavorites(favorites) {
 // Check if course is in favorites
 function isCourseInFavorites(courseId) {
   const favorites = getFavorites();
-  return favorites.some((fav) => fav.id === courseId);
+  return favorites.some((fav) => String(fav.id) === String(courseId));
 }
 
-// Toggle favorite
+// Toggle favorite (Lấy trực tiếp data từ Mock API đã render ra DOM)
 function toggleFavorite(courseId, btn) {
   let favorites = getFavorites();
-  const course = courseData[courseId];
+  const courseCard = btn.closest(".course-card");
+  
+  // Tự động lấy thông tin từ giao diện thay vì dùng object tĩnh courseData đã xóa
+  const course = {
+    title: courseCard?.querySelector(".card-title")?.textContent?.trim() || "Khóa học",
+    image: courseCard?.querySelector("img")?.getAttribute("src") || "https://via.placeholder.com/300x220?text=StudyNote",
+  };
 
   if (isCourseInFavorites(courseId)) {
     // Remove from favorites
-    favorites = favorites.filter((fav) => fav.id !== courseId);
+    favorites = favorites.filter((fav) => String(fav.id) !== String(courseId));
     btn.classList.remove("liked");
     const icon = btn.querySelector("i");
     icon.classList.add("bi-heart");
@@ -152,6 +205,7 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".course-card").forEach((card) => {
   observer.observe(card);
+  card.classList.add("observed");
 });
 
 // ============ FILTER INTERACTION ============
@@ -160,9 +214,9 @@ document
   .forEach((checkbox) => {
     checkbox.addEventListener("change", function () {
       console.log(`${this.id} is ${this.checked ? "checked" : "unchecked"}`);
-      // Apply filter logic here
     });
   });
+
 // ============ VIEW COURSE DETAIL ============
 function viewCourseDetail(id, title, image) {
   const courseData = {
@@ -179,6 +233,7 @@ function handleLogout() {
   localStorage.removeItem("isLoggedIn");
   window.location.href = "login.html";
 }
+
 // Check auth on page load
 document.addEventListener("DOMContentLoaded", () => {
   const logged = localStorage.getItem("isLoggedIn");
@@ -187,7 +242,13 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "login.html";
     return;
   }
-  if(role ==="admin") {
+  if (role === "admin") {
     window.location.href = "admin.html";
+    return;
   }
+
+  // Chỉ gọi hàm load dữ liệu từ Mock API
+  loadApprovedCourses().then(() => {
+    initFavoriteButtons();
+  });
 });

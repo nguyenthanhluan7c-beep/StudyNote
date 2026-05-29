@@ -3,9 +3,9 @@
    ============================================================ */
 /* ---------- 1. BẢO VỆ XÁC THỰC ---------- */
 (function authGuard() {
-  const user = JSON.parse(localStorage.getItem("loggedInUser") || "null");
-  if (!user || user.role !== "admin") {
-    // window.location.href = "index.html"; // Tạm thời tắt chuyển hướng để dev
+  const role = localStorage.getItem("role");
+  if (role !== "admin") {
+    window.location.href = "index.html";
   }
 })();
 
@@ -22,6 +22,7 @@ async function getdata()
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   initSidebar();
+  initTabs();
   initHamburger();
   initProfileMenu();
   initSearch();
@@ -75,6 +76,11 @@ function initSidebar() {
       items.forEach((i) => i.classList.remove("active"));
       item.classList.add("active");
 
+      const tabId = item.dataset.tab;
+      if (tabId) {
+        switchTab(tabId);
+      }
+
       // đóng thanh bên trên thiết bị di động sau khi nhấp
       const sidebar = document.querySelector(".sidebar");
       if (window.innerWidth <= 768) {
@@ -88,6 +94,35 @@ function initSidebar() {
   const logoutItem = document.querySelector('.nav-item[data-action="logout"]');
   if (logoutItem) {
     logoutItem.addEventListener("click", handleLogout);
+  }
+}
+
+function initTabs() {
+  const items = document.querySelectorAll(".nav-item[data-tab]");
+  items.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      const tabId = item.dataset.tab;
+      switchTab(tabId);
+    });
+  });
+}
+
+function switchTab(tabId) {
+  const dashboard = document.querySelector(".dashboard");
+  const contentTabs = document.querySelectorAll(".content-tab");
+
+  if (tabId === "dashboard") {
+    if (dashboard) dashboard.style.display = "block";
+    contentTabs.forEach((tab) => (tab.style.display = "none"));
+  } else {
+    if (dashboard) dashboard.style.display = "none";
+    contentTabs.forEach((tab) => (tab.style.display = "none"));
+
+    const activeTab = document.getElementById(`${tabId}-tab`);
+    if (activeTab) {
+      activeTab.style.display = "block";
+    }
   }
 }
 
@@ -407,10 +442,10 @@ function initOverviewChart() {
         {
           label: "Người dùng",
           data,
-          borderColor: "#7ec041",
-          backgroundColor: "rgba(126, 192, 65, 0.1)",
+          borderColor: "#0369a1",
+          backgroundColor: "rgba(3, 105, 161, 0.1)",
           borderWidth: 2.5,
-          pointBackgroundColor: "#7ec041",
+          pointBackgroundColor: "#0369a1",
           pointRadius: 4,
           pointHoverRadius: 6,
           fill: true,
@@ -427,7 +462,7 @@ function initOverviewChart() {
           backgroundColor: c.tooltipBg,
           titleColor: c.tooltipText,
           bodyColor: c.tooltipText,
-          borderColor: "rgba(126,192,65,0.3)",
+          borderColor: "rgba(3, 105, 161, 0.3)",
           borderWidth: 1,
         },
       },
@@ -480,7 +515,7 @@ function initUserActivityChart() {
       datasets: [
         {
           data: [8923, 2681, 1243],
-          backgroundColor: ["#7ec041", "#6c757d", "#1e96f3"],
+          backgroundColor: ["#0369a1", "#9ca3af", "#0ea5e9"],
           borderColor: "transparent",
           borderWidth: 0,
           hoverOffset: 8,
@@ -514,7 +549,7 @@ function initStorageChart() {
       datasets: [
         {
           data: [256, 256, 130],
-          backgroundColor: ["#7ec041", "#1e96f3", "#ffc107"],
+          backgroundColor: ["#0369a1", "#0ea5e9", "#fbbf24"],
           borderColor: "transparent",
           borderWidth: 0,
           hoverOffset: 8,
@@ -545,9 +580,9 @@ function initUploadChart() {
         {
           label: "Tải lên",
           data: [120, 190, 80, 250, 170, 310, 95],
-          backgroundColor: "rgba(126, 192, 65, 0.7)",
+          backgroundColor: "rgba(3, 105, 161, 0.7)",
           borderRadius: 5,
-          hoverBackgroundColor: "#7ec041",
+          hoverBackgroundColor: "#0369a1",
         },
       ],
     },
@@ -661,9 +696,9 @@ function initDownloadChart() {
         {
           label: "Tải xuống",
           data: [340, 520, 290, 680, 410, 870, 250],
-          backgroundColor: "rgba(30, 150, 243, 0.7)",
+          backgroundColor: "rgba(14, 165, 233, 0.7)",
           borderRadius: 5,
-          hoverBackgroundColor: "#1e96f3",
+          hoverBackgroundColor: "#0ea5e9",
         },
       ],
     },
