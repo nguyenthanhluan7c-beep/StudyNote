@@ -106,6 +106,7 @@ function escapeStringForHtml(value) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 }
+
 // Hàm giả lập đăng ký học
 function enrollCourse() {
   alert("Cảm ơn bạn! Chức năng đăng ký đang được tích hợp.");
