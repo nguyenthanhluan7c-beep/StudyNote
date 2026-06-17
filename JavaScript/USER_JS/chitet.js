@@ -3,7 +3,7 @@ const COURSE_API_URL = "https://69fd352830ad0a6fd1c093f8.mockapi.io/api/v1/cours
 
 // Chạy ngay khi trang web HTML vừa load xong
 document.addEventListener("DOMContentLoaded", () => {
-  // Lấy thông tin ID khóa học đã được lưu vào localStorage từ trang chủ
+  // Lấy thông tin ID tài liệu đã được lưu vào localStorage từ trang chủ
   const selectedCourseStr = localStorage.getItem("selectedCourse");
   
   if (!selectedCourseStr) {
@@ -41,7 +41,7 @@ const container = document.getElementById("courseContainer");
     const response = await fetch(`${COURSE_API_URL}/${id}`);
     
     if (!response.ok) {
-      throw new Error("Không thể tải chi tiết khóa học từ máy chủ.");
+      throw new Error("Không thể tải chi tiết tài liệu từ máy chủ.");
     }
     
     // 3. Chuyển đổi dữ liệu trả về sang JSON
@@ -63,9 +63,9 @@ const container = document.getElementById("courseContainer");
 // ============ HÀM RENDER HTML ============
 function renderCourse(course, container) {
   // Xử lý các dữ liệu trống (fallback data) đề phòng API trả về null
-  const courseTitle = course.name || "Khóa học không tên";
+  const courseTitle = course.name || "Tài liệu không tên";
   const courseImage = course.image || "https://via.placeholder.com/600x400?text=Khóa+học";
-  const courseDetail = course.detail || "Chưa có bài viết mô tả chi tiết cho khóa học này.";
+  const courseDetail = course.detail || "Chưa có bài viết mô tả chi tiết cho tài liệu này.";
   const coursePrice = course.price ? `${course.price}đ` : "Miễn phí";
   const courseStatus = course.status === "approved" ? "Đã duyệt" : "Chờ duyệt";
 

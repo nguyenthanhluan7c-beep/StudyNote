@@ -23,15 +23,34 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 // ============ MOCK API URL ============
-const COURSE_API_URL = "https://69fd352830ad0a6fd1c093f8.mockapi.io/api/v1/courses";
+const COURSE_API_URL =
+  "https://69fd352830ad0a6fd1c093f8.mockapi.io/api/v1/courses";
+
+function getCurrentUser() {
+  const raw = localStorage.getItem("currentUser");
+  if (raw) {
+    try {
+      return JSON.parse(raw);
+    } catch (error) {
+      console.warn("Lỗi phân tích currentUser:", error);
+    }
+  }
+  const id = localStorage.getItem("userId");
+  const username = localStorage.getItem("username");
+  const role = localStorage.getItem("role");
+  return id ? { id, username, role } : null;
+}
 
 // Initialize favorite buttons
 function initFavoriteButtons() {
   document.querySelectorAll(".course-overlay button").forEach((btn) => {
     const courseCard = btn.closest(".course-card");
     let courseId =
-      courseCard?.dataset.courseId || courseCard?.dataset.id ||
-      Array.from(document.querySelectorAll(".course-card")).indexOf(courseCard) + 1;
+      courseCard?.dataset.courseId ||
+      courseCard?.dataset.id ||
+      Array.from(document.querySelectorAll(".course-card")).indexOf(
+        courseCard,
+      ) + 1;
     courseId = String(courseId);
 
     btn.addEventListener("click", function (e) {
@@ -63,7 +82,7 @@ function escapeStringForHtml(value) {
 async function loadApprovedCourses() {
   try {
     const response = await fetch(COURSE_API_URL);
-    if (!response.ok) throw new Error("Không thể tải khóa học đã duyệt");
+    if (!response.ok) throw new Error("Không thể tải tài liệu đã duyệt");
     const courses = await response.json();
     if (!Array.isArray(courses)) return;
 
@@ -73,12 +92,15 @@ async function loadApprovedCourses() {
     const approved = courses.filter((course) => course.status === "approved");
     approved.forEach((course) => {
       // Tránh trùng lặp nếu thẻ đã tồn tại
-      if (document.querySelector(`.course-card[data-course-id="${course.id}"]`)) {
+      if (
+        document.querySelector(`.course-card[data-course-id="${course.id}"]`)
+      ) {
         return;
       }
-      
-      const courseTitle = course.name || "Khóa học không tên";
-      const courseImage = course.image || "https://via.placeholder.com/300x220?text=Khóa+học";
+
+      const courseTitle = course.name || "Tài liệu không tên";
+      const courseImage =
+        course.image || "https://via.placeholder.com/300x220?text=Khóa+học";
       const courseDetail = course.detail || "Không có mô tả";
       const coursePrice = course.price ? `${course.price}đ` : "Miễn phí";
 
@@ -156,11 +178,15 @@ function isCourseInFavorites(courseId) {
 function toggleFavorite(courseId, btn) {
   let favorites = getFavorites();
   const courseCard = btn.closest(".course-card");
-  
+
   // Tự động lấy thông tin từ giao diện thay vì dùng object tĩnh courseData đã xóa
   const course = {
-    title: courseCard?.querySelector(".card-title")?.textContent?.trim() || "Khóa học",
-    image: courseCard?.querySelector("img")?.getAttribute("src") || "https://via.placeholder.com/300x220?text=StudyNote",
+    title:
+      courseCard?.querySelector(".card-title")?.textContent?.trim() ||
+      "Khóa học",
+    image:
+      courseCard?.querySelector("img")?.getAttribute("src") ||
+      "https://via.placeholder.com/300x220?text=StudyNote",
   };
 
   if (isCourseInFavorites(courseId)) {
@@ -231,23 +257,31 @@ function viewCourseDetail(id, title, image) {
 // ============ LOGOUT ============
 function handleLogout() {
   localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("currentUser");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
   window.location.href = "login.html";
+}
+
+function setActiveNavItem() {
+  const path = window.location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".navbar-nav .nav-link").forEach((link) => {
+    const href = link.getAttribute("href");
+    if (!href) return;
+    const normalized = href.replace("./", "").replace("#", "index.html");
+    if (normalized === path || (path === "" && normalized === "index.html")) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
 }
 
 // Check auth on page load
 document.addEventListener("DOMContentLoaded", () => {
-  const logged = localStorage.getItem("isLoggedIn");
-  const role = localStorage.getItem("role");
-  if(logged !== "true") {
-    window.location.href = "login.html";
-    return;
-  }
-  if (role === "admin") {
-    window.location.href = "admin.html";
-    return;
-  }
-
-  // Chỉ gọi hàm load dữ liệu từ Mock API
+  setActiveNavItem();
+  // Trang chủ không yêu cầu đăng nhập. Chỉ tải nội dung công khai.
   loadApprovedCourses().then(() => {
     initFavoriteButtons();
   });

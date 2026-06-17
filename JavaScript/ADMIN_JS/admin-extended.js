@@ -17,7 +17,8 @@ let uploadedFiles = [];
 let publishedCourses = [];
 let pendingUploadFiles = [];
 let pendingCourses = [];
-const COURSE_API_URL = "https://69fd352830ad0a6fd1c093f8.mockapi.io/api/v1/courses";
+const COURSE_API_URL =
+  "https://69fd352830ad0a6fd1c093f8.mockapi.io/api/v1/courses";
 
 /* ============================================================
    DOM SẴN SÀNG
@@ -99,7 +100,7 @@ async function loadUsers() {
     renderUsersTable(users);
   } catch (error) {
     $("#usersTableBody").html(
-      '<tr><td colspan="6" class="no-data">Lỗi tải dữ liệu</td></tr>'
+      '<tr><td colspan="6" class="no-data">Lỗi tải dữ liệu</td></tr>',
     );
   }
 }
@@ -108,7 +109,7 @@ function renderUsersTable(users) {
   const tbody = $("#usersTableBody");
   if (!users || users.length === 0) {
     tbody.html(
-      '<tr><td colspan="6" class="no-data">Không có người dùng nào</td></tr>'
+      '<tr><td colspan="6" class="no-data">Không có người dùng nào</td></tr>',
     );
     return;
   }
@@ -127,7 +128,7 @@ function renderUsersTable(users) {
         <button class="btn-delete" data-id="${user.id}"><i class="fas fa-trash"></i></button>
       </td>
     </tr>
-  `
+  `,
     )
     .join("");
 
@@ -202,7 +203,7 @@ async function loadNotes() {
     renderNotesTable(notes);
   } catch (error) {
     $("#notesTableBody").html(
-      '<tr><td colspan="7" class="no-data">Lỗi tải dữ liệu</td></tr>'
+      '<tr><td colspan="7" class="no-data">Lỗi tải dữ liệu</td></tr>',
     );
   }
 }
@@ -211,7 +212,7 @@ function renderNotesTable(notes) {
   const tbody = $("#notesTableBody");
   if (!notes || notes.length === 0) {
     tbody.html(
-      '<tr><td colspan="7" class="no-data">Không có ghi chú nào</td></tr>'
+      '<tr><td colspan="7" class="no-data">Không có ghi chú nào</td></tr>',
     );
     return;
   }
@@ -231,7 +232,7 @@ function renderNotesTable(notes) {
         <button class="btn-delete note-delete" data-id="${note.id}"><i class="fas fa-trash"></i></button>
       </td>
     </tr>
-  `
+  `,
     )
     .join("");
 
@@ -254,7 +255,7 @@ async function editNote(noteId) {
   try {
     const note = await getOneById(api_url.DOCUMENT_API_URL, noteId);
     if (!note) return;
-    
+
     currentEditingNoteId = noteId;
     $("#noteDialog").dialog("option", "title", "Sửa Ghi chú");
     $("#noteTitle").val(note.title);
@@ -390,7 +391,7 @@ async function loadPendingCourses() {
   } catch (error) {
     console.error(error);
     $("#pendingCoursesTableBody").html(
-      '<tr><td colspan="5" class="no-data">Lỗi tải dữ liệu khóa học</td></tr>'
+      '<tr><td colspan="5" class="no-data">Lỗi tải dữ liệu khóa học</td></tr>',
     );
     updatePendingCoursesBadge(0);
   }
@@ -400,14 +401,14 @@ function renderPendingCourses() {
   const tbody = $("#pendingCoursesTableBody");
   if (!pendingCourses || pendingCourses.length === 0) {
     tbody.html(
-      '<tr><td colspan="5" class="no-data">Không có khóa học chờ duyệt</td></tr>'
+      '<tr><td colspan="5" class="no-data">Không có khóa học chờ duyệt</td></tr>',
     );
     return;
   }
 
   const html = pendingCourses
     .map((course) => {
-      const title = course.name || "Khóa học không tên";
+      const title = course.name || "Tài liệu không tên";
       const price = course.price ? `${course.price}đ` : "Miễn phí";
       const createdAt = course.createdAt
         ? new Date(course.createdAt).toLocaleDateString("vi-VN")
@@ -444,36 +445,36 @@ function updatePendingCoursesBadge(count) {
 $(document).on("click", ".btn-approve-course", async function () {
   const courseId = $(this).data("id");
   if (!courseId) return;
-  if (!confirm("Bạn có chắc muốn duyệt khóa học này?")) return;
+  if (!confirm("Bạn có chắc muốn duyệt tài liệu này?")) return;
   try {
     const course = await getOneById(COURSE_API_URL, courseId);
     if (!course) throw new Error("Không tìm thấy khóa học");
     course.status = "approved";
     await put(COURSE_API_URL, course, courseId);
     localStorage.setItem("coursesUpdatedAt", Date.now());
-    alert("Khóa học đã được duyệt.");
+    alert("Tài liệu đã được duyệt.");
     await loadPendingCourses();
   } catch (error) {
     console.error(error);
-    alert("Duyệt khóa học thất bại.");
+    alert("Duyệt tài liệu thất bại.");
   }
 });
 
 $(document).on("click", ".btn-reject-course", async function () {
   const courseId = $(this).data("id");
   if (!courseId) return;
-  if (!confirm("Bạn có chắc muốn từ chối khóa học này?")) return;
+  if (!confirm("Bạn có chắc muốn từ chối tài liệu này?")) return;
   try {
     const course = await getOneById(COURSE_API_URL, courseId);
     if (!course) throw new Error("Không tìm thấy khóa học");
     course.status = "rejected";
     await put(COURSE_API_URL, course, courseId);
     localStorage.setItem("coursesUpdatedAt", Date.now());
-    alert("Khóa học đã được từ chối.");
+    alert("Tài liệu đã được từ chối.");
     await loadPendingCourses();
   } catch (error) {
     console.error(error);
-    alert("Từ chối khóa học thất bại.");
+    alert("Từ chối tài liệu thất bại.");
   }
 });
 
@@ -497,7 +498,7 @@ function renderUploadedFiles() {
         <button class="btn-delete" onclick="deleteUploadedFile(${file.id})"><i class="fas fa-trash"></i></button>
       </div>
     </div>
-  `
+  `,
     )
     .join("");
 
@@ -536,7 +537,7 @@ async function loadDownloads() {
     renderDownloadsTable(notes);
   } catch (error) {
     $("#downloadsTableBody").html(
-      '<tr><td colspan="6" class="no-data">Lỗi tải dữ liệu</td></tr>'
+      '<tr><td colspan="6" class="no-data">Lỗi tải dữ liệu</td></tr>',
     );
   }
 }
@@ -545,7 +546,7 @@ function renderDownloadsTable(documents) {
   const tbody = $("#downloadsTableBody");
   if (!documents || documents.length === 0) {
     tbody.html(
-      '<tr><td colspan="6" class="no-data">Không có tệp nào</td></tr>'
+      '<tr><td colspan="6" class="no-data">Không có tệp nào</td></tr>',
     );
     return;
   }
@@ -564,7 +565,7 @@ function renderDownloadsTable(documents) {
         <button class="btn-download" onclick="downloadFile('${doc.title}')"><i class="fas fa-download"></i></button>
       </td>
     </tr>
-  `
+  `,
     )
     .join("");
 
@@ -637,7 +638,7 @@ function initDialogs() {
     },
   });
 
-  // Hộp thoại thông tin khóa học tải lên
+  // Hộp thoại thông tin tài liệu tải lên
   $("#uploadCourseDialog").dialog({
     autoOpen: false,
     modal: true,
@@ -653,17 +654,17 @@ function initDialogs() {
   });
 
   // Trình đơn hồ sơ
-  $("#dropdownProfile").on("click", function(e) {
-      e.preventDefault();
-      $("#profileDropdown").removeClass("show");
-      $("#profileDialog").dialog("open");
+  $("#dropdownProfile").on("click", function (e) {
+    e.preventDefault();
+    $("#profileDropdown").removeClass("show");
+    $("#profileDialog").dialog("open");
   });
 
   // Trình đơn cài đặt
-  $("#dropdownSettings").on("click", function(e) {
-      e.preventDefault();
-      $("#profileDropdown").removeClass("show");
-      $("#settingsDialog").dialog("open");
+  $("#dropdownSettings").on("click", function (e) {
+    e.preventDefault();
+    $("#profileDropdown").removeClass("show");
+    $("#settingsDialog").dialog("open");
   });
 
   // Gửi form người dùng
@@ -693,7 +694,7 @@ function saveUploadCourse() {
   const price = $("#uploadCoursePrice").val().trim();
 
   if (!title || !description) {
-    alert("Vui lòng nhập tên và mô tả khóa học.");
+    alert("Vui lòng nhập tên và mô tả tài liệu.");
     return;
   }
 
@@ -713,7 +714,9 @@ function saveUploadCourse() {
 
   pendingUploadFiles = [];
   $("#uploadCourseDialog").dialog("close");
-  alert("Khóa học và tệp tải lên đã được lưu. Khóa học sẽ xuất hiện ở trang chủ người dùng khi tải lại trang.");
+  alert(
+    "Tài liệu và tệp tải lên đã được lưu. Tài liệu sẽ xuất hiện ở trang chủ người dùng khi tải lại trang.",
+  );
 }
 
 async function saveUser() {

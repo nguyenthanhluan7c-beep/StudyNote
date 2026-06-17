@@ -72,7 +72,7 @@ function renderFavorites() {
         <div class="favorites-header">
             <h3 class="favorites-count">
                 <i class="bi bi-heart-fill" style="color: #ff6b6b;"></i> 
-                ${favorites.length} khóa học yêu thích
+                ${favorites.length} tài liệu yêu thích
             </h3>
             <button class="btn-clear-all" onclick="clearAllFavorites()">
                 <i class="bi bi-trash me-2"></i> Xóa tất cả
@@ -115,8 +115,8 @@ function renderEmptyState(container) {
             <div class="empty-icon">
                 <i class="bi bi-heart"></i>
             </div>
-            <p class="empty-text">Không có khóa học yêu thích</p>
-            <p class="empty-subtext">Hãy quay lại trang chủ và thêm các khóa học yêu thích của bạn</p>
+            <p class="empty-text">Không có tài liệu yêu thích</p>
+            <p class="empty-subtext">Hãy quay lại trang chủ và thêm các tài liệu yêu thích của bạn</p>
             <a href="index.html" class="btn-back-shop">
                 <i class="bi bi-arrow-left me-2"></i> Quay lại trang chủ
             </a>
@@ -135,7 +135,7 @@ function removeFromFavorites(courseId) {
 
 // Clear all favorites
 function clearAllFavorites() {
-  if (confirm("Bạn có chắc muốn xóa tất cả khóa học yêu thích?")) {
+  if (confirm("Bạn có chắc muốn xóa tất cả tài liệu yêu thích?")) {
     saveFavorites([]);
     renderFavorites();
   }
@@ -177,7 +177,9 @@ window.addEventListener("scroll", () => {
 // Logout
 function handleLogout() {
   localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("currentUser");
   localStorage.removeItem("userId");
+  localStorage.removeItem("username");
   localStorage.removeItem("role");
   localStorage.removeItem("favoritesCourses");
   window.location.href = "./login.html";

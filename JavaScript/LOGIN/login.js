@@ -83,6 +83,14 @@ function resetBtn(btnId, html) {
   btn.classList.remove("loading");
   btn.innerHTML = html;
 }
+
+function saveCurrentUser(user) {
+  localStorage.setItem("currentUser", JSON.stringify(user));
+  localStorage.setItem("userId", String(user.id));
+  localStorage.setItem("username", user.username || "");
+  localStorage.setItem("role", user.role || "user");
+}
+
 // ──────────────────────────────────────
 //  API
 // ──────────────────────────────────────
@@ -114,7 +122,7 @@ $("#loginBtn").click(async function () {
       userId = i;
       break;
     }
-  }  
+  }
   if (!hasUsename) {
     showAlert("Tài khoản không tồn tại, xin mời đăng ký!", "error");
     resetBtn("loginBtn", "<i class=fas fa-right-to-bracket></i>Đăng nhập");
@@ -131,9 +139,15 @@ $("#loginBtn").click(async function () {
     return;
   }
   hideAlert();
+  const userRecord = data[userId] || {};
+  const savedId = userRecord.id ?? String(userId + 1);
+  const currentUser = {
+    id: savedId,
+    username: userRecord.username || inputUsername,
+    role: currentRole,
+  };
   localStorage.setItem("isLoggedIn", "true");
-  localStorage.setItem("userId", userId+1);
-  localStorage.setItem("role", currentRole);
+  saveCurrentUser(currentUser);
   if (currentRole === "user") {
     window.location.href = "index.html";
   } else if (currentRole === "admin") {
@@ -168,12 +182,12 @@ $("#registerBtn").click(async function () {
     resetBtn("registerBtn", "<i class=fas fa-user-plus></i>Tạo tài khoản");
     return;
   }
-  if (inputPassword.length <= 6 ) {
+  if (inputPassword.length <= 6) {
     showAlert("Mật khẩu quá ngắn", "error");
     resetBtn("registerBtn", "<i class=fas fa-user-plus></i>Tạo tài khoản");
     return;
   }
-  if (inputPassword !== inputConfirmPassword){
+  if (inputPassword !== inputConfirmPassword) {
     showAlert("Mật khẩu xác nhận không trùng khớp", "error");
     resetBtn("registerBtn", "<i class=fas fa-user-plus></i>Tạo tài khoản");
     return;
@@ -186,9 +200,9 @@ $("#registerBtn").click(async function () {
     isLoggedIn: true,
     money: 0,
     point: 0,
-    user_image: "default_img"
-  }
+    user_image: "default_img",
+  };
   await post(api_url.LOGIN_API_URL, info);
   alert("đăng ký thành công vui lòng quay lại đăng nhập");
-  switchTab("login")
+  switchTab("login");
 });

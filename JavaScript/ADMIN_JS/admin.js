@@ -10,8 +10,7 @@
 })();
 
 //get api url
-async function getdata()
-{
+async function getdata() {
   const apiUrl = getApiUrl();
   const adminData = await getOneById(apiUrl.ADMIN_PANEL_API_URL, 1);
   return adminData;
@@ -174,6 +173,10 @@ function initProfileMenu() {
 function handleLogout() {
   if (confirm("Bạn có chắc muốn đăng xuất không?")) {
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
     window.location.href = "index.html";
   }
 }
@@ -619,8 +622,10 @@ function initViewAllLinks() {
     });
   }
 
-  // Link "Xem tất cả danh mục" 
-  const viewAllCategoriesLink = document.querySelector(".top-categories .view-all");
+  // Link "Xem tất cả danh mục"
+  const viewAllCategoriesLink = document.querySelector(
+    ".top-categories .view-all",
+  );
   if (viewAllCategoriesLink) {
     viewAllCategoriesLink.addEventListener("click", (e) => {
       e.preventDefault();
@@ -629,7 +634,9 @@ function initViewAllLinks() {
   }
 
   // Span "Xem tất cả hoạt động"
-  const viewAllActivitySpan = document.querySelector(".recent-activities .view-all");
+  const viewAllActivitySpan = document.querySelector(
+    ".recent-activities .view-all",
+  );
   if (viewAllActivitySpan) {
     viewAllActivitySpan.addEventListener("click", (e) => {
       e.preventDefault();
@@ -648,7 +655,8 @@ async function loadRecentNotes() {
   } catch (error) {
     const tbody = document.getElementById("recentNotesBody");
     if (tbody) {
-      tbody.innerHTML = '<tr><td colspan="5" class="no-data">Lỗi tải dữ liệu</td></tr>';
+      tbody.innerHTML =
+        '<tr><td colspan="5" class="no-data">Lỗi tải dữ liệu</td></tr>';
     }
   }
 }
@@ -658,13 +666,14 @@ function renderRecentNotes(notes) {
   if (!tbody) return;
 
   if (!notes || notes.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" class="no-data">Chưa có ghi chú nào</td></tr>';
+    tbody.innerHTML =
+      '<tr><td colspan="5" class="no-data">Chưa có ghi chú nào</td></tr>';
     return;
   }
 
   // Lấy 5 ghi chú gần đây nhất
   const recentNotes = notes.slice(0, 5);
-  
+
   let html = recentNotes
     .map(
       (note) => `
@@ -675,7 +684,7 @@ function renderRecentNotes(notes) {
       <td>${new Date(note.createdAt || Date.now()).toLocaleDateString("vi-VN")}</td>
       <td><span class="status published">Đã thêm</span></td>
     </tr>
-  `
+  `,
     )
     .join("");
 
