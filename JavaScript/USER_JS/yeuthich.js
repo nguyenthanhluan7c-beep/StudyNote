@@ -2,67 +2,45 @@
    YEUTHICH.JS — Trang yêu thích khóa học
    ============================================================ */
 
-// Dữ liệu khóa học
-const allCourses = {
-  1: {
-    id: 1,
-    title: "C++ nâng cao",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/C___Advance_1c572a2e59e5405cb057e864d3590d34.png",
-  },
-  2: {
-    id: 2,
-    title: "Cấu trúc dữ liệu và giải thuật",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/cau-truc-du-lieu-va-giai-thuat_ef33392c074c4cd29a9892f11abbc2bc.png",
-  },
-  3: {
-    id: 3,
-    title: "Làm quen với SQL",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lam-quen-voi-sql_2f374a8d41f34eceab306830d4aea433.png",
-  },
-  4: {
-    id: 4,
-    title: "C# cơ bản",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png",
-  },
-  5: {
-    id: 5,
-    title: "JavaScript cơ bản",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/Javascript-co-ban__2__be74112f409f47e9874f0da758c1d7cb.png",
-  },
-  6: {
-    id: 6,
-    title: "Lập trình hướng đối tượng trong C++",
-    image:
-      "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/lap-trinh-huong-doi-tuong-trong-cpp_653cb309970b492ca7f69162384814f8.png",
-  },
-};
-
 // Load favorites on page load
 document.addEventListener("DOMContentLoaded", () => {
   renderFavorites();
 });
 
-// Get favorites from localStorage
+/**
+ * Lấy danh sách yêu thích từ localStorage
+ * Dữ liệu được lưu bởi main.js khi người dùng nhấn nút "Yêu thích"
+ * Mỗi phần tử có cấu trúc: { id, title, image }
+ * @returns {Array} Mảng các course yêu thích
+ */
 function getFavorites() {
   const favorites = localStorage.getItem("favoritesCourses") || "[]";
-  return JSON.parse(favorites);
+  try {
+    return JSON.parse(favorites);
+  } catch (error) {
+    console.error("Lỗi phân tích dữ liệu yêu thích:", error);
+    return [];
+  }
 }
 
-// Save favorites to localStorage
+/**
+ * Lưu danh sách yêu thích vào localStorage
+ * @param {Array} favorites - Mảng các course cần lưu
+ */
 function saveFavorites(favorites) {
   localStorage.setItem("favoritesCourses", JSON.stringify(favorites));
 }
 
-// Render favorites
+/**
+ * Render danh sách yêu thích
+ * ✅ FIX: Sử dụng dữ liệu đã lưu trong localStorage thay vì tìm kiếm từ object allCourses cứng
+ * Dữ liệu trong favorites đã có đầy đủ: id, title, image từ MockAPI
+ */
 function renderFavorites() {
   const container = document.getElementById("favoritesContainer");
   const favorites = getFavorites();
 
+  // Nếu không có yêu thích, hiển thị trạng thái rỗng
   if (favorites.length === 0) {
     renderEmptyState(container);
     return;
@@ -82,33 +60,37 @@ function renderFavorites() {
         <div class="favorites-grid">
     `;
 
+  // ✅ FIX: Duyệt qua danh sách yêu thích và render từ dữ liệu đã lưu
+  // Không còn phụ thuộc vào object allCourses hardcoded
   favorites.forEach((fav) => {
-    const course = allCourses[fav.id];
-    if (course) {
-      html += `
+    // Dữ liệu fav đã đủ đầy đủ từ localStorage: { id, title, image }
+    // Được lưu từ main.js khi người dùng thêm vào yêu thích
+    html += `
                 <div class="favorite-card">
-                    <img src="${escapeHtml(course.image)}" alt="${escapeHtml(course.title)}" class="favorite-card-image">
+                    <img src="${escapeHtml(fav.image)}" alt="${escapeHtml(fav.title)}" class="favorite-card-image">
                     <div class="favorite-card-body">
-                        <h5 class="favorite-title">${escapeHtml(course.title)}</h5>
+                        <h5 class="favorite-title">${escapeHtml(fav.title)}</h5>
                         <div class="favorite-card-actions">
-                            <button class="btn-view" onclick="viewCourseDetail(${course.id}, '${course.title.replace(/'/g, "\\'")}', '${course.image.replace(/'/g, "\\'")}')">
+                            <button class="btn-view" onclick="viewCourseDetail('${escapeJsString(fav.id)}', '${escapeJsString(fav.title)}', '${escapeJsString(fav.image)}')">
                                 <i class="bi bi-eye me-1"></i> Xem chi tiết
                             </button>
-                            <button class="btn-remove" onclick="removeFromFavorites(${course.id})">
+                            <button class="btn-remove" onclick="removeFromFavorites('${escapeJsString(fav.id)}')">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
                     </div>
                 </div>
             `;
-    }
   });
 
   html += "</div>";
   container.innerHTML = html;
 }
 
-// Render empty state
+/**
+ * Render trạng thái rỗng (không có yêu thích)
+ * @param {HTMLElement} container - Phần tử chứa
+ */
 function renderEmptyState(container) {
   const html = `
         <div class="empty-favorites">
@@ -125,15 +107,21 @@ function renderEmptyState(container) {
   container.innerHTML = html;
 }
 
-// Remove from favorites
+/**
+ * Xóa một course khỏi danh sách yêu thích
+ * @param {string|number} courseId - ID của course cần xóa
+ */
 function removeFromFavorites(courseId) {
   let favorites = getFavorites();
-  favorites = favorites.filter((fav) => fav.id !== courseId);
+  // ✅ FIX: So sánh courseId dưới dạng string để tránh lỗi so sánh
+  favorites = favorites.filter((fav) => String(fav.id) !== String(courseId));
   saveFavorites(favorites);
   renderFavorites();
 }
 
-// Clear all favorites
+/**
+ * Xóa tất cả tài liệu yêu thích
+ */
 function clearAllFavorites() {
   if (confirm("Bạn có chắc muốn xóa tất cả tài liệu yêu thích?")) {
     saveFavorites([]);
@@ -141,7 +129,13 @@ function clearAllFavorites() {
   }
 }
 
-// View course detail
+/**
+ * Chuyển đến trang chi tiết khóa học
+ * ✅ FIX: Sử dụng tham số String/ID từ dữ liệu lưu trữ thay vì object cứng
+ * @param {string|number} id - ID khóa học
+ * @param {string} title - Tiêu đề khóa học
+ * @param {string} image - URL hình ảnh
+ */
 function viewCourseDetail(id, title, image) {
   const courseData = {
     id: id,
@@ -152,7 +146,11 @@ function viewCourseDetail(id, title, image) {
   window.location.href = "chitiet.html";
 }
 
-// Escape HTML
+/**
+ * Escape HTML entities để tránh XSS
+ * @param {string} text - Chuỗi cần escape
+ * @returns {string} Chuỗi đã escape
+ */
 function escapeHtml(text) {
   const map = {
     "&": "&amp;",
@@ -161,10 +159,25 @@ function escapeHtml(text) {
     '"': "&quot;",
     "'": "&#039;",
   };
-  return text.replace(/[&<>"']/g, (m) => map[m]);
+  return String(text).replace(/[&<>"']/g, (m) => map[m]);
 }
 
-// Navbar scroll effect
+/**
+ * Escape JavaScript strings để tránh lỗi cú pháp
+ * Dùng cho inline event handlers (onclick, etc.)
+ * @param {string} str - Chuỗi cần escape
+ * @returns {string} Chuỗi đã escape
+ */
+function escapeJsString(str) {
+  return String(str)
+    .replace(/\\/g, "\\\\") // Escape backslash
+    .replace(/'/g, "\\'") // Escape single quote
+    .replace(/"/g, '\\"') // Escape double quote
+    .replace(/\n/g, "\\n") // Escape newline
+    .replace(/\r/g, "\\r"); // Escape carriage return
+}
+
+// ============ NAVBAR SCROLL EFFECT ============
 window.addEventListener("scroll", () => {
   const navbar = document.querySelector(".navbar");
   if (window.scrollY > 50) {
@@ -174,7 +187,11 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Logout
+// ============ LOGOUT ============
+/**
+ * Đăng xuất tài khoản
+ * Xóa tất cả dữ liệu liên quan đến người dùng và yêu thích
+ */
 function handleLogout() {
   localStorage.removeItem("isLoggedIn");
   localStorage.removeItem("currentUser");
