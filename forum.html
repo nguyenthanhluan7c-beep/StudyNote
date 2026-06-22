@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diễn đàn - StudyHub</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    <link rel="stylesheet" href="./assets/css/components.css" />
+    <link rel="stylesheet" href="./assets/css/forum.css" />
+    <link rel="stylesheet" href="./assets/css/responsive.css" />
+  </head>
+
+  <body>
+    <div class="app-bg">
+      <div class="blur-circle blur-1"></div>
+      <div class="blur-circle blur-2"></div>
+      <div class="blur-circle blur-3"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top study-navbar">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="./index.html">
+          <span class="studyhub-logo">
+            <span class="logo-mark">SH</span>
+          </span>
+
+          <span class="brand-text">
+            StudyHub
+            <small>Free Learning Community</small>
+          </span>
+        </a>
+
+        <button
+          class="navbar-toggler custom-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Trang chủ</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./documents.html">Tài liệu</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="./forum.html">Diễn đàn</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./upload.html">Đăng tài liệu</a>
+            </li>
+
+            <li class="nav-item">
+              <button id="themeToggle" class="theme-toggle" type="button">
+                <i id="themeIcon" class="bi bi-moon-stars-fill"></i>
+                <span id="themeText">Tối</span>
+              </button>
+            </li>
+
+            <li class="nav-item" id="guestNavItem">
+              <a class="btn btn-primary-soft" href="./login.html">
+                <i class="bi bi-person-circle"></i>
+                Đăng nhập
+              </a>
+            </li>
+
+            <li class="nav-item dropdown d-none" id="userNavItem">
+              <button
+                class="user-menu-btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <img id="navbarUserAvatar" src="" alt="Avatar" />
+                <span id="navbarUserName">User</span>
+              </button>
+
+              <ul class="dropdown-menu dropdown-menu-end user-dropdown">
+                <li>
+                  <a class="dropdown-item" href="./profile.html">
+                    <i class="bi bi-person"></i>
+                    Trang cá nhân
+                  </a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="./upload.html">
+                    <i class="bi bi-cloud-upload"></i>
+                    Đăng tài liệu
+                  </a>
+                </li>
+
+                <li><hr class="dropdown-divider" /></li>
+
+                <li>
+                  <button class="dropdown-item text-danger" id="logoutBtn" type="button">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Đăng xuất
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="forum-hero">
+      <div class="container">
+        <div class="forum-hero-card">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-7">
+              <span class="section-kicker">Diễn đàn học tập</span>
+
+              <h1>Hỏi đáp, thảo luận và cùng nhau học tốt hơn.</h1>
+
+              <p>
+                Tạo chủ đề để hỏi bài, xin tài liệu, chia sẻ kinh nghiệm học tập
+                hoặc góp ý cho tài liệu trong cộng đồng StudyHub.
+              </p>
+
+              <div class="forum-actions">
+                <button id="openCreateTopicBtn" class="btn btn-main" type="button">
+                  <i class="bi bi-plus-circle"></i>
+                  Tạo chủ đề mới
+                </button>
+
+                <button id="refreshTopicsBtn" class="btn btn-ghost" type="button">
+                  <i class="bi bi-arrow-clockwise"></i>
+                  Tải lại
+                </button>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <div class="forum-summary">
+                <div>
+                  <i class="bi bi-chat-square-text"></i>
+                  <span>Tổng chủ đề</span>
+                  <strong id="totalTopics">0</strong>
+                </div>
+
+                <div>
+                  <i class="bi bi-check2-circle"></i>
+                  <span>Đã giải quyết</span>
+                  <strong id="solvedTopics">0</strong>
+                </div>
+
+                <div>
+                  <i class="bi bi-heart"></i>
+                  <span>Tổng lượt thích</span>
+                  <strong id="totalLikes">0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="forum-main">
+      <div class="container">
+        <div class="forum-filter-panel">
+          <div class="filter-title">
+            <div>
+              <h2>Danh sách thảo luận</h2>
+              <p>Tìm kiếm và lọc chủ đề học tập từ MockAPI.</p>
+            </div>
+
+            <span id="topicResultCount" class="result-count">0 kết quả</span>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <label class="form-label">Tìm kiếm chủ đề</label>
+              <div class="input-group study-input">
+                <span class="input-group-text">
+                  <i class="bi bi-search"></i>
+                </span>
+
+                <input
+                  id="topicSearchInput"
+                  type="text"
+                  class="form-control"
+                  placeholder="Nhập tiêu đề, nội dung hoặc tên người đăng..."
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+              <label class="form-label">Môn học</label>
+              <select id="topicSubjectFilter" class="form-select study-select">
+                <option value="all">Tất cả môn học</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+              <label class="form-label">Trạng thái</label>
+              <select id="topicStatusFilter" class="form-select study-select">
+                <option value="all">Tất cả trạng thái</option>
+                <option value="Đang hỏi">Đang hỏi</option>
+                <option value="Thảo luận">Thảo luận</option>
+                <option value="Đã giải quyết">Đã giải quyết</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="forumErrorBox" class="alert alert-danger d-none mt-4">
+          Không thể tải chủ đề. Kiểm tra lại MockAPI topics.
+        </div>
+
+        <div id="forumEmptyBox" class="forum-empty d-none">
+          <i class="bi bi-chat-dots"></i>
+          <h3>Chưa có chủ đề phù hợp</h3>
+          <p>Thử đổi bộ lọc hoặc tạo chủ đề đầu tiên cho cộng đồng.</p>
+
+          <button class="btn btn-main" type="button" id="openCreateTopicBtn2">
+            <i class="bi bi-plus-circle"></i>
+            Tạo chủ đề mới
+          </button>
+        </div>
+
+        <div id="topicList" class="topic-list"></div>
+      </div>
+    </main>
+
+    <!-- CREATE TOPIC MODAL -->
+    <div class="modal fade" id="createTopicModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content topic-modal">
+          <div class="modal-header">
+            <div>
+              <h5 class="modal-title fw-bold">
+                <i class="bi bi-plus-circle"></i>
+                Tạo chủ đề thảo luận
+              </h5>
+              <small class="text-muted">
+                Đăng câu hỏi hoặc nội dung thảo luận lên diễn đàn.
+              </small>
+            </div>
+
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <form id="createTopicForm" novalidate>
+            <div class="modal-body">
+              <div id="topicLoginBox" class="topic-login-box d-none">
+                <i class="bi bi-lock-fill"></i>
+
+                <div>
+                  <h5>Bạn cần đăng nhập để tạo chủ đề</h5>
+                  <p>Hãy đăng nhập để tham gia thảo luận cùng cộng đồng.</p>
+                  <a href="./login.html" class="btn btn-main">
+                    Đăng nhập ngay
+                  </a>
+                </div>
+              </div>
+
+              <div id="topicFormContent">
+                <div class="row g-3">
+                  <div class="col-md-7">
+                    <label class="form-label">Tiêu đề chủ đề</label>
+                    <input
+                      id="topicTitle"
+                      type="text"
+                      class="form-control forum-control"
+                      placeholder="VD: Làm sao hiểu Fetch API dễ hơn?"
+                    />
+                    <small id="topicTitleError" class="error-message"></small>
+                  </div>
+
+                  <div class="col-md-5">
+                    <label class="form-label">Môn học</label>
+                    <select id="topicSubject" class="form-select forum-control">
+                      <option value="">-- Chọn môn học --</option>
+                      <option value="Lập trình Web">Lập trình Web</option>
+                      <option value="Thiết kế Web">Thiết kế Web</option>
+                      <option value="Toán cao cấp">Toán cao cấp</option>
+                      <option value="Tiếng Anh">Tiếng Anh</option>
+                      <option value="Kinh tế">Kinh tế</option>
+                      <option value="Khác">Khác</option>
+                    </select>
+                    <small id="topicSubjectError" class="error-message"></small>
+                  </div>
+
+                  <div class="col-md-5">
+                    <label class="form-label">Trạng thái</label>
+                    <select id="topicStatus" class="form-select forum-control">
+                      <option value="Đang hỏi">Đang hỏi</option>
+                      <option value="Thảo luận">Thảo luận</option>
+                    </select>
+                    <small id="topicStatusError" class="error-message"></small>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Nội dung</label>
+                    <textarea
+                      id="topicContent"
+                      class="form-control forum-control"
+                      rows="6"
+                      placeholder="Mô tả câu hỏi hoặc nội dung muốn thảo luận..."
+                    ></textarea>
+                    <small id="topicContentError" class="error-message"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-ghost" type="button" data-bs-dismiss="modal">
+                Hủy
+              </button>
+
+              <button id="createTopicSubmitBtn" class="btn btn-main" type="submit">
+                <i class="bi bi-send"></i>
+                Đăng chủ đề
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div id="appToast" class="toast study-toast" role="alert">
+        <div class="toast-header">
+          <i id="toastIcon" class="bi bi-bell-fill me-2 text-primary"></i>
+          <strong class="me-auto">StudyHub</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+
+        <div id="toastMessage" class="toast-body">
+          Thông báo
+        </div>
+      </div>
+    </div>
+
+    <button id="backToTop" class="back-to-top" type="button">
+      <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="./assets/js/config.js"></script>
+    <script src="./assets/js/auth.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script src="./assets/js/ui.js"></script>
+    <script src="./assets/js/forum.js"></script>
+  </body>
+</html>

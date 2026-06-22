@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - StudyHub</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    <link rel="stylesheet" href="./assets/css/components.css" />
+    <link rel="stylesheet" href="./assets/css/admin.css" />
+    <link rel="stylesheet" href="./assets/css/responsive.css" />
+  </head>
+
+  <body>
+    <div class="app-bg">
+      <div class="blur-circle blur-1"></div>
+      <div class="blur-circle blur-2"></div>
+      <div class="blur-circle blur-3"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top study-navbar">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="./index.html">
+          <span class="studyhub-logo">
+            <span class="logo-mark">SH</span>
+          </span>
+
+          <span class="brand-text">
+            StudyHub
+            <small>Admin Panel</small>
+          </span>
+        </a>
+
+        <button
+          class="navbar-toggler custom-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Trang chủ</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./documents.html">Tài liệu</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./forum.html">Diễn đàn</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./upload.html">Đăng tài liệu</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="./admin.html">Admin</a>
+            </li>
+
+            <li class="nav-item">
+              <button id="themeToggle" class="theme-toggle" type="button">
+                <i id="themeIcon" class="bi bi-moon-stars-fill"></i>
+                <span id="themeText">Tối</span>
+              </button>
+            </li>
+
+            <li class="nav-item" id="guestNavItem">
+              <a class="btn btn-primary-soft" href="./login.html">
+                <i class="bi bi-person-circle"></i>
+                Đăng nhập
+              </a>
+            </li>
+
+            <li class="nav-item dropdown d-none" id="userNavItem">
+              <button
+                class="user-menu-btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <img id="navbarUserAvatar" src="" alt="Avatar" />
+                <span id="navbarUserName">User</span>
+              </button>
+
+              <ul class="dropdown-menu dropdown-menu-end user-dropdown">
+                <li>
+                  <a class="dropdown-item" href="./profile.html">
+                    <i class="bi bi-person"></i>
+                    Trang cá nhân
+                  </a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="./upload.html">
+                    <i class="bi bi-cloud-upload"></i>
+                    Đăng tài liệu
+                  </a>
+                </li>
+
+                <li><hr class="dropdown-divider" /></li>
+
+                <li>
+                  <button class="dropdown-item text-danger" id="logoutBtn" type="button">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Đăng xuất
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ACCESS DENIED -->
+    <main id="adminDenied" class="admin-denied d-none">
+      <div class="container">
+        <div class="admin-denied-card">
+          <i class="bi bi-shield-lock"></i>
+          <h1>Không có quyền truy cập</h1>
+          <p>Trang này chỉ dành cho tài khoản có quyền admin.</p>
+
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <a href="./login.html" class="btn btn-main">Đăng nhập</a>
+            <a href="./index.html" class="btn btn-ghost">Về trang chủ</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ADMIN APP -->
+    <main id="adminApp" class="admin-page d-none">
+      <div class="container">
+        <div class="admin-layout">
+          <!-- SIDEBAR -->
+          <aside class="admin-sidebar">
+            <div class="admin-profile">
+              <img id="adminAvatar" src="" alt="Admin avatar" />
+
+              <div>
+                <strong id="adminName">Admin</strong>
+                <span>Quản trị hệ thống</span>
+              </div>
+            </div>
+
+            <button class="admin-tab active" data-tab="dashboard" type="button">
+              <i class="bi bi-speedometer2"></i>
+              Tổng quan
+            </button>
+
+            <button class="admin-tab" data-tab="documents" type="button">
+              <i class="bi bi-file-earmark-text"></i>
+              Tài liệu
+            </button>
+
+            <button class="admin-tab" data-tab="users" type="button">
+              <i class="bi bi-people"></i>
+              Người dùng
+            </button>
+
+            <button class="admin-tab" data-tab="topics" type="button">
+              <i class="bi bi-chat-square-text"></i>
+              Chủ đề
+            </button>
+
+            <button class="admin-tab" data-tab="comments" type="button">
+              <i class="bi bi-chat-dots"></i>
+              Bình luận
+            </button>
+
+            <button class="admin-tab" data-tab="reviews" type="button">
+              <i class="bi bi-star"></i>
+              Đánh giá
+            </button>
+
+            <a href="./index.html" class="admin-back-link">
+              <i class="bi bi-arrow-left"></i>
+              Về website
+            </a>
+          </aside>
+
+          <!-- CONTENT -->
+          <section class="admin-content">
+            <div class="admin-header">
+              <div>
+                <span class="section-kicker">StudyHub Admin</span>
+                <h1>Quản lý hệ thống</h1>
+                <p>
+                  Quản lý dữ liệu demo từ MockAPI: tài liệu, người dùng, diễn đàn,
+                  bình luận và đánh giá.
+                </p>
+              </div>
+
+              <button id="adminRefreshBtn" class="btn btn-main" type="button">
+                <i class="bi bi-arrow-clockwise"></i>
+                Tải lại dữ liệu
+              </button>
+            </div>
+
+            <div class="admin-toolbar">
+              <div class="input-group study-input">
+                <span class="input-group-text">
+                  <i class="bi bi-search"></i>
+                </span>
+
+                <input
+                  id="adminSearchInput"
+                  class="form-control"
+                  type="text"
+                  placeholder="Tìm kiếm theo tab hiện tại..."
+                />
+              </div>
+            </div>
+
+            <!-- DASHBOARD -->
+            <section id="dashboardPanel" class="admin-panel active">
+              <div class="admin-stats-grid">
+                <div class="admin-stat-card">
+                  <span><i class="bi bi-file-earmark-text"></i></span>
+                  <p>Tài liệu</p>
+                  <h3 id="adminTotalDocuments">0</h3>
+                </div>
+
+                <div class="admin-stat-card">
+                  <span><i class="bi bi-people"></i></span>
+                  <p>Người dùng</p>
+                  <h3 id="adminTotalUsers">0</h3>
+                </div>
+
+                <div class="admin-stat-card">
+                  <span><i class="bi bi-chat-square-text"></i></span>
+                  <p>Chủ đề</p>
+                  <h3 id="adminTotalTopics">0</h3>
+                </div>
+
+                <div class="admin-stat-card">
+                  <span><i class="bi bi-chat-dots"></i></span>
+                  <p>Bình luận</p>
+                  <h3 id="adminTotalComments">0</h3>
+                </div>
+
+                <div class="admin-stat-card">
+                  <span><i class="bi bi-star"></i></span>
+                  <p>Đánh giá</p>
+                  <h3 id="adminTotalReviews">0</h3>
+                </div>
+
+                <div class="admin-stat-card">
+                  <span><i class="bi bi-download"></i></span>
+                  <p>Lượt tải</p>
+                  <h3 id="adminTotalDownloads">0</h3>
+                </div>
+              </div>
+
+              <div class="admin-card mt-4">
+                <div class="admin-card-title">
+                  <h2>Hoạt động mới nhất</h2>
+                  <p>Dữ liệu gần đây từ tài liệu, topic, bình luận và đánh giá.</p>
+                </div>
+
+                <div id="adminRecentList" class="admin-recent-list"></div>
+              </div>
+            </section>
+
+            <!-- DOCUMENTS -->
+            <section id="documentsPanel" class="admin-panel">
+              <div class="admin-card">
+                <div class="admin-card-title">
+                  <h2>Quản lý tài liệu</h2>
+                  <p>Xem chi tiết, sửa nhanh hoặc xóa tài liệu khỏi MockAPI.</p>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table admin-table align-middle">
+                    <thead>
+                      <tr>
+                        <th>Tài liệu</th>
+                        <th>Người đăng</th>
+                        <th>Môn học</th>
+                        <th>View/Tải</th>
+                        <th>Ngày</th>
+                        <th>Thao tác</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="adminDocumentsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <!-- USERS -->
+            <section id="usersPanel" class="admin-panel">
+              <div class="admin-card">
+                <div class="admin-card-title">
+                  <h2>Quản lý người dùng</h2>
+                  <p>Đổi role admin/student hoặc xóa user demo.</p>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table admin-table align-middle">
+                    <thead>
+                      <tr>
+                        <th>Người dùng</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Ngày tạo</th>
+                        <th>Thao tác</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="adminUsersBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <!-- TOPICS -->
+            <section id="topicsPanel" class="admin-panel">
+              <div class="admin-card">
+                <div class="admin-card-title">
+                  <h2>Quản lý chủ đề</h2>
+                  <p>Đổi trạng thái topic, xem chi tiết hoặc xóa topic.</p>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table admin-table align-middle">
+                    <thead>
+                      <tr>
+                        <th>Chủ đề</th>
+                        <th>Người đăng</th>
+                        <th>Môn học</th>
+                        <th>Trạng thái</th>
+                        <th>Like/Comment</th>
+                        <th>Thao tác</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="adminTopicsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <!-- COMMENTS -->
+            <section id="commentsPanel" class="admin-panel">
+              <div class="admin-card">
+                <div class="admin-card-title">
+                  <h2>Quản lý bình luận</h2>
+                  <p>Xem hoặc xóa bình luận/reply từ tài liệu và diễn đàn.</p>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table admin-table align-middle">
+                    <thead>
+                      <tr>
+                        <th>Nội dung</th>
+                        <th>Người bình luận</th>
+                        <th>Loại</th>
+                        <th>Ngày</th>
+                        <th>Thao tác</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="adminCommentsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <!-- REVIEWS -->
+            <section id="reviewsPanel" class="admin-panel">
+              <div class="admin-card">
+                <div class="admin-card-title">
+                  <h2>Quản lý đánh giá</h2>
+                  <p>Xem hoặc xóa đánh giá tài liệu từ người dùng.</p>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table admin-table align-middle">
+                    <thead>
+                      <tr>
+                        <th>Đánh giá</th>
+                        <th>Người đánh giá</th>
+                        <th>Tài liệu</th>
+                        <th>Số sao</th>
+                        <th>Ngày</th>
+                        <th>Thao tác</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="adminReviewsBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div id="appToast" class="toast study-toast" role="alert">
+        <div class="toast-header">
+          <i id="toastIcon" class="bi bi-bell-fill me-2 text-primary"></i>
+          <strong class="me-auto">StudyHub Admin</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+
+        <div id="toastMessage" class="toast-body">Thông báo</div>
+      </div>
+    </div>
+
+    <button id="backToTop" class="back-to-top" type="button">
+      <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="./assets/js/config.js"></script>
+    <script src="./assets/js/auth.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script src="./assets/js/ui.js"></script>
+    <script src="./assets/js/admin.js"></script>
+  </body>
+</html>

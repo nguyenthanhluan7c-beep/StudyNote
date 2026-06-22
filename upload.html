@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng tài liệu - StudyHub</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    <link rel="stylesheet" href="./assets/css/components.css" />
+    <link rel="stylesheet" href="./assets/css/upload.css" />
+    <link rel="stylesheet" href="./assets/css/responsive.css" />
+  </head>
+
+  <body>
+    <div class="app-bg">
+      <div class="blur-circle blur-1"></div>
+      <div class="blur-circle blur-2"></div>
+      <div class="blur-circle blur-3"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top study-navbar">
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center gap-2"
+          href="./index.html"
+        >
+          <span class="studyhub-logo">
+            <span class="logo-mark">SH</span>
+          </span>
+
+          <span class="brand-text">
+            StudyHub
+            <small>Free Learning Community</small>
+          </span>
+        </a>
+
+        <button
+          class="navbar-toggler custom-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Trang chủ</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./documents.html">Tài liệu</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./forum.html">Diễn đàn</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="./upload.html">Đăng tài liệu</a>
+            </li>
+
+            <li class="nav-item">
+              <button id="themeToggle" class="theme-toggle" type="button">
+                <i id="themeIcon" class="bi bi-moon-stars-fill"></i>
+                <span id="themeText">Tối</span>
+              </button>
+            </li>
+
+            <li class="nav-item" id="guestNavItem">
+              <a class="btn btn-primary-soft" href="./login.html">
+                <i class="bi bi-person-circle"></i>
+                Đăng nhập
+              </a>
+            </li>
+
+            <li class="nav-item dropdown d-none" id="userNavItem">
+              <button
+                class="user-menu-btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img id="navbarUserAvatar" src="" alt="Avatar" />
+                <span id="navbarUserName">User</span>
+              </button>
+
+              <ul class="dropdown-menu dropdown-menu-end user-dropdown">
+                <li>
+                  <a class="dropdown-item" href="./profile.html">
+                    <i class="bi bi-person"></i>
+                    Trang cá nhân
+                  </a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="./upload.html">
+                    <i class="bi bi-cloud-upload"></i>
+                    Đăng tài liệu
+                  </a>
+                </li>
+
+                <li><hr class="dropdown-divider" /></li>
+
+                <li>
+                  <button
+                    class="dropdown-item text-danger"
+                    id="logoutBtn"
+                    type="button"
+                  >
+                    <i class="bi bi-box-arrow-right"></i>
+                    Đăng xuất
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- UPLOAD HERO -->
+    <header class="upload-hero">
+      <div class="container">
+        <div class="upload-hero-card">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <span class="section-kicker">Đóng góp cho cộng đồng</span>
+
+              <h1>Đăng tải tài liệu học tập miễn phí</h1>
+
+              <p>
+                Chia sẻ tài liệu hay để giúp các bạn sinh viên khác học tập dễ
+                dàng hơn. Thông tin sau khi gửi sẽ được lưu vào MockAPI bằng
+                phương thức POST.
+              </p>
+            </div>
+
+            <div class="col-lg-5">
+              <div class="upload-tips">
+                <h5>
+                  <i class="bi bi-lightbulb"></i>
+                  Gợi ý tài liệu nên đăng
+                </h5>
+
+                <ul>
+                  <li>Đề cương ôn tập</li>
+                  <li>Slide bài giảng</li>
+                  <li>Bài tập mẫu có lời giải</li>
+                  <li>Tài liệu tóm tắt kiến thức</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- FORM -->
+    <main class="upload-main">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <form id="uploadForm" class="upload-form" novalidate>
+              <div id="loginRequiredBox" class="login-required-box d-none">
+                <div>
+                  <i class="bi bi-lock-fill"></i>
+                </div>
+
+                <div>
+                  <h4>Bạn cần đăng nhập trước khi đăng tài liệu</h4>
+                  <p>
+                    StudyHub sử dụng thông tin tài khoản để tự động gắn tên và
+                    avatar người đăng.
+                  </p>
+
+                  <a href="./login.html" class="btn login-now-btn">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Đăng nhập ngay
+                  </a>
+                </div>
+              </div>
+
+              <div id="currentUserBox" class="current-user-box d-none">
+                <img id="currentUserAvatar" src="" alt="Avatar người dùng" />
+
+                <div>
+                  <span>Đang đăng với tài khoản</span>
+                  <strong id="currentUserName">Người dùng</strong>
+                </div>
+              </div>
+              <div class="form-section-title">
+                <div>
+                  <h2>Thông tin tài liệu</h2>
+                  <p>
+                    Nhập đầy đủ thông tin để tài liệu hiển thị đẹp trên website.
+                  </p>
+                </div>
+
+                <span class="form-badge">
+                  <i class="bi bi-shield-check"></i>
+                  Validate JS
+                </span>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Tên tài liệu</label>
+                  <input
+                    type="text"
+                    id="title"
+                    class="form-control study-control"
+                    placeholder="VD: Tổng hợp JavaScript cơ bản"
+                  />
+                  <small id="titleError" class="error-message"></small>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Môn học</label>
+                  <select id="subject" class="form-select study-control">
+                    <option value="">-- Chọn môn học --</option>
+                    <option value="Lập trình Web">Lập trình Web</option>
+                    <option value="Thiết kế Web">Thiết kế Web</option>
+                    <option value="Toán cao cấp">Toán cao cấp</option>
+                    <option value="Tiếng Anh">Tiếng Anh</option>
+                    <option value="Kinh tế">Kinh tế</option>
+                    <option value="Khác">Khác</option>
+                  </select>
+                  <small id="subjectError" class="error-message"></small>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Danh mục</label>
+                  <select id="category" class="form-select study-control">
+                    <option value="">-- Chọn danh mục --</option>
+                    <option value="Tài liệu ôn tập">Tài liệu ôn tập</option>
+                    <option value="Đề cương">Đề cương</option>
+                    <option value="Slide bài giảng">Slide bài giảng</option>
+                    <option value="Bài tập mẫu">Bài tập mẫu</option>
+                    <option value="Tài liệu tham khảo">
+                      Tài liệu tham khảo
+                    </option>
+                  </select>
+                  <small id="categoryError" class="error-message"></small>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">Ảnh preview tùy chọn</label>
+
+                  <label class="file-upload-box" for="coverImageFile">
+                    <div>
+                      <i class="bi bi-image"></i>
+                    </div>
+
+                    <div>
+                      <strong id="coverImageFileName"
+                        >Chọn ảnh preview riêng</strong
+                      >
+                      <span>
+                        Có thể bỏ trống. Nếu bỏ trống, hệ thống sẽ tự lấy
+                        preview từ tài liệu.
+                      </span>
+                    </div>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="coverImageFile"
+                    class="d-none"
+                    accept="image/*"
+                  />
+
+                  <small id="coverImageFileError" class="error-message"></small>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">File tài liệu</label>
+
+                  <label class="file-upload-box" for="documentFile">
+                    <div>
+                      <i class="bi bi-file-earmark-arrow-up"></i>
+                    </div>
+
+                    <div>
+                      <strong id="documentFileName">Chọn file tài liệu</strong>
+                      <span>
+                        Hỗ trợ PDF, ảnh, DOC, DOCX, PPT, PPTX, ZIP. File sẽ được
+                        upload lên Cloudinary.
+                      </span>
+                    </div>
+                  </label>
+
+                  <input
+                    type="file"
+                    id="documentFile"
+                    class="d-none"
+                    accept=".pdf,.doc,.docx,.ppt,.pptx,.zip,image/*"
+                  />
+
+                  <small id="documentFileError" class="error-message"></small>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">Mô tả tài liệu</label>
+                  <textarea
+                    id="description"
+                    class="form-control study-control"
+                    rows="5"
+                    placeholder="Mô tả nội dung chính của tài liệu..."
+                  ></textarea>
+                  <small id="descriptionError" class="error-message"></small>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" id="resetBtn" class="btn btn-ghost">
+                  <i class="bi bi-arrow-counterclockwise"></i>
+                  Làm mới
+                </button>
+
+                <button type="submit" id="submitBtn" class="btn btn-main">
+                  <i class="bi bi-cloud-upload"></i>
+                  Đăng tài liệu
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-lg-4">
+            <aside class="preview-panel">
+              <h3>
+                <i class="bi bi-eye"></i>
+                Xem trước
+              </h3>
+
+              <div class="preview-card">
+                <div class="preview-cover" id="previewCover">
+                  <i class="bi bi-file-earmark-text"></i>
+                </div>
+
+                <div class="preview-body">
+                  <span id="previewSubject" class="preview-subject">
+                    Môn học
+                  </span>
+
+                  <h4 id="previewTitle">Tên tài liệu sẽ hiển thị tại đây</h4>
+
+                  <p id="previewDesc">
+                    Mô tả ngắn của tài liệu sẽ được cập nhật khi bạn nhập form.
+                  </p>
+
+                  <div class="preview-author">
+                    <img
+                      id="previewAvatar"
+                      src="https://api.dicebear.com/9.x/initials/svg?seed=StudyHub"
+                      alt="Avatar"
+                    />
+
+                    <div>
+                      <strong id="previewAuthor">Người đăng</strong>
+                      <span>Vừa tạo</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rule-box">
+                <h5>Quy tắc nhỏ</h5>
+                <p>
+                  Tài liệu nên có tiêu đề rõ ràng, mô tả dễ hiểu và link có thể
+                  truy cập được để người dùng mở/tải.
+                </p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div id="appToast" class="toast study-toast" role="alert">
+        <div class="toast-header">
+          <i id="toastIcon" class="bi bi-bell-fill me-2 text-primary"></i>
+          <strong class="me-auto">StudyHub</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+          ></button>
+        </div>
+
+        <div id="toastMessage" class="toast-body">Thông báo</div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="study-footer">
+      <div class="container">
+        <div class="footer-card">
+          <div class="row g-4">
+            <div class="col-lg-5">
+              <div class="footer-brand">
+                <span class="studyhub-footer-logo">
+                  <span>SH</span>
+                </span>
+
+                <div>
+                  <h4>StudyHub</h4>
+                  <p>
+                    Website chia sẻ tài liệu học tập miễn phí, có đánh giá, bình
+                    luận và diễn đàn thảo luận cho sinh viên.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 col-lg-2">
+              <h6>Trang</h6>
+              <a href="./index.html">Trang chủ</a>
+              <a href="./documents.html">Tài liệu</a>
+              <a href="./forum.html">Diễn đàn</a>
+              <a href="./upload.html">Đăng tài liệu</a>
+            </div>
+
+            <div class="col-6 col-lg-2">
+              <h6>Công nghệ</h6>
+              <span>JavaScript</span>
+              <span>Fetch API</span>
+              <span>Form Validation</span>
+              <span>Bootstrap 5</span>
+            </div>
+
+            <div class="col-lg-3">
+              <h6>Điểm nổi bật</h6>
+              <span>POST MockAPI</span>
+              <span>Inline Error</span>
+              <span>Preview dữ liệu</span>
+              <span>Toast thông báo</span>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <p>© 2026 StudyHub · Front-end Assignment</p>
+            <p>Upload page · POST API</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <button id="backToTop" class="back-to-top" type="button">
+      <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="./assets/js/config.js"></script>
+    <script src="./assets/js/auth.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script src="./assets/js/cloudinary.js"></script>
+    <script src="./assets/js/ui.js"></script>
+    <script src="./assets/js/upload.js"></script>
+  </body>
+</html>

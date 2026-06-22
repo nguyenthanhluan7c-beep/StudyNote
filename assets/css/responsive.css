@@ -1,0 +1,79 @@
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        margin-top: 14px;
+        padding: 16px;
+        border-radius: 22px;
+        background: var(--card);
+        border: 1px solid var(--border);
+    }
+
+    .nav-link.active::after {
+        display: none;
+    }
+
+    .hero-section {
+        padding-top: 130px;
+    }
+
+    .floating-note {
+        display: none;
+    }
+
+    .cta-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 70px 0;
+    }
+
+    .hero-title {
+        letter-spacing: -1.5px;
+    }
+
+    .preview-document-card {
+        flex-direction: column;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .brand-text small {
+        display: none;
+    }
+
+    .hero-section {
+        padding-top: 115px;
+    }
+
+    .hero-trust {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .hero-preview {
+        padding: 20px;
+        border-radius: 26px;
+    }
+
+    .stat-card,
+    .feature-card,
+    .content-panel,
+    .cta-card,
+    .footer-card {
+        border-radius: 22px;
+    }
+
+    .footer-brand {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,483 @@
+/* ===============================
+   UPLOAD PAGE
+================================ */
+.upload-hero {
+    padding: 150px 0 40px;
+}
+
+.upload-hero-card {
+    padding: 42px;
+    border-radius: 34px;
+    background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(6, 182, 212, 0.1)),
+        var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+}
+
+.upload-hero-card h1 {
+    max-width: 760px;
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.upload-hero-card p {
+    max-width: 720px;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 1.08rem;
+    line-height: 1.8;
+}
+
+.upload-tips {
+    padding: 24px;
+    border-radius: 26px;
+    background: var(--card-solid);
+    border: 1px solid var(--border);
+}
+
+.upload-tips h5 {
+    font-weight: 950;
+    margin-bottom: 16px;
+}
+
+.upload-tips h5 i {
+    color: var(--warning);
+}
+
+.upload-tips ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+    color: var(--muted);
+    line-height: 1.9;
+    font-weight: 600;
+}
+
+/* MAIN */
+.upload-main {
+    padding: 40px 0 90px;
+}
+
+.upload-form,
+.preview-panel {
+    padding: 30px;
+    border-radius: 30px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+}
+
+.form-section-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.form-section-title h2 {
+    font-weight: 950;
+    margin-bottom: 6px;
+}
+
+.form-section-title p {
+    color: var(--muted);
+    margin: 0;
+}
+
+.form-badge {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    border-radius: 999px;
+    color: var(--primary);
+    background: rgba(37, 99, 235, 0.1);
+    font-weight: 900;
+}
+
+.study-control {
+    min-height: 48px;
+    border-radius: 16px;
+    border-color: var(--border);
+    color: var(--text);
+    background: var(--card-solid);
+}
+
+.study-control::placeholder {
+    color: var(--muted);
+}
+
+.study-control:focus {
+    color: var(--text);
+    background: var(--card-solid);
+    border-color: rgba(37, 99, 235, 0.45);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.error-message {
+    display: block;
+    min-height: 20px;
+    margin-top: 6px;
+    color: var(--danger);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.input-error {
+    border-color: var(--danger) !important;
+}
+
+.input-success {
+    border-color: var(--success) !important;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    margin-top: 26px;
+    flex-wrap: wrap;
+}
+
+/* PREVIEW */
+.preview-panel {
+    position: sticky;
+    top: 110px;
+}
+
+.preview-panel h3 {
+    font-weight: 950;
+    margin-bottom: 20px;
+}
+
+.preview-panel h3 i {
+    color: var(--primary);
+}
+
+.preview-card {
+    overflow: hidden;
+    border-radius: 26px;
+    background: var(--card-solid);
+    border: 1px solid var(--border);
+}
+
+.preview-cover {
+    height: 190px;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 54px;
+    background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.85), rgba(124, 58, 237, 0.85)),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200");
+    background-size: cover;
+    background-position: center;
+}
+
+.preview-body {
+    padding: 22px;
+}
+
+.preview-subject {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 999px;
+    color: var(--primary);
+    background: rgba(37, 99, 235, 0.1);
+    font-size: 0.78rem;
+    font-weight: 900;
+    margin-bottom: 12px;
+}
+
+.preview-body h4 {
+    font-weight: 950;
+    line-height: 1.35;
+}
+
+.preview-body p {
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.preview-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.preview-author img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.preview-author strong {
+    display: block;
+    font-size: 0.9rem;
+}
+
+.preview-author span {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.rule-box {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 22px;
+    background:
+        linear-gradient(135deg, rgba(6, 182, 212, 0.09), rgba(124, 58, 237, 0.08)),
+        var(--card-solid);
+    border: 1px solid var(--border);
+}
+
+.rule-box h5 {
+    font-weight: 950;
+}
+
+.rule-box p {
+    color: var(--muted);
+    margin-bottom: 0;
+    line-height: 1.7;
+}
+
+/* TOAST */
+.study-toast {
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+@media (max-width: 992px) {
+    .upload-hero {
+        padding-top: 125px;
+    }
+
+    .preview-panel {
+        position: static;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .upload-hero-card,
+    .upload-form,
+    .preview-panel {
+        padding: 24px;
+        border-radius: 24px;
+    }
+
+    .form-section-title {
+        flex-direction: column;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}    
+/* ===============================
+   CURRENT USER / LOGIN REQUIRED
+================================ */
+.current-user-box,
+.login-required-box {
+    margin-bottom: 24px;
+    padding: 18px;
+    border-radius: 22px;
+    background: var(--card-solid);
+    border: 1px solid var(--border);
+}
+
+.current-user-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.current-user-box img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(37, 99, 235, 0.15);
+}
+
+.current-user-box span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.86rem;
+    font-weight: 700;
+}
+
+.current-user-box strong {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 950;
+}
+
+.login-required-box {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background:
+        linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(245, 158, 11, 0.08)),
+        var(--card-solid);
+}
+
+.login-required-box i {
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    color: white;
+    font-size: 24px;
+    background: linear-gradient(135deg, var(--warning), var(--danger));
+}
+
+.login-required-box h4 {
+    font-weight: 950;
+    margin-bottom: 8px;
+}
+
+.login-required-box p {
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.upload-form.locked .form-section-title,
+.upload-form.locked .row,
+.upload-form.locked .form-actions {
+    opacity: 0.35;
+    pointer-events: none;
+    filter: grayscale(0.3);
+}
+/* ===============================
+   FIX LOGIN REQUIRED BUTTON
+================================ */
+
+/* Chỉ style icon ổ khóa lớn bên trái */
+.login-required-box>div:first-child>i {
+    width: 54px;
+    height: 54px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 18px;
+    color: white;
+    font-size: 24px;
+
+    background: linear-gradient(135deg, var(--warning), var(--danger));
+}
+
+/* Không cho icon trong nút bị ăn CSS ổ khóa */
+.login-required-box .login-now-btn i {
+    width: auto;
+    height: auto;
+
+    display: inline-block;
+
+    border-radius: 0;
+    background: none;
+    font-size: 1rem;
+}
+
+/* Nút đăng nhập đẹp hơn */
+.login-now-btn {
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 11px 20px;
+    border: 0;
+    border-radius: 999px;
+
+    color: white;
+    font-weight: 900;
+
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow: 0 16px 35px rgba(37, 99, 235, 0.24);
+
+    transition: 0.25s;
+}
+
+.login-now-btn:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 22px 45px rgba(37, 99, 235, 0.34);
+}
+/* ===============================
+   FILE UPLOAD BOX
+================================ */
+.file-upload-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    width: 100%;
+    padding: 18px;
+
+    border: 2px dashed rgba(37, 99, 235, 0.28);
+    border-radius: 22px;
+
+    background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.06), rgba(124, 58, 237, 0.05)),
+        var(--card-solid);
+
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.file-upload-box:hover {
+    border-color: rgba(37, 99, 235, 0.5);
+    transform: translateY(-2px);
+}
+
+.file-upload-box>div:first-child {
+    width: 56px;
+    height: 56px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 18px;
+    color: white;
+    font-size: 26px;
+
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.18);
+}
+
+.file-upload-box strong {
+    display: block;
+    color: var(--text);
+    font-weight: 950;
+    margin-bottom: 4px;
+}
+
+.file-upload-box span {
+    display: block;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.file-upload-box.file-selected {
+    border-style: solid;
+    border-color: rgba(22, 163, 74, 0.42);
+    background:
+        linear-gradient(135deg, rgba(22, 163, 74, 0.08), rgba(6, 182, 212, 0.05)),
+        var(--card-solid);
+}
