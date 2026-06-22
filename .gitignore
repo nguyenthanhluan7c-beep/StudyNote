@@ -1,0 +1,22 @@
+# System
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Temp
+tmp/
+temp/
+
+# Environment
+.env
+.env.local
+
+# Node nếu sau này có dùng
+node_modules/
+dist/
+build/
